@@ -1,0 +1,14 @@
+.navMainContent {
+    position: absolute;
+    top: 0;
+    background-color: #2A3647;
+    height: 100%;
+    width: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 92px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    left: 0;
+}
