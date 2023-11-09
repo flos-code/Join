@@ -1,0 +1,247 @@
+html {
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.d-none {
+  display: none !important;
+}
+section {
+  margin-left: 64px;
+}
+button {
+  border: unset;
+  border-radius: 10px;
+  background-color: #2a3647;
+  padding: 8px 16px;
+  color: white;
+  font-size: 24px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #29abe2;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.boardHeader {
+  width: 1056px;
+  height: 73px;
+  display: flex;
+  justify-content: space-between;
+  background-color: red;
+}
+
+.boardHeaderInteract {
+  display: flex;
+  align-items: center;
+}
+
+.inputWithImg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 312px;
+  height: 48px;
+  border-radius: 10px;
+  background-color: white;
+  margin-right: 32px;
+  padding: 8px 16px;
+
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+.inputWithImg:hover {
+  cursor: pointer;
+}
+
+#findTask {
+  border: unset;
+  width: 232px;
+  height: 32px;
+  font-size: 20px;
+  border-right: 1px solid #d1d1d1;
+}
+
+.findTaskImg {
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-image: url(../img/board_search.png);
+}
+
+.findTaskImg:hover {
+  background-color: #eeeeee;
+  border-radius: 50%;
+}
+
+/* Main Board Content */
+
+.boradContent {
+  display: flex;
+}
+
+.sectionDragArea {
+  display: flex;
+  flex-direction: column;
+  margin-right: 32px;
+}
+
+.headerDragArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  width: 250px;
+}
+
+.draArea {
+  max-height: 688px;
+  overflow-y: auto;
+}
+
+.todo {
+  width: 250px;
+  padding: 16px;
+  border-radius: 24px;
+  margin-bottom: 16px;
+  background-color: white;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.toDoCategory {
+  padding: 4px 16px;
+  border-radius: 16px;
+  color: white;
+}
+
+.toDoTitle {
+  font-weight: 700;
+  color: #2a3647;
+
+  margin-bottom: 8px;
+}
+
+.toDoDescription {
+  color: #a8a8a8;
+}
+
+.toDoSubtasks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.toDoSubtasksProgress {
+  height: 8px;
+  width: 128px;
+  border-radius: 4px;
+  background-color: #f4f4f4;
+}
+
+.toDoSubtasksProgressFiller {
+  height: 100%;
+  border-radius: 4px;
+  background-color: #4589ff;
+}
+
+.toDoSubtasksCount {
+  font-size: 12px;
+  display: flex;
+}
+
+.toDoBottom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.toDoAssignedContainer {
+  display: flex;
+}
+
+.toDoAssigned {
+  border: solid 1px white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -10px;
+}
+
+.toDoPrio {
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+}
+.prioLow {
+  background-image: url(../img/prio_low.png);
+}
+
+.prioMedium {
+  background-image: url(../img/prio_medium.png);
+}
+
+.prioUrgent {
+  background-image: url(../img/prio_urgent.png);
+}
+
+/* Open a ToDo */
+
+#toDoOpenBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toDoOpen {
+  width: 525px;
+  max-height: 80vh;
+  background-color: white;
+  border-radius: 30px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  font-size: 20px;
+  font-weight: 400;
+
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+.toDoOpenTitle {
+  font-size: 61px;
+  font-weight: 700;
+}
+
+.toDoOpenSection {
+  color: #2a3647;
+}

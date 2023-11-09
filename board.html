@@ -3,13 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/board.css" />
+    <script src="js/todosArray.js" defer></script>
     <script src="js/board.js" defer></script>
     <script src="script.js" defer></script>
     <title>Document</title>
   </head>
-  <body>
+  <body onload="updateHTML()">
     <head></head>
     <div>sidebar</div>
     <section class="boardHeader">
@@ -21,40 +30,68 @@
         </div>
         <button onclick="addTaskFunktion()">
           Add task
-          <img src="assets/templates/images/board_add_taks.png" alt="" />
+          <img src="img/board_add_taks.png" alt="" />
         </button>
       </div>
     </section>
-    <section class="boradContent">
+    <section class="boradContent" id="boradContent">
       <div class="sectionDragArea">
         <div class="headerDragArea">
           <h2>To do</h2>
-          <img src="assets/templates/images/board_plus_button.png" alt="" />
+          <img src="img/board_plus_button.png" alt="" />
         </div>
-        <div id="toDO">dragarea</div>
+        <div
+          id="toDo"
+          class="draArea"
+          ondrop="moveTo('toDo')"
+          ondragover="allowDrop(event)"
+        >
+          dragarea
+        </div>
       </div>
 
       <div class="sectionDragArea">
         <div class="headerDragArea">
           <h2>In pogress</h2>
-          <img src="assets/templates/images/board_plus_button.png" alt="" />
+          <img src="img/board_plus_button.png" alt="" />
         </div>
-        <div id="inProgress">dragarea</div>
+        <div
+          id="inProgress"
+          class="draArea"
+          ondrop="moveTo('inProgress')"
+          ondragover="allowDrop(event)"
+        >
+          dragarea
+        </div>
       </div>
 
       <div class="sectionDragArea">
         <div class="headerDragArea">
           <h2>Await feedback</h2>
-          <img src="assets/templates/images/board_plus_button.png" alt="" />
+          <img src="img/board_plus_button.png" alt="" />
         </div>
-        <div id="awaitFeedback">dragarea</div>
+        <div
+          id="awaitFeedback"
+          class="draArea"
+          ondrop="moveTo('awaitFeedback')"
+          ondragover="allowDrop(event)"
+        >
+          dragarea
+        </div>
       </div>
 
       <div class="sectionDragArea">
         <div class="headerDragArea">
           <h2>Done</h2>
         </div>
-        <div id="done">dragarea</div>
+        <div
+          id="done"
+          class="draArea"
+          ondrop="moveTo('done')"
+          ondragover="allowDrop(event)"
+        >
+          dragarea
+        </div>
       </div>
     </section>
   </body>
