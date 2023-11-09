@@ -1,0 +1,8 @@
+.headerText {
+    display: flex;
+    align-items: center;
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 21px;
+  
+}
