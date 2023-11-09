@@ -3,3 +3,9 @@ body {
     background: #F5F5F5;
     font-family: 'Inter';
 }
+
+.headline {
+  margin-left:500px;
+  margin-bottom: 430px;
+  font-size: 60px;
+}
