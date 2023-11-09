@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Add Task</title>
+
+    <link rel="stylesheet" href="css/inter.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/task.css">
+</head>
+
+<body>
+    <header class="header"></header>
+    <div class="task-container">
+        <section class="sidebar"></section>
+        <section class="main">
+            <h1 class="task-heading-h1">Add Task</h1>
+            <div class="task-form-container">
+                <form class="task-form" action="">
+                    <div class="task-form-subcontainer">
+                        <div class="task-input-container">
+                            <label class="task-form-label" for="title">
+                                Title<svg class="task-form-star" viewBox="0 0 16 16">
+                                    <use href="assets/img/icons.svg#star-icon"></use>
+                                </svg>
+                            </label>
+                            <input class="task-form-input" type="text" name="title" id="title" placeholder="Enter a title"
+                                required>
+                            <label class="task-form-label" for="text">Description</label>
+                            <textarea class="task-form-text" name="text" id="text" placeholder="Enter a Description"
+                                required></textarea>
+                            <label class="task-form-label" for="assign">Assigned to</label>
+                            <div class="task-dropdown-container">
+                                <span class="task-arrow-dropdown">
+                                    <svg viewBox="0 0 8 5">
+                                        <use href="assets/img/icons.svg#arrow-icon"></use>
+                                    </svg>
+                                </span>
+                                <div class="task-assign" id="assign">Select contacts to assign</div>
+                            </div>
+                        </div>
+                        <div class="task-input-container">
+                            <label class="task-form-label" for="title">
+                                Due date<svg class="task-form-star" viewBox="0 0 16 16">
+                                    <use href="assets/img/icons.svg#star-icon"></use>
+                                </svg>
+                            </label>
+                            <input class="task-form-input" type="text" name="title" id="title" placeholder="Enter a title"
+                                required>
+                            <div class="task-form-label">Prio</div>
+                            <div class="task-form-prio">
+                                <div class="task-form-btn">Urgent
+                                    <svg class="task-form-prio-icon" viewBox="0 0 21 16">
+                                        <use href="assets/img/icons.svg#urgentprio-icon"></use>
+                                    </svg>
+                                </div>
+                                <div class="task-form-btn">Medium
+                                    <svg class="task-form-prio-icon" viewBox="0 0 21 8">
+                                        <use href="assets/img/icons.svg#mediumprio-icon"></use>
+                                    </svg>
+                                </div>
+                                <div class="task-form-btn">Low
+                                    <svg class="task-form-prio-icon" viewBox="0 0 21 16">
+                                        <use href="assets/img/icons.svg#lowprio-icon"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <label class="task-form-label" for="category">
+                                Category<svg class="task-form-star" viewBox="0 0 16 16">
+                                    <use href="assets/img/icons.svg#star-icon"></use>
+                                </svg>
+                            </label>
+                            <div class="task-dropdown-container">
+                                <span class="task-arrow-dropdown">
+                                    <svg viewBox="0 0 8 5">
+                                        <use href="assets/img/icons.svg#arrow-icon"></use>
+                                    </svg>
+                                </span>
+                                <div class="task-category" id="category">Select task category</div>
+                            </div>
+                            <label class="task-form-label" for="subtasks">Subtasks</label>
+                            <div class="task-form-subtasks">
+                                <input class="task-form-input m-b05" type="text" name="subtasks" id="subtasks"
+                                    placeholder="Add new subtask">
+                                <svg class="task-form-add-icon" id="task-add-icon" viewBox="0 0 15 14">
+                                    <use href="assets/img/icons.svg#add-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-submit-container">
+                        <div class="task-required-text">
+                            <svg class="task-form-star" viewBox="0 0 16 16">
+                                <use href="assets/img/icons.svg#star-icon"></use>
+                            </svg>This field is required
+                        </div>
+                        <div class="task-submit-buttons">
+                            <button class="task-clear-button">Clear
+                                <svg class="task-clear-icon"><use href="assets/img/icons.svg#x-icon"></use></svg>
+                            </button>
+                            <button class="task-create-button">Create Task
+                                <svg class="task-create-icon"><use href="assets/img/icons.svg#check-icon"></use></svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/add_task.js"></script>
+</body>
+
+</html>
