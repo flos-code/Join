@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/board.css" />
+    <script src="js/board.js" defer></script>
+    <script src="script.js" defer></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <head></head>
+    <div>sidebar</div>
+    <section class="boardHeader">
+      <h1>Board</h1>
+      <div class="boardHeaderInteract">
+        <div class="inputWithImg">
+          <input id="findTask" type="text" placeholder="Find Task" />
+          <div class="findTaskImg"></div>
+        </div>
+        <button onclick="addTaskFunktion()">
+          Add task
+          <img src="assets/templates/images/board_add_taks.png" alt="" />
+        </button>
+      </div>
+    </section>
+    <section class="boradContent">
+      <div class="sectionDragArea">
+        <div class="headerDragArea">
+          <h2>To do</h2>
+          <img src="assets/templates/images/board_plus_button.png" alt="" />
+        </div>
+        <div id="toDO">dragarea</div>
+      </div>
+
+      <div class="sectionDragArea">
+        <div class="headerDragArea">
+          <h2>In pogress</h2>
+          <img src="assets/templates/images/board_plus_button.png" alt="" />
+        </div>
+        <div id="inProgress">dragarea</div>
+      </div>
+
+      <div class="sectionDragArea">
+        <div class="headerDragArea">
+          <h2>Await feedback</h2>
+          <img src="assets/templates/images/board_plus_button.png" alt="" />
+        </div>
+        <div id="awaitFeedback">dragarea</div>
+      </div>
+
+      <div class="sectionDragArea">
+        <div class="headerDragArea">
+          <h2>Done</h2>
+        </div>
+        <div id="done">dragarea</div>
+      </div>
+    </section>
+  </body>
+</html>
