@@ -118,12 +118,23 @@ function moveTo(status) {
 
 function generatePrio(element) {
   let prioDiv = document.getElementById(`toDoPrio${element["id"]}`);
+  prioDiv.innerHTML = "";
   if (element["prio"] === "Low") {
-    prioDiv.classList.add("prioLow");
+    prioDiv.innerHTML = /*html*/ `
+        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <use href="assets/img/icons.svg#lowprio-icon"></use>
+        </svg>`;
   } else if (element["prio"] === "Medium") {
-    prioDiv.classList.add("prioMedium");
+    prioDiv.innerHTML = /*html*/ `
+        <svg class="boardPrioIcon" viewBox="0 0 21 8">
+        <use href="assets/img/icons.svg#mediumprio-icon"></use>
+        </svg>`;
   } else if (element["prio"] === "Urgent") {
-    prioDiv.classList.add("prioUrgent");
+    prioDiv.innerHTML = /*html*/ `
+        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <use href="assets/img/icons.svg#urgentprio-icon"></use>
+        </svg>
+        `;
   } else {
   }
 }
@@ -181,29 +192,131 @@ function openToDo(id) {
   document.getElementById("boradContent").innerHTML += /*html*/ `
         <div id="toDoOpenBg" onclick="closeToDo()">
             <div class="toDoOpen" onclick="event.stopPropagation()">
-            <div class="" id="" >  ${todo["category"]}</div>
-            <div onclick="closeToDo()">x close todo</div>
+                <div class="toDoOpenHeader">
+            <div class="toDoOpenCategory" id="toDoOpenCategory${id}" >  ${todo["category"]}</div>
+            <div onclick="closeToDo()">x</div>
+            </div>
             <div class="toDoOpenTitle" >  ${todo["title"]}</div>
             <div class="toDoOpenDescription" >  ${todo["description"]}</div>
-            <div class="" id="" ><div class="toDoOpenSection">Due date:</div>  ${todo["dueDate"]}</div>
-            <div class="" id="" ><div class="toDoOpenSection">Priority:</div>  ${todo["prio"]} prioimg</div>
-            <div class="" id="">
+            <div class="toDoOpenDate"><div class="toDoOpenSection">Due date:</div><div id="toDoOpenDate${id}"></div></div>
+            <div class="toDoOpenPrio" id="" ><div class="toDoOpenSection">Priority:</div> <div class="toDoOpenPrioText">${todo["prio"]}</div>  <div class="toDoOpenPrioIcon" id="toDoOpenPrio${id}"></div> </div>
+          
+                <div class="toDoOpenAssignedContainer">
             <div class="toDoOpenSection">Assigned To:</div>
+            <div class="toDoOpenAssigned" id="toDoOpenAssigned${id}"></div>
+            </div>
              
-            </div>
-            <div class="" id="">
+       
+            <div class="toDoOpenSubtasksContainer" >
             <div class="toDoOpenSection">Subtasks</div>
-                
-            </div>
+            <div class="toDoOpenSubtasks" id="toDoOpenSubtasks${id}"></div> 
+            </div> 
             <div> delete und edit</div>
 
             </div>
         </div>
     `;
 
-  // Fuktionen für: cartegory Hintergundfrarbe, duedate datumumwandlun, prio bild, assigne render, subtask render
+  setToDoCategoryColor(todo, id);
+  setTime(todo, id);
+  generateToDoPrio(todo, id);
+  generateToDoAssigned(todo, id);
+  generateTodSubtask(todo, id);
+
+  // Fuktionen für: subtask render, edit, delete , hover und so
 }
 
 function closeToDo() {
   document.getElementById("toDoOpenBg").remove();
+}
+
+function setToDoCategoryColor(todo, id) {
+  let categoryDiv = document.getElementById(`toDoOpenCategory${id}`);
+  if (todo["category"] === "User Story") {
+    categoryDiv.style = "  background-color: #0038ff";
+  } else if (todo["category"] === "Technical Task") {
+    categoryDiv.style = "background-color: #1FD7C1";
+  } else {
+  }
+}
+
+function setTime(todo, id) {
+  let dateDiv = document.getElementById(`toDoOpenDate${id}`);
+  dateDiv.innerHTML = "";
+  timestamp = todo["dueDate"];
+
+  let dateObject = new Date(timestamp * 1000); // Multiply by 1000 to convert seconds to milliseconds
+
+  let day = String(dateObject.getUTCDate()).padStart(2, "0");
+  let month = String(dateObject.getUTCMonth() + 1).padStart(2, "0"); // Months are zero-based
+  let year = dateObject.getUTCFullYear();
+
+  let formattedDate = `${day}/${month}/${year}`;
+  dateDiv.innerHTML = `${formattedDate}`;
+}
+
+function generateToDoPrio(todo, id) {
+  let prioDiv = document.getElementById(`toDoOpenPrio${id}`);
+  prioDiv.innerHTML = "";
+  if (todo["prio"] === "Low") {
+    prioDiv.innerHTML = /*html*/ `
+        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <use href="assets/img/icons.svg#lowprio-icon"></use>
+        </svg>`;
+  } else if (todo["prio"] === "Medium") {
+    prioDiv.innerHTML = /*html*/ `
+        <svg class="boardPrioIcon" viewBox="0 0 21 8">
+        <use href="assets/img/icons.svg#mediumprio-icon"></use>
+        </svg>`;
+  } else if (todo["prio"] === "Urgent") {
+    prioDiv.innerHTML = /*html*/ `
+        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <use href="assets/img/icons.svg#urgentprio-icon"></use>
+        </svg>
+        `;
+  } else {
+  }
+}
+
+function generateToDoAssigned(todo, id) {
+  let assignedDiv = document.getElementById(`toDoOpenAssigned${id}`);
+  assignedDiv.innerHTML = "";
+  for (let i = 0; i < todo["assigned"].length; i++) {
+    let user = todo["assigned"][i];
+    let firstName = user["firstName"];
+    let lastName = user["lastName"];
+    let firstLetter = firstName.charAt(0).toUpperCase();
+    let secoundLetter = lastName.charAt(0).toUpperCase();
+    let color = user["userColor"];
+    let isYou = "";
+    if (user["isYou"]) {
+      isYou = "(You)";
+    }
+
+    assignedDiv.innerHTML += /*html*/ `
+    <div class="toDoOpenUserAssigned">
+      <div class="toDoOpenCircleAssigned" style="background-color:${color}"> ${firstLetter}${secoundLetter} </div>
+      <div class="toDoOpenNameAssigned">${firstName} ${lastName} ${isYou}</div>
+      </div>`;
+  }
+}
+
+function generateTodSubtask(todo, id) {
+  let subtasks = todo["subtasks"];
+  let subtasksDiv = document.getElementById(`toDoOpenSubtasks${id}`);
+  subtasksDiv.innerHTML = "";
+  for (let i = 0; i < subtasks.length; i++) {
+    let task = subtasks[i];
+    let description = task["taskDescription"];
+    let done = "";
+    if (task["isDone"]) {
+      done = "checked";
+    }
+    subtasksDiv.innerHTML += /*html*/ `
+    <label class="container">${description}
+  <input type="checkbox" checked="${done}">
+  <span class="checkmark"></span>
+</label>
+ `;
+  }
 }
