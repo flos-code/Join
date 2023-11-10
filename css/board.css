@@ -188,12 +188,39 @@ button:hover {
   margin-right: -10px;
 }
 
+.toDoAssignedMore {
+  border: solid 1px white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -10px;
+  background-color: #a8a8a8;
+}
+
 .toDoPrio {
   width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.noTask {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  border-radius: 10px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  color: #a8a8a8;
+  background-color: #e7e7e7;
+  border: 1px dashed #a8a8a8;
 }
 
 /* Open a ToDo */
@@ -231,15 +258,28 @@ button:hover {
 .toDoOpenHeader {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
 .toDoOpenCategory {
+  font-family: "Open Sans", sans-serif;
   padding: 4px 24px;
   border-radius: 8px;
   color: white;
   font-size: 23px;
   font-weight: 400;
+}
+
+.closeToDo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.closeToDo:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
 }
 
 .toDoOpenTitle {
@@ -335,71 +375,105 @@ button:hover {
   margin-top: 8px;
 }
 
-/* beispiel check box */
-/* Customize the label (the container) */
-.container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.todoFooter {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 16px;
 }
 
-/* Hide the browser's default checkbox */
-.container input {
+.todoFooter img {
+  margin-right: 8px;
+}
+
+.deleteToDo {
+  display: flex;
+  align-items: center;
+}
+
+.deleteToDo:hover {
+  font-weight: bold;
+  color: #29abe2;
+  cursor: pointer;
+}
+
+.deleteToDo:hover .deleteToDoImg {
+  filter: invert(56%) sepia(80%) saturate(2198%) hue-rotate(166deg)
+    brightness(102%) contrast(77%);
+}
+
+.editToDo {
+  display: flex;
+  align-items: center;
+}
+
+.editToDo:hover {
+  font-weight: bold;
+  color: #29abe2;
+  cursor: pointer;
+}
+
+.editToDo:hover .editToDoImg {
+  filter: invert(56%) sepia(80%) saturate(2198%) hue-rotate(166deg)
+    brightness(102%) contrast(77%);
+}
+
+.todoFooterSeparator {
+  width: 1px;
+  height: 24px;
+  margin: 0px 8px;
+  background-color: #d1d1d1;
+}
+
+/* check box */
+
+.customCheckbox {
+  position: relative;
+  padding: 6px 16px;
+  user-select: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 16px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+
+.customCheckbox:hover {
+  background-color: #eeeeee;
+}
+
+.customCheckbox:hover .customCheckmark {
+  background-color: #d1d1d1;
+}
+
+.customCheckbox input {
   position: absolute;
   opacity: 0;
+}
+
+.customCheckmark {
+  height: 24px;
+  width: 24px;
+  margin: 0 16px;
+  border-radius: 50%;
+}
+
+.customCheckmark:hover {
   cursor: pointer;
-  height: 0;
-  width: 0;
 }
 
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  background-color: #2196f3;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
+.uncheckedSvg,
+.checkedSvg {
+  width: 100%;
+  height: 100%;
   display: none;
 }
 
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-  display: block;
+.customCheckbox input:checked + .customCheckmark .checkedSvg {
+  display: block; /* Display the checked SVG when the checkbox is checked */
 }
 
-/* Style the checkmark/indicator */
-.container .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+.customCheckbox input:not(:checked) + .customCheckmark .uncheckedSvg {
+  display: block; /* Display the unchecked SVG when the checkbox is not checked */
 }
