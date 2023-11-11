@@ -67,7 +67,8 @@
     vertical-align: super;
 }
 
-.task-form-input {
+.task-form-input,
+.task-form-date {
     margin-bottom: 1.75rem;
     font-family: inherit;
     -webkit-appearance: none;
@@ -80,14 +81,17 @@
 }
 
 .task-form-input::placeholder,
-.task-form-text::placeholder {
+.task-form-text::placeholder,
+.task-form-date::placeholder {
     color: #D1D1D1;
 }
 
 .task-form-input:focus,
-.task-form-text:focus {
+.task-form-text:focus,
+.task-assign:focus,
+.task-form-date:focus {
     outline: none;
-    border-color: #29ABE2;
+    border-color: #29ABE2 !important;
 }
 
 .task-form-text {
@@ -103,8 +107,23 @@
     height: 6.5rem;
 }
 
+.task-assign {
+    font-family: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    z-index: 8;
+}
+
+.task-category {
+    position: relative;
+    z-index: 8;
+}
+
 .task-assign,
 .task-category {
+    height: 50.5px;
+    width: 100%;
     cursor: pointer;
     background-color: white;
     padding: 0.75rem 1rem;
@@ -125,13 +144,14 @@
 
 .task-arrow-dropdown {
     position: absolute;
-    z-index: 5;
+    z-index: 10;
     display: inline-block;
     right: 1rem;
     top: 0.8rem;
     fill: #2A3647;
     width: 9px;
     cursor: pointer;
+    transition: all 0.15s ease-in-out; 
 }
 
 .task-arrow-dropdown:hover ~ .task-assign,
@@ -163,9 +183,41 @@
     box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
 }
 
-.task-form-prio-icon {
+.urgent-btn-active {
+    color: white;
+    background: #FF3D00; 
+}
+
+.medium-btn-active {
+    color: white;
+    background: #FFA800; 
+}
+
+.low-btn-active {
+    color: white;
+    background: #7AE229; 
+}
+
+.task-form-urgent-icon {
     display: inline-block;
     width: 20px;
+    fill: #FF3D00;
+}
+
+.task-form-medium-icon {
+    display: inline-block;
+    width: 20px;
+    fill: #FFA800;
+}
+
+.task-form-low-icon {
+    display: inline-block;
+    width: 20px;
+    fill: #7AE229;
+}
+
+.f-white {
+    fill: #fff;
 }
 
 .task-form-subtasks {
@@ -179,7 +231,8 @@
 
 .task-form-add-icon {
     position: absolute;
-    top: 1.1rem;
+    z-index: 6;
+    top: 1.15rem;
     right: 0.8rem;
     display: inline-block;
     width: 13px;
@@ -221,7 +274,15 @@
     box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
 }
 
-.task-create-button {
+.task-form-input,
+.task-form-text,
+.task-form-date,
+.task-form-btn {
+    position: relative;
+    z-index: 6;
+}
+
+.main-button {
     display: flex;
     align-items: center;
     border: 0.075rem solid #2A3647;
@@ -233,7 +294,7 @@
     cursor: pointer;
 }
 
-.task-create-button:hover {
+.main-button:hover {
     background-color: #29ABE2;
     border-color:#29ABE2;
     box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
@@ -257,4 +318,175 @@
 
 .task-clear-icon:hover {
     fill: #29ABE2;
+}
+
+.assign-dropdown-menu {
+    z-index: 7;
+    height: 10rem;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    top: 45px;
+    padding-top: 6px;
+    overflow: auto;
+}
+
+.assign-contact-info {
+    display: flex;
+    align-items: center;
+}
+
+.assign-contact {
+    padding: 0.6rem 1rem;
+    margin-bottom: 0.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.assign-contact:hover {
+    background-color: #eeefef;
+    border-radius: 0.45rem;
+}
+
+.assign-initials {
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    border: 0.1rem solid white;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    color: white;
+}
+
+.assign-contact-name {
+    font-size: 1.2rem;
+}
+
+.assign-overlay {
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.d-none {
+    display: none;
+}
+
+.assign-square-icon {
+    fill: none;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 0.1rem;
+}
+
+.assign-checked-icon {
+    fill: none;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 0.1rem;
+}
+
+.assign-button-container {
+    position: absolute;
+    top: 12.81rem;
+    z-index: 11;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+    border-bottom-left-radius: 0.45rem;
+    border-bottom-right-radius: 0.45rem;
+}
+
+.main-button--assign {
+    width: 100%;
+    justify-content: center;
+}
+
+.assign-person-icon {
+    width: 23px;
+    height: 23px;
+    margin-left: 0.5rem;
+    fill: currentColor;
+}
+
+.bg-darkblue {
+    background-color: #2A3647;
+    border-radius: 0.45rem;
+    color: white;
+}
+
+.bg-darkblue:hover {
+    background-color: #1c2635;
+}
+
+.bg-lightblue {
+    background-color: lightskyblue;
+}
+
+.bg-orange {
+    background-color: orange;
+}
+
+.bg-violet {
+    background-color: violet;
+}
+
+.bg-pink {
+    background-color: rgb(193, 109, 238);
+}
+
+.bg-yellow {
+    background-color: gold;
+}
+
+.bg-salmon {
+    background-color: lightsalmon;
+}
+
+.b-shadow {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.16);
+}
+
+.category-dropdown-menu {
+    background-color: white;
+    position: absolute;
+    top: 45px;
+    padding-top: 6px;
+    width: 100%;
+    z-index: 7;
+    border-bottom-left-radius: 0.45rem;
+    border-bottom-right-radius: 0.45rem;
+}
+
+.category-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+}
+
+.category-item {
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.category-item:hover {
+    border-radius: 0.45rem;
+    background: #eeefef;
 }
