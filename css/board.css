@@ -188,21 +188,39 @@ button:hover {
   margin-right: -10px;
 }
 
+.toDoAssignedMore {
+  border: solid 1px white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -10px;
+  background-color: #a8a8a8;
+}
+
 .toDoPrio {
   width: 32px;
   height: 32px;
-  background-size: contain;
-}
-.prioLow {
-  background-image: url(../img/prio_low.png);
-}
-
-.prioMedium {
-  background-image: url(../img/prio_medium.png);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.prioUrgent {
-  background-image: url(../img/prio_urgent.png);
+.noTask {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  border-radius: 10px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  color: #a8a8a8;
+  background-color: #e7e7e7;
+  border: 1px dashed #a8a8a8;
 }
 
 /* Open a ToDo */
@@ -221,7 +239,7 @@ button:hover {
 
 .toDoOpen {
   width: 525px;
-  max-height: 80vh;
+  max-height: 90vh;
   background-color: white;
   border-radius: 30px;
   padding: 48px 40px;
@@ -237,6 +255,33 @@ button:hover {
   box-sizing: border-box; /* Opera/IE 8+ */
 }
 
+.toDoOpenHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.toDoOpenCategory {
+  font-family: "Open Sans", sans-serif;
+  padding: 4px 24px;
+  border-radius: 8px;
+  color: white;
+  font-size: 23px;
+  font-weight: 400;
+}
+
+.closeToDo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.closeToDo:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+}
+
 .toDoOpenTitle {
   font-size: 61px;
   font-weight: 700;
@@ -244,4 +289,191 @@ button:hover {
 
 .toDoOpenSection {
   color: #2a3647;
+  margin-right: 25px;
+}
+
+.toDoOpenDate {
+  display: flex;
+}
+
+.toDoOpenPrio {
+  display: flex;
+  align-items: center;
+}
+
+.toDoOpenPrioIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toDoOpenPrioText {
+  margin-right: 10px;
+}
+.boardPrioIcon {
+  width: 17px;
+}
+
+.toDoOpenAssignedContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.toDoOpenAssigned {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+.toDoOpenUserAssigned {
+  display: flex;
+  align-items: center;
+  padding: 7px 16px;
+}
+
+.toDoOpenCircleAssigned {
+  border: solid 2px white;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toDoOpenNameAssigned {
+  color: black;
+  font-size: 20px;
+  font-weight: 400;
+  display: flex;
+  flex-direction: row;
+  margin-left: 16px;
+}
+
+.toDoOpenSubtasksContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.toDoOpenSubtasks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-height: 120px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+.todoFooter {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 16px;
+}
+
+.todoFooter img {
+  margin-right: 8px;
+}
+
+.deleteToDo {
+  display: flex;
+  align-items: center;
+}
+
+.deleteToDo:hover {
+  font-weight: bold;
+  color: #29abe2;
+  cursor: pointer;
+}
+
+.deleteToDo:hover .deleteToDoImg {
+  filter: invert(56%) sepia(80%) saturate(2198%) hue-rotate(166deg)
+    brightness(102%) contrast(77%);
+}
+
+.editToDo {
+  display: flex;
+  align-items: center;
+}
+
+.editToDo:hover {
+  font-weight: bold;
+  color: #29abe2;
+  cursor: pointer;
+}
+
+.editToDo:hover .editToDoImg {
+  filter: invert(56%) sepia(80%) saturate(2198%) hue-rotate(166deg)
+    brightness(102%) contrast(77%);
+}
+
+.todoFooterSeparator {
+  width: 1px;
+  height: 24px;
+  margin: 0px 8px;
+  background-color: #d1d1d1;
+}
+
+/* check box */
+
+.customCheckbox {
+  position: relative;
+  padding: 6px 16px;
+  user-select: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 16px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+
+.customCheckbox:hover {
+  background-color: #eeeeee;
+}
+
+.customCheckbox:hover .customCheckmark {
+  background-color: #d1d1d1;
+}
+
+.customCheckbox input {
+  position: absolute;
+  opacity: 0;
+}
+
+.customCheckmark {
+  height: 24px;
+  width: 24px;
+  margin: 0 16px;
+  border-radius: 50%;
+}
+
+.customCheckmark:hover {
+  cursor: pointer;
+}
+
+.uncheckedSvg,
+.checkedSvg {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.customCheckbox input:checked + .customCheckmark .checkedSvg {
+  display: block; /* Display the checked SVG when the checkbox is checked */
+}
+
+.customCheckbox input:not(:checked) + .customCheckmark .uncheckedSvg {
+  display: block; /* Display the unchecked SVG when the checkbox is not checked */
 }

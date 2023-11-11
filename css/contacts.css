@@ -1,11 +1,13 @@
 body {
-    margin: 0;
-    background: #F5F5F5;
-    font-family: 'Inter';
+  margin: 0;
+  background: #F5F5F5;
+  font-family: 'Inter', sans-serif;
 }
 
 .headline {
-  margin-left:500px;
+  margin-left: 500px;
   margin-bottom: 430px;
-  font-size: 60px;
+  height: 73px;
+  font-weight: 700;
+  font-size: 3.5rem;
 }
