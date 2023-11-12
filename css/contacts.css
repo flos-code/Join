@@ -4,10 +4,37 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-.headline {
-  margin-left: 300px;
-  margin-bottom: 430px;
+.kanban-title {
+  margin-top: 30px;
+}
+
+.contactHeadlineContent {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  width: 550px;
+  position: absolute;
+  top: 130px;
+  left: 600px;
+  z-index: -1;
+}
+
+.headlineContacts {
   height: 73px;
   font-weight: 700;
-  font-size: 3.5rem;
+  font-size: 50px;
+}
+
+.borderStyle {
+  height: 50px;
+  border: 2px solid #29ABE2;
+  background-color: #29ABE2;
+}
+
+.textBetter {
+  height: 32px;
+  font-size: 22px;
+  color: #2A3647;
 }
