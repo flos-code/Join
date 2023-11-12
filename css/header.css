@@ -90,3 +90,54 @@ header {
 }
 
 
+@media(min-width: 851px) {
+    .logout-btn:hover {
+        cursor: pointer;
+        background: #29ABE2;
+    }
+
+    .logout-btn:hover .logout-inner-btn {
+        color: white;
+    }
+}
+
+@media(max-width: 850px) {
+
+    header {
+        padding: 20px 25px;
+    }
+
+    .headerJoinLogo {
+        display: block;
+    }
+
+    .headerText {
+        display: none;
+    }
+
+    .header-help {
+        display: none;
+    }
+
+    .rs-logout {
+        display: flex;
+        justify-content: center;
+        color: #CDCDCD;
+        width: 100%;
+    }
+
+    .rs-logout:hover {
+        color: white;
+        cursor: pointer;
+    }
+
+    .logout-btn {
+        height: auto;
+        gap: 10px;
+    }
+
+    .logout-inner-btn:hover {
+        color: white;
+        cursor: pointer;
+    }
+}
