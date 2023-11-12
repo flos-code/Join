@@ -4,9 +4,13 @@ header {
     background-color: #FFFFFF;
     width: 100%;
     height: 80px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
     padding: 20px 36px 20px 348px;
     box-sizing: border-box;
+}
+
+.headerJoinLogo {
+    display: none;
 }
 
 .headerText {
@@ -17,4 +21,72 @@ header {
     font-size: 21px;
   
 }
+
+.headerIcons {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.userImage {
+    height: 60px;
+    width: 60px;
+    border-radius: 100%;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+.userImage:hover {
+    cursor: pointer;
+}
+
+.logout-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 36px;
+    top: 81px;
+    width: 130px;
+    height: 45px;
+    background: #2A3647;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px 0px 20px 20px;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.logout-inner-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #CDCDCD;
+    width: 100%;
+    height: 100%;
+
+}
+
+.popup-frame-logout {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.rs-logout {
+    display: none;
+}
+
+.d-none {
+    display: none;
+}
+
+.rs-logout-active {
+    color: white !important;
+    cursor: pointer;
+}
+
 
