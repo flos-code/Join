@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts</title>
     <script src="js/header.js"></script>
+    <script src="js/script.js"></script>
     
     <link rel="stylesheet" href="./css/sidebar.css">
     <link rel="stylesheet" href="./css/contacts.css">
@@ -13,6 +14,23 @@
 <head>
 
 <body onload="InitContacts()">
+    <!---Header-->
+    <header>
+        <img class="headerJoinLogo" src="./img/favicon/join.logo-dark.png">
+        <div class="headerText">Kanban Project Management Tool</div>
+        <div class="headerIcons">
+            <a class="header-help" href="help.html" id="id-6">
+                <div><img src="./img/help-icon.png">
+                </div> </a>
+              <div>
+                <img class="userImage" src="./img/profile-img.png" onclick="showLogout()">
+             </div>
+         </div>
+        </div>
+    </header>
+    <div id="header-logout"></div> 
+    
+     <!---Sidebar-->
     <div class="navMainContent" id="navMainContent">
         <img class="navLogo" src="./img/join-logo.png">
         <div class="navMenu" id="sidebar-menu">
@@ -67,23 +85,8 @@
                 </div>
             </a>
         </div>
-    </div>   
-   
-    <header>
-        <img class="headerJoinLogo" src="./img/favicon/join.logo-dark.png">
-        <div class="headerText">Kanban Project Management Tool</div>
-        <div class="headerIcons">
-            <a class="header-help" href="help.html" id="id-6">
-                <div><img src="./img/help-icon.png">
-                </div> </a>
-              <div>
-                <img class="userImage" src="./img/profile-img.png" onclick="showLogout()">
-             </div>
-         </div>
-        </div>
-    </header>
-
-    <div id="header-logout"></div>
+    </div>    
+    <!--end sidebar-->
 
    
     <div class="contactHeadlineContent" id="contactHeadlineContent">
@@ -95,7 +98,10 @@
     
     <div class="contact-book-main" id="contact-book"></div>
    
-     
+    
+
+    
+
 
     
  
