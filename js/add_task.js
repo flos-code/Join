@@ -1,39 +1,50 @@
 let allTasks = [];
 
 
-let buttonData = [
-    { id: 'urgent-btn', prioIcon: 'task-form-urgent-icon' },
-    { id: 'medium-btn', prioIcon: 'task-form-medium-icon' },
-    { id: 'low-btn', prioIcon: 'task-form-low-icon' }
-];
+let subtaskIndex = 0;
+
+
+function init() {
+    setMinDate();
+}
 
 
 function addTask() {
-    let title = document.getElementById('title').value;
-    let description = document.getElementById('description').value;
-
     let task = {
-        'title': title,
-        'description': description,
-        'assignedTo': 'contact',
-        'date': new Date().getTime(),
-        'prio': 'urgent',
-        'category': 'category',
-        'subtasks': 'subtasks'
+        "title": title.value,
+        "description": description.value,
+        "assignedTo": 'contact',
+        "date": date.value,
+        "prio": 'urgent',
+        "category": 'category',
+        "subtasks": 'subtasks'
     }
 
     allTasks.push(task);
     console.log(allTasks);
+    resetForm(title, description, date);
 }
 
 
-function showAssignDropdown() {
+function resetForm(title, description, date) {
+    title.value = '';
+    description.value = '';
+    date.value = '';
+}
+
+
+function toggleAssignDropdown() {
     let assignField = document.getElementById('assign');
     let assignDropdown = document.getElementById('assign-content');
     let arrow = 'assign';
-    assignField.value = '';
-    rotateArrow(arrow);
-    assignDropdown.innerHTML = assignDropdownHTML();
+
+    if(document.querySelector('.assign-dropdown-menu')) {
+        closeAssignDropdown();
+    } else {
+        assignField.value = '';
+        rotateArrow(arrow);
+        assignDropdown.innerHTML = assignDropdownHTML();
+    }
 }
 
 
@@ -43,10 +54,8 @@ function rotateArrow(arrow) {
 
     if (arrow === 'assign') {
         arrowAssign.style.transform = 'rotate(180deg)';
-        arrowAssign.style.top = '1rem';
     } else if (arrow === 'category') {
         arrowCategory.style.transform = 'rotate(180deg)';
-        arrowCategory.style.top = '1rem';
     }
 }
 
@@ -66,10 +75,8 @@ function defaultArrow(arrow) {
 
     if (arrow === 'assign') {
         arrowAssign.style.transform = 'rotate(0)';
-        arrowAssign.style.top = '0.8rem';
     } else if (arrow === 'category') {
         arrowCategory.style.transform = 'rotate(0)';
-        arrowCategory.style.top = '0.8rem';
     }
 }
 
@@ -98,11 +105,16 @@ function selectContact(i) {
 }
 
 
-function showCategoryDropdown() {
+function toggleCategoryDropdown() {
     let categoryContainer = document.getElementById('category-content');
     let arrow = 'category';
-    categoryContainer.innerHTML = categoryDropdownHTML();
-    rotateArrow(arrow);
+
+    if (document.querySelector('.category-dropdown-menu')) {
+        closeCategoryDropdown();
+    } else {
+        categoryContainer.innerHTML = categoryDropdownHTML();
+        rotateArrow(arrow);
+    }
 }
 
 
@@ -140,6 +152,49 @@ function selectPrioButton(buttonID) {
 
     selectedButton.classList.toggle(`${buttonID}-active`);
     document.querySelector(`.task-form-${buttonID.split('-')[0]}-icon`).classList.toggle('f-white');
+}
+
+
+function setMinDate() {
+    let dateField = document.getElementById('date');
+    let date = new Date();
+    let dateFormated = date.toISOString().split('T')[0];
+    dateField.min = dateFormated;
+}
+
+
+function addSubtask() {
+    let subtasksContainer = document.getElementById('subtasks-container');
+    let subtaskField = document.getElementById('subtasks').value;
+
+    if (subtaskField) {
+        subtasksContainer.innerHTML += subtaskHTML(subtaskField, subtaskIndex);
+        subtaskIndex++;
+    }
+}
+
+
+function editSubtask(index) {
+    let subtaskSpan = document.getElementById(`subtask-input${index}`);
+    let inputElement = document.createElement('input');
+
+    if (document.getElementById(`subtask-text${index}`)) {
+        document.getElementById(`subtask-text${index}`).focus();
+    } else {
+        inputElement.value = subtaskSpan.innerText;
+        inputElement.name = 'subtask';
+        inputElement.type = 'text';
+        inputElement.className = 'subtask-text';
+        inputElement.id = `subtask-text${index}`;
+        subtaskSpan.parentNode.replaceChild(inputElement, subtaskSpan);
+        inputElement.focus();
+    }
+}
+
+
+function deleteSubtask(index) {
+    let subtaskItem = document.getElementById(`subtask-item${index}`);
+    subtaskItem.remove();
 }
 
 
@@ -203,7 +258,7 @@ function assignDropdownHTML() {
             </div>
         </div>
         <div class="assign-button-container">
-            <button class="main-button main-button--assign">Add new Contact
+            <button class="main-button main-button--assign" type="button">Add new Contact
                 <svg class="assign-person-icon"><use href="assets/img/icons.svg#person-icon"></use></svg>
             </button>
         </div>
@@ -217,6 +272,27 @@ function categoryDropdownHTML() {
         <div class="category-dropdown-menu">
             <div class="category-item" id="category-item0" onclick="selectCategoryItem(0)">Technical Task</div>
             <div class="category-item" id="category-item1" onclick="selectCategoryItem(1)">User Story</div>
+        </div>
+    `;
+}
+
+
+function subtaskHTML(subtaskField, index) {
+    return /*html*/`
+        <div class="subtask-item" id="subtask-item${index}">
+            <div class="subtask-info">
+                <span>&#x2022</span>
+                <span id="subtask-input${index}">${subtaskField}</span>
+            </div>
+            <div class="subtask-icon-container">
+                <div onclick="editSubtask(${index})">
+                    <svg class="subtask-edit-icon"><use href="assets/img/icons.svg#edit-icon"></use></svg>
+                </div>
+                <span class="subtask-separator"></span>
+                <div onclick="deleteSubtask(${index})">
+                    <svg class="subtask-delete-icon"><use href="assets/img/icons.svg#delete-icon"></use></svg>
+                </div>
+            </div>
         </div>
     `;
 }

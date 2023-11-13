@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="css/task.css">
 </head>
 
-<body>
+<body onload="init()">
     <header class="header"></header>
     <div class="task-container">
         <section class="sidebar"></section>
         <section class="main">
             <h1 class="task-heading-h1">Add Task</h1>
             <div class="task-form-container">
-                <form class="task-form" action="">
+                <form class="task-form" onsubmit="addTask(); return false">
                     <div class="task-form-subcontainer">
                         <div class="task-input-container">
                             <label class="task-form-label" for="title">
@@ -30,27 +30,30 @@
                             <input class="task-form-input" type="text" name="title" id="title" placeholder="Enter a title"
                                 required>
                             <label class="task-form-label" for="description">Description</label>
-                            <textarea class="task-form-text" name="text" id="description" placeholder="Enter a Description"
+                            <div class="task-form-text-wrapper">
+                                <textarea class="task-form-text" name="text" id="description" placeholder="Enter a Description"
                                 required></textarea>
+                                <svg class="task-form-resize-icon"><use href="assets/img/icons.svg#resize-icon"></use></svg>
+                            </div>
+                            
                             <label class="task-form-label" for="assign">Assigned to</label>
                             <div class="task-dropdown-container">
-                                <span id="arrow-assign" class="task-arrow-dropdown">
+                                <span id="arrow-assign" class="task-arrow-dropdown" onclick="toggleAssignDropdown()">
                                     <svg viewBox="0 0 8 5">
                                         <use href="assets/img/icons.svg#arrow-icon"></use>
                                     </svg>
                                 </span>
-                                <input class="task-assign" id="assign" type="text"  name="assign" value="Select contacts to assign" onclick="showAssignDropdown()">
+                                <input class="task-assign" id="assign" type="text"  name="assign" value="Select contacts to assign" onclick="toggleAssignDropdown()">
                                 <div id="assign-content"></div>
                             </div>
                         </div>
                         <div class="task-input-container">
-                            <label class="task-form-label" for="title">
+                            <label class="task-form-label" for="date">
                                 Due date<svg class="task-form-star" viewBox="0 0 16 16">
                                     <use href="assets/img/icons.svg#star-icon"></use>
                                 </svg>
                             </label>
-                            <input class="task-form-date" type="text" name="date" id="date" placeholder="dd/mm/yyyy"
-                                required>
+                            <input class="task-form-date" type="date" name="date" id="date" max="2025-12-31" required>
                             <div class="task-form-label">Prio</div>
                             <div class="task-form-prio">
                                 <div class="task-form-btn" id="urgent-btn" onclick="selectPrioButton('urgent-btn')">Urgent
@@ -69,27 +72,29 @@
                                     </svg>
                                 </div>
                             </div>
-                            <label class="task-form-label" for="category">
+                            <div class="task-form-label">
                                 Category<svg class="task-form-star" viewBox="0 0 16 16">
                                     <use href="assets/img/icons.svg#star-icon"></use>
                                 </svg>
-                            </label>
+                            </div>
                             <div class="task-dropdown-container">
-                                <span id="arrow-category" class="task-arrow-dropdown">
+                                <span id="arrow-category" class="task-arrow-dropdown" onclick="toggleCategoryDropdown()">
                                     <svg viewBox="0 0 8 5">
                                         <use href="assets/img/icons.svg#arrow-icon"></use>
                                     </svg>
                                 </span>
-                                <div class="task-category" id="category" onclick="showCategoryDropdown()">Select task category</div>
+                                <div class="task-category" id="category" onclick="toggleCategoryDropdown()">Select task category</div>
                                 <div id="category-content"></div>
                             </div>
                             <label class="task-form-label" for="subtasks">Subtasks</label>
-                            <div class="task-form-subtasks">
+                            <div class="task-form-subtasks" id="subtasks-container">
                                 <input class="task-form-input m-b05" type="text" name="subtasks" id="subtasks"
                                     placeholder="Add new subtask">
-                                <svg class="task-form-add-icon" id="task-add-icon" viewBox="0 0 15 14">
-                                    <use href="assets/img/icons.svg#add-icon"></use>
-                                </svg>
+                                <div onclick="addSubtask()">
+                                    <svg class="task-form-add-icon" id="task-add-icon" viewBox="0 0 15 14">
+                                        <use href="assets/img/icons.svg#add-icon"></use>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -100,10 +105,10 @@
                             </svg>This field is required
                         </div>
                         <div class="task-submit-buttons">
-                            <button class="task-clear-button">Clear
+                            <button class="task-clear-button" type="reset">Clear
                                 <svg class="task-clear-icon"><use href="assets/img/icons.svg#x-icon"></use></svg>
                             </button>
-                            <button class="main-button">Create Task
+                            <button class="main-button" type="submit">Create Task
                                 <svg class="task-create-icon"><use href="assets/img/icons.svg#check-icon"></use></svg>
                             </button>
                         </div>
@@ -114,6 +119,7 @@
     </div>
 
     <script src="js/add_task.js"></script>
+    <script src="js/storage.js"></script>
 </body>
 
 </html>
