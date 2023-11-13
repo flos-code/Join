@@ -12,7 +12,6 @@ function updateHTML() {
   }
 
   // Clear the filteredToDos array
-  filteredToDos = [];
 
   let toDo = todos.filter((t) => t["status"] == "toDo");
 
@@ -89,6 +88,7 @@ function updateHTML() {
       generateAssigned(element);
     }
   }
+  // filteredToDos = [];
 }
 
 function startDragging(id) {
@@ -129,7 +129,8 @@ function allowDrop(ev) {
 }
 
 function moveTo(status) {
-  todos[currentDraggedElement]["status"] = status;
+  originalTodos[currentDraggedElement]["status"] = status;
+  // document.getElementById("findTask").value = "";
   updateHTML();
 }
 
@@ -239,8 +240,8 @@ function generateSubtask(element) {
 }
 
 function openToDo(id) {
-  document.getElementById("findTask").value = "";
-  let todo = todos[id];
+  // document.getElementById("findTask").value = "";
+  let todo = originalTodos[id];
   document.getElementById("boradContent").innerHTML += /*html*/ `
         <div id="toDoOpenBg" onclick="closeToDo()">
             <div class="toDoOpen" onclick="event.stopPropagation()">
@@ -391,7 +392,7 @@ ${description}
 }
 
 function updateSubtask(id, i) {
-  let task = todos[id]["subtasks"][i];
+  let task = originalTodos[id]["subtasks"][i];
   if (task["isDone"]) {
     task["isDone"] = false;
   } else {
@@ -400,12 +401,19 @@ function updateSubtask(id, i) {
 }
 
 function deletToDo(id) {
-  todos.splice(id, 1);
-  for (let i = 0; i < todos.length; i++) {
-    todos[i]["id"] = i;
+  originalTodos.splice(id, 1);
+  for (let i = 0; i < originalTodos.length; i++) {
+    originalTodos[i]["id"] = i;
   }
-  originalTodos = todos.slice();
+
+  // if (filteredToDos.length === 1) {
+  //   //when deliting while searching
+  //   document.getElementById("findTask").value = "";
+  //   filteredToDos = [];
+  // }
+  // originalTodos = todos.slice();
   closeToDo();
+  searchTask(); //when deliting while searching
 }
 
 function searchTask() {
