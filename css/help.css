@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    background: #F5F5F5;
+    font-family: 'Inter';
+}
+
+.help-main {
+    display: flex;
+    flex-direction: column;
+    padding-left: 350px;
+    padding-right: 50px;
+    height: calc(100vh - 160px);
+}
+
+.kanban-title {
+    display: none;
+    margin-top: 30px;
+}
+
+.help-back-btn {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    width: 37px;
+    height: 37px;
+    width: 100%;
+    padding-top: 40px;
+    z-index: 1;
+}
+
+.helpTitleConteiner {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 81px;
+}
+
+.helpTitle {
+    font-weight: 700;
+    font-size: 61px;
+}
