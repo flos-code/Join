@@ -2,6 +2,38 @@ let currentDraggedElement;
 let filteredToDos = [];
 let originalTodos = todos.slice();
 
+function includeHTML() {
+  var z, i, elmnt, file, xhttp;
+  /* Loop through a collection of all HTML elements: */
+  z = document.getElementsByTagName("*");
+  for (i = 0; i < z.length; i++) {
+    elmnt = z[i];
+    /*search for elements with a certain atrribute:*/
+    file = elmnt.getAttribute("w3-include-html");
+    if (file) {
+      /* Make an HTTP request using the attribute value as the file name: */
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4) {
+          if (this.status == 200) {
+            elmnt.innerHTML = this.responseText;
+          }
+          if (this.status == 404) {
+            elmnt.innerHTML = "Page not found.";
+          }
+          /* Remove the attribute, and call this function once more: */
+          elmnt.removeAttribute("w3-include-html");
+          includeHTML();
+        }
+      };
+      xhttp.open("GET", file, true);
+      xhttp.send();
+      /* Exit the function: */
+      return;
+    }
+  }
+}
+
 function updateHTML() {
   if (filteredToDos.length !== 0) {
     todos = filteredToDos;
@@ -139,17 +171,17 @@ function generatePrio(element) {
   prioDiv.innerHTML = "";
   if (element["prio"] === "Low") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <svg class="boardPrioIconLow" viewBox="0 0 21 16">
         <use href="assets/img/icons.svg#lowprio-icon"></use>
         </svg>`;
   } else if (element["prio"] === "Medium") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 8">
+        <svg class="boardPrioIconMedium" viewBox="0 0 21 8">
         <use href="assets/img/icons.svg#mediumprio-icon"></use>
         </svg>`;
   } else if (element["prio"] === "Urgent") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <svg class="boardPrioIconUrgent" viewBox="0 0 21 16">
         <use href="assets/img/icons.svg#urgentprio-icon"></use>
         </svg>
         `;
@@ -240,11 +272,12 @@ function generateSubtask(element) {
 }
 
 function openToDo(id) {
-  // document.getElementById("findTask").value = "";
   let todo = originalTodos[id];
+  let originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
   document.getElementById("boradContent").innerHTML += /*html*/ `
         <div id="toDoOpenBg" onclick="closeToDo()">
-            <div class="toDoOpen" onclick="event.stopPropagation()">
+            <div id="toDoOpen" class="toDoOpen" onclick="event.stopPropagation()">
                 <div class="toDoOpenHeader">
             <div class="toDoOpenCategory" id="toDoOpenCategory${id}" >  ${todo["category"]}</div>
             <div onclick="closeToDo()">      
@@ -269,13 +302,19 @@ function openToDo(id) {
             <div class="todoFooter">
 
     <div onclick="deletToDo(${id})" class="deleteToDo"><img class="deleteToDoImg" src="/img/deleteToDo.svg" alt=""><div>Delete</div></div>
-    <div onclick="editToDo(${id})"class="todoFooterSeparator"></div>
-    <div class="editToDo">  <img class="editToDoImg" src="/img/editToDo.svg" alt=""><div>Edit</div></div>
+    <div class="todoFooterSeparator"></div>
+    <div onclick="editToDo(${id})" class="editToDo">  <img class="editToDoImg" src="/img/editToDo.svg" alt=""><div>Edit</div></div>
             </div>
 
             </div>
         </div>
     `;
+  setTimeout(() => {
+    document.getElementById("toDoOpen").classList.toggle("showToDoOpen");
+  }, 0);
+  setTimeout(() => {
+    document.body.style.overflow = originalOverflow;
+  }, 200); // Adjust the timeout value based on your transition duration
 
   setToDoCategoryColor(todo, id);
   setTime(todo, id);
@@ -287,8 +326,16 @@ function openToDo(id) {
 }
 
 function closeToDo() {
-  document.getElementById("toDoOpenBg").remove();
-  updateHTML();
+  let originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+
+  document.getElementById("toDoOpen").classList.toggle("showToDoOpen");
+
+  setTimeout(() => {
+    document.getElementById("toDoOpenBg").remove();
+    updateHTML();
+    document.body.style.overflow = originalOverflow;
+  }, 200);
 }
 
 function setToDoCategoryColor(todo, id) {
@@ -321,17 +368,17 @@ function generateToDoPrio(todo, id) {
   prioDiv.innerHTML = "";
   if (todo["prio"] === "Low") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <svg class="boardPrioIconLow" viewBox="0 0 21 16">
         <use href="assets/img/icons.svg#lowprio-icon"></use>
         </svg>`;
   } else if (todo["prio"] === "Medium") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 8">
+        <svg class="boardPrioIconMedium" viewBox="0 0 21 8">
         <use href="assets/img/icons.svg#mediumprio-icon"></use>
         </svg>`;
   } else if (todo["prio"] === "Urgent") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <svg class="boardPrioIconUrgent" viewBox="0 0 21 16">
         <use href="assets/img/icons.svg#urgentprio-icon"></use>
         </svg>
         `;
@@ -435,3 +482,109 @@ let searchInput = document.getElementById("findTask");
 searchInput.addEventListener("input", function () {
   searchTask();
 });
+
+function editToDo(id) {
+  let todoDiv = document.getElementById("toDoOpen");
+  let todoDivHeight = todoDiv.clientHeight;
+
+  todoDiv.innerHTML = "";
+  todoDiv.style.height = todoDivHeight + "px";
+
+  todoDiv.innerHTML = /*html*/ `
+
+     
+                <img onclick="closeToDo()" class="closeToDo closeToDoEdit" src="/img/closeToDo.svg" alt="">
+          
+
+<div class="editToDoDiv">
+
+<div class="task-input-container">
+                            <label class="task-form-label" for="title">
+                                Title
+                            </label>
+                            <input class="task-form-input" type="text" name="title" id="title" placeholder="Enter a title"
+                                required>
+                            <label class="task-form-label" for="description">Description</label>
+                            <div class="task-form-text-wrapper">
+                                <textarea class="task-form-text" name="text" id="description" placeholder="Enter a Description"
+                                required></textarea>
+                                <svg class="task-form-resize-icon"><use href="assets/img/icons.svg#resize-icon"></use></svg>
+                            </div>
+                            <label class="task-form-label" for="date">
+                                Due date
+                            </label>
+                            <input class="task-form-date" type="date" name="date" id="date" max="2025-12-31" required>
+                            
+                            <label class="task-form-label" for="assign">Assigned to</label>
+                            <div class="task-dropdown-container">
+                                <span id="arrow-assign" class="task-arrow-dropdown" onclick="toggleAssignDropdown()">
+                                    <svg viewBox="0 0 8 5">
+                                        <use href="assets/img/icons.svg#arrow-icon"></use>
+                                    </svg>
+                                </span>
+                                <input class="task-assign" id="assign" type="text"  name="assign" value="Select contacts to assign" onclick="toggleAssignDropdown()">
+                                <div id="assign-content"></div>
+                            </div>
+                      
+                            <div class="task-form-label">Prio</div>
+                            <div class="task-form-prio">
+                                <div class="task-form-btn" id="urgent-btn" onclick="selectPrioButton('urgent-btn')">Urgent
+                                    <svg class="task-form-urgent-icon" viewBox="0 0 21 16">
+                                        <use href="assets/img/icons.svg#urgentprio-icon"></use>
+                                    </svg>
+                                </div>
+                                <div class="task-form-btn" id="medium-btn" onclick="selectPrioButton('medium-btn')">Medium
+                                    <svg class="task-form-medium-icon" viewBox="0 0 21 8">
+                                        <use href="assets/img/icons.svg#mediumprio-icon"></use>
+                                    </svg>
+                                </div>
+                                <div class="task-form-btn" id="low-btn" onclick="selectPrioButton('low-btn')">Low
+                                    <svg class="task-form-low-icon" viewBox="0 0 21 16">
+                                        <use href="assets/img/icons.svg#lowprio-icon"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <label class="task-form-label" for="subtasks">Subtasks</label>
+                            <div class="task-form-subtasks" id="subtasks-container">
+                                <input class="task-form-input m-b05" type="text" name="subtasks" id="subtasks"
+                                    placeholder="Add new subtask">
+                                <div onclick="addSubtask()">
+                                    <svg class="task-form-add-icon" id="task-add-icon" viewBox="0 0 15 14">
+                                        <use href="assets/img/icons.svg#add-icon"></use>
+                                    </svg>
+                                </div>
+                            </div>
+
+    </div>
+
+    <div>ok</div>
+
+
+  `;
+
+  loadeInputFromTask(id);
+
+  if (originalTodos[id]["prio"] === "Urgent") {
+    selectPrioButton("urgent-btn");
+  } else if (originalTodos[id]["prio"] === "Medium") {
+    selectPrioButton("medium-btn");
+  } else if (originalTodos[id]["prio"] === "Low") {
+    selectPrioButton("low-btn");
+  } else {
+  }
+
+  let subtasksContainer = document.getElementById("subtasks-container");
+  let subtask = originalTodos[id]["subtasks"];
+  for (let index = 0; index < subtask.length; index++) {
+    let subtaskField = subtask[index]["taskDescription"];
+    subtasksContainer.innerHTML += subtaskHTML(subtaskField, index);
+    subtaskIndex++;
+  }
+}
+
+function loadeInputFromTask(id) {
+  document.getElementById("title").value = originalTodos[id]["title"];
+  document.getElementById("description").value =
+    originalTodos[id]["description"];
+  document.getElementById("date").value = originalTodos[id]["dueDate"];
+}

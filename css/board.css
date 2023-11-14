@@ -4,14 +4,27 @@ html {
 
 body {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  width: 100%;
+  height: 80px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px 36px 20px 348px;
+  box-sizing: border-box;
+  font-family: "inter", sans-serif;
 }
 
 .d-none {
   display: none !important;
 }
-section {
-  margin-left: 64px;
-}
+
 button {
   border: unset;
   border-radius: 10px;
@@ -30,12 +43,26 @@ button:hover {
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 
+.boardHeaderContainer {
+  margin-left: 230px;
+  width: calc(100% - 230px);
+  display: flex;
+  align-items: center;
+}
+
 .boardHeader {
   width: 1056px;
-  height: 73px;
+  margin-left: 64px;
+  margin-top: 79.5px;
+  margin-bottom: 48px;
   display: flex;
   justify-content: space-between;
-  background-color: red;
+}
+
+.boardHeader h1 {
+  font-size: 61px;
+  font-weight: 700;
+  margin-block: unset;
 }
 
 .boardHeaderInteract {
@@ -53,6 +80,7 @@ button:hover {
   background-color: white;
   margin-right: 32px;
   padding: 8px 16px;
+  border: 1px solid #a8a8a8;
 
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
@@ -71,6 +99,10 @@ button:hover {
   border-right: 1px solid #d1d1d1;
 }
 
+#findTask::placeholder {
+  color: #d7d7d7;
+}
+
 .findTaskImg {
   width: 32px;
   height: 32px;
@@ -87,12 +119,15 @@ button:hover {
 
 .boradContent {
   display: flex;
+  flex-grow: 1;
+  margin-left: 294px;
+  width: 1208px;
 }
 
 .sectionDragArea {
   display: flex;
   flex-direction: column;
-  margin-right: 32px;
+  margin-right: 26px;
 }
 
 .headerDragArea {
@@ -100,19 +135,34 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   height: 24px;
-  width: 250px;
+  width: 244px;
+}
+
+.addTaskToSection {
+  width: 24px;
+  height: 24px;
+}
+
+.addTaskToSection:hover {
+  cursor: pointer;
+  filter: invert(56%) sepia(80%) saturate(2198%) hue-rotate(166deg)
+    brightness(102%) contrast(77%);
 }
 
 .draArea {
-  max-height: 688px;
+  /* height: 100%; */
+  margin-left: -8px;
+  flex: 1;
   overflow-y: auto;
+
+  max-height: 670px;
 }
 
 .todo {
   width: 250px;
   padding: 16px;
   border-radius: 24px;
-  margin-bottom: 16px;
+  margin: 16px 8px;
   background-color: white;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -221,6 +271,8 @@ button:hover {
   color: #a8a8a8;
   background-color: #e7e7e7;
   border: 1px dashed #a8a8a8;
+  margin-top: 16px;
+  margin-left: 8px;
 }
 
 /* Open a ToDo */
@@ -253,6 +305,13 @@ button:hover {
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
   box-sizing: border-box; /* Opera/IE 8+ */
+
+  transition: transform 0.2s ease-in-out;
+  transform: translateX(300%);
+}
+
+.showToDoOpen {
+  transform: translateX(0); /*Move in from the right when opened*/
 }
 
 .toDoOpenHeader {
@@ -310,8 +369,19 @@ button:hover {
 .toDoOpenPrioText {
   margin-right: 10px;
 }
-.boardPrioIcon {
+.boardPrioIconLow {
   width: 17px;
+  fill: #7ae229;
+}
+
+.boardPrioIconMedium {
+  width: 17px;
+  fill: #ffa800;
+}
+
+.boardPrioIconUrgent {
+  width: 17px;
+  fill: #ff3d00;
 }
 
 .toDoOpenAssignedContainer {
@@ -326,7 +396,7 @@ button:hover {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  max-height: 240px;
+  max-height: 160px;
   overflow-y: auto;
   margin-top: 8px;
 }
@@ -370,7 +440,7 @@ button:hover {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  max-height: 120px;
+  max-height: 80px;
   overflow-y: auto;
   margin-top: 8px;
 }
@@ -477,3 +547,26 @@ button:hover {
 .customCheckbox input:not(:checked) + .customCheckmark .uncheckedSvg {
   display: block; /* Display the unchecked SVG when the checkbox is not checked */
 }
+
+/* Edit Open Task */
+
+.closeToDoEdit {
+  align-self: flex-end;
+}
+
+.editToDoDiv {
+  font-size: 20px;
+  font-weight: 400;
+  color: #2a3647;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+/* .editToDoDiv input {
+  width: 100%;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  color: black;
+  font-size: 20px;
+  margin: 8px 0 32px 0;
+} */
