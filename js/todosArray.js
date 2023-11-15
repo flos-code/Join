@@ -48,7 +48,7 @@ let todos = [
     description:
       "Build start page with recipe recommendation. this is very long  Hund way to long to be displayed",
     assigned: [],
-    dueDate: "1699138800",
+    dueDate: "2023-10-11",
     prio: "Medium",
     category: "Technical Task",
     subtasks: [
@@ -139,7 +139,7 @@ let todos = [
         isYou: false,
       },
     ],
-    dueDate: "1700460000",
+    dueDate: "2023-11-01",
     prio: "Urgent",
     category: "User Story",
     subtasks: [],
@@ -150,7 +150,7 @@ let todos = [
     title: "todo1 id3",
     description: "Build start page with recipe recommendation.",
     assigned: [],
-    dueDate: "1700434800",
+    dueDate: "2023-12-24",
     prio: "Medium",
     category: "Technical Task",
     subtasks: [

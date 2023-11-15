@@ -562,11 +562,27 @@ button:hover {
   overflow-y: scroll;
 }
 
-/* .editToDoDiv input {
-  width: 100%;
-  border: 1px solid #d1d1d1;
+.savedEdit {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  padding: 16px;
   border-radius: 10px;
-  color: black;
-  font-size: 20px;
-  margin: 8px 0 32px 0;
-} */
+  background-color: #2a3647;
+  font-size: 21px;
+  font-weight: 700;
+  color: white;
+  transition: all ease-in-out 100ms;
+}
+
+.savedEdit img {
+  width: 24px;
+  height: 24px;
+  margin-left: 4px;
+}
+
+.savedEdit:hover {
+  cursor: pointer;
+  background-color: #29abe2;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
