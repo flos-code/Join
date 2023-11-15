@@ -2,7 +2,7 @@ let todos = [
   {
     id: 0,
     status: "toDo",
-    title: "Kochwelt Page & Recipe Redommender id0",
+    title: "Kochwelt Page & Recipe Redommender",
     description: "Build start page with recipe recommendation.",
     assigned: [
       {
@@ -27,7 +27,7 @@ let todos = [
         isYou: false,
       },
     ],
-    dueDate: "1700438400",
+    dueDate: "2023-09-23" /*1700438400*/,
     prio: "Low",
     category: "User Story",
     subtasks: [
