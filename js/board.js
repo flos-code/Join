@@ -288,7 +288,7 @@ function openToDo(id) {
                 <div class="toDoOpenHeader">
             <div class="toDoOpenCategory" id="toDoOpenCategory${id}" >  ${todo["category"]}</div>
             <div onclick="closeToDo()">      
-                <img class="closeToDo" src="/img/closeToDo.svg" alt="">
+                <img class="closeToDo" src="./img/closeToDo.svg" alt="">
             </div>
             </div>
             <div class="toDoOpenTitle" >  ${todo["title"]}</div>
@@ -308,9 +308,9 @@ function openToDo(id) {
             </div> 
             <div class="todoFooter">
 
-    <div onclick="deletToDo(${id})" class="deleteToDo"><img class="deleteToDoImg" src="/img/deleteToDo.svg" alt=""><div>Delete</div></div>
+    <div onclick="deletToDo(${id})" class="deleteToDo"><img class="deleteToDoImg" src="./img/deleteToDo.svg" alt=""><div>Delete</div></div>
     <div class="todoFooterSeparator"></div>
-    <div onclick="editToDo(${id})" class="editToDo">  <img class="editToDoImg" src="/img/editToDo.svg" alt=""><div>Edit</div></div>
+    <div onclick="editToDo(${id})" class="editToDo">  <img class="editToDoImg" src="./img/editToDo.svg" alt=""><div>Edit</div></div>
             </div>
 
             </div>
@@ -497,7 +497,7 @@ function editToDo(id) {
   todoDiv.innerHTML = /*html*/ `
 
      
-                <img onclick="closeToDo()" class="closeToDo closeToDoEdit" src="/img/closeToDo.svg" alt="">
+                <img onclick="closeToDo()" class="closeToDo closeToDoEdit" src="./img/closeToDo.svg" alt="">
           
 
 <div class="editToDoDiv">
@@ -621,7 +621,7 @@ function showEdit(id) {
    <div class="toDoOpenHeader">
             <div class="toDoOpenCategory" id="toDoOpenCategory${id}" >  ${todo["category"]}</div>
             <div onclick="closeToDo()">      
-                <img class="closeToDo" src="/img/closeToDo.svg" alt="">
+                <img class="closeToDo" src="./img/closeToDo.svg" alt="">
             </div>
             </div>
             <div class="toDoOpenTitle" >  ${todo["title"]}</div>
@@ -641,9 +641,9 @@ function showEdit(id) {
             </div> 
             <div class="todoFooter">
 
-    <div onclick="deletToDo(${id})" class="deleteToDo"><img class="deleteToDoImg" src="/img/deleteToDo.svg" alt=""><div>Delete</div></div>
+    <div onclick="deletToDo(${id})" class="deleteToDo"><img class="deleteToDoImg" src="./img/deleteToDo.svg" alt=""><div>Delete</div></div>
     <div class="todoFooterSeparator"></div>
-    <div onclick="editToDo(${id})" class="editToDo">  <img class="editToDoImg" src="/img/editToDo.svg" alt=""><div>Edit</div></div>
+    <div onclick="editToDo(${id})" class="editToDo">  <img class="editToDoImg" src="./img/editToDo.svg" alt=""><div>Edit</div></div>
             </div>`;
 
   setToDoCategoryColor(todo, id);
@@ -719,4 +719,34 @@ function editdeleteSubtask(index) {
   let subtaskItem = document.getElementById(`subtask-item${index}`);
   subtaskItem.remove();
   editSubtasks.splice(index, 1);
+}
+
+function addTaskOnBoard(status) {
+  let originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+  document.getElementById("boradContent").innerHTML += /*html*/ `
+  <div id="addTaskOpenBg" onclick="closeAddTask()">
+      <div w3-include-html="./assets/templates/add_task.html" id="addTaskOpen" class="addTaskOpen" onclick="event.stopPropagation()"> 
+        
+      </div>
+</div>`;
+  setTimeout(() => {
+    document.getElementById("addTaskOpen").classList.add("showToDoOpen");
+  }, 0);
+  setTimeout(() => {
+    document.body.style.overflow = originalOverflow;
+  }, 200); // Adjust the timeout value based on your transition duration
+}
+
+function closeAddTask() {
+  let originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+
+  document.getElementById("addTaskOpen").classList.remove("showToDoOpen");
+
+  setTimeout(() => {
+    document.getElementById("addTaskOpenBg").remove();
+    updateHTML();
+    document.body.style.overflow = originalOverflow;
+  }, 200);
 }

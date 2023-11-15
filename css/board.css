@@ -311,7 +311,7 @@ button:hover {
 }
 
 .showToDoOpen {
-  transform: translateX(0); /*Move in from the right when opened*/
+  transform: translateX(0) !important; /*Move in from the right when opened*/
 }
 
 .toDoOpenHeader {
@@ -585,4 +585,39 @@ button:hover {
   cursor: pointer;
   background-color: #29abe2;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Add Task on Board */
+
+#addTaskOpenBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addTaskOpen {
+  width: 50vw;
+  height: 70vh;
+  background-color: white;
+  border-radius: 30px;
+  padding: 48px 40px;
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  font-size: 20px;
+  font-weight: 400; */
+
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  box-sizing: border-box; /* Opera/IE 8+ */
+
+  transition: transform 0.2s ease-in-out;
+  transform: translateX(300%);
 }
