@@ -61,6 +61,10 @@ function init() {
 
 
 function addTask() {
+    const title = document.getElementById('title');
+    const description = document.getElementById('description');
+    const date = document.getElementById('date');
+    const category = document.getElementById('title');
     let task = {
         "title": title.value,
         "description": description.value,
@@ -72,16 +76,61 @@ function addTask() {
     }
 
     allTasks.push(task);
-    console.log(allTasks);
     resetForm();
 }
 
 
 function resetForm() {
+    const title = document.getElementById('title');
+    const description = document.getElementById('description');
+    const date = document.getElementById('date');
+    const category = document.getElementById('title');
+
     title.value = '';
     description.value = '';
+    resetSelectedUsers();
     date.value = '';
+    resetPrioButton();
     category.value = '';
+    resetSubtasks(); 
+}
+
+
+function resetSelectedUsers() {
+    selectedUsers = [];
+    const usersDiv = document.querySelectorAll('.assign-contact');
+
+    for (const userDiv of usersDiv) {
+        if (userDiv.classList.contains('assign-contact-selected'))
+        userDiv.classList.remove('assign-contact-selected');
+        userDiv.children[1].innerHTML = `
+            <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
+        `;
+    }
+}
+
+
+function resetPrioButton() {
+    const lowButton = document.getElementById('low-btn');
+    const mediumButton = document.getElementById('medium-btn');
+    const urgentButton = document.getElementById('urgent-btn');
+    const buttons = [lowButton, mediumButton, urgentButton];
+
+    for (let i = 0; i < buttons.length; i++) {
+        const button = buttons[i];
+        if (button.className.includes('active')) {
+            button.classList.remove(`${button.id}-active`);
+            document.querySelector(`.task-form-${button.id.split('-')[0]}-icon`).classList.remove('f-white');
+        }
+    }
+}
+
+
+function resetSubtasks() {
+    const subtasksItems = document.querySelectorAll('.subtask-item');
+    for (const subtaskItem of subtasksItems) {
+        subtaskItem.remove();
+    }
 }
 
 
@@ -239,7 +288,7 @@ function selectPrioButton(buttonID) {
             button.classList.remove(`${button.id}-active`);
             document.querySelector(`.task-form-${button.id.split('-')[0]}-icon`).classList.remove('f-white');
         }
-    };
+    }
 
     selectedButton.classList.toggle(`${buttonID}-active`);
     document.querySelector(`.task-form-${buttonID.split('-')[0]}-icon`).classList.toggle('f-white');
