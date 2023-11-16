@@ -1,7 +1,58 @@
 let allTasks = [];
-
-
 let subtaskIndex = 0;
+let selectedUsers = []; 
+let assignInput, assignDropdown;
+let users = [
+    { 
+        firstName: 'Sofia',
+        lastName: 'Müller',
+        initials: 'SM',
+        userColor: '#1FD7C1',
+        isYou: true
+    },
+    {
+        firstName: "Marcel",
+        lastName: "Bauer",
+        initials: 'MB',
+        userColor: "#462F8A",
+        isYou: false,
+    },
+    {
+        firstName: "Anton",
+        lastName: "Mayer",
+        initials: 'AM',
+        userColor: "#0038FF",
+        isYou: false,
+      },
+    { 
+        firstName: 'Anja',
+        lastName: 'Schulz',
+        initials: 'AS',
+        userColor: '#ffa500',
+        isYou: false
+    },
+    { 
+        firstName: 'Benedikt',
+        lastName: 'Ziegler',
+        initials: 'BZ',
+        userColor: '#ee82ee',
+        isYou: false
+    },
+    { 
+        firstName: 'David',
+        lastName: 'Eisenberg',
+        initials: 'DE',
+        userColor: '#ffa07a',
+        isYou: false
+    },
+    { 
+        firstName: 'Eva',
+        lastName: 'Fischer',
+        initials: 'EF',
+        userColor: '#c16dee',
+        isYou: false
+    }
+];
 
 
 function init() {
@@ -13,44 +64,75 @@ function addTask() {
     let task = {
         "title": title.value,
         "description": description.value,
-        "assignedTo": 'contact',
+        "assignedTo": getSelectedUsers(),
         "date": date.value,
-        "prio": 'urgent',
-        "category": 'category',
-        "subtasks": 'subtasks'
+        "prio": getPrioButton(),
+        "category": category.value,
+        "subtasks": getSubtasks()
     }
 
     allTasks.push(task);
     console.log(allTasks);
-    resetForm(title, description, date);
+    resetForm();
 }
 
 
-function resetForm(title, description, date) {
+function resetForm() {
     title.value = '';
     description.value = '';
     date.value = '';
+    category.value = '';
 }
 
 
 function toggleAssignDropdown() {
-    let assignField = document.getElementById('assign');
-    let assignDropdown = document.getElementById('assign-content');
-    let arrow = 'assign';
+    assignInput = document.getElementById('assign');
+    assignDropdown = document.getElementById('assign-content');
+    const assignContactItem = document.querySelector('.assign-contact');
+    const arrow = 'assign';
 
-    if(document.querySelector('.assign-dropdown-menu')) {
+    if (!assignDropdown.classList.contains('d-none')) {
         closeAssignDropdown();
-    } else {
-        assignField.value = '';
+    } else if (assignDropdown.classList.contains('d-none') && !assignContactItem) {
+        openAssignDropdown();
+    } else if (assignContactItem) {
+        assignInput.value = '';
         rotateArrow(arrow);
-        assignDropdown.innerHTML = assignDropdownHTML();
+        assignDropdown.classList.remove('d-none');
     }
 }
 
 
+function openAssignDropdown() {
+    const assignDropdownMenu = document.getElementById('assign-dropdown-menu');
+    const assignBtnContainer = document.getElementById('assign-button-container');
+    const arrow = 'assign';
+    let container = '<div>';
+
+    assignInput.value = '';
+    rotateArrow(arrow);
+    assignDropdown.classList.remove('d-none');
+    for (let i = 0; i < users.length; i++) {
+        container += assignDropdownHTML(i);
+    }
+    container += '</div>';
+    assignDropdownMenu.innerHTML = container;
+    assignBtnContainer.innerHTML += assignDropdownBtnHTML();
+}
+
+
+function closeAssignDropdown() {
+    const arrow = 'assign';
+
+    assignDropdown.classList.add('d-none');
+    defaultArrow(arrow);
+    resetInputValue();
+}
+
+
 function rotateArrow(arrow) {
-    let arrowAssign = document.getElementById('arrow-assign');
-    let arrowCategory = document.getElementById('arrow-category');
+    const arrowAssign = document.getElementById('arrow-assign');
+    const arrowCategory = document.getElementById('arrow-category');
 
     if (arrow === 'assign') {
         arrowAssign.style.transform = 'rotate(180deg)';
@@ -60,18 +142,9 @@ function rotateArrow(arrow) {
 }
 
 
-function closeAssignDropdown() {
-    let assignDropdown = document.getElementById('assign-content');
-    let arrow = 'assign';
-    assignDropdown.innerHTML = '';
-    defaultArrow(arrow);
-    resetInputValue();
-}
-
-
 function defaultArrow(arrow) {
-    let arrowAssign = document.getElementById('arrow-assign');
-    let arrowCategory = document.getElementById('arrow-category');
+    const arrowAssign = document.getElementById('arrow-assign');
+    const arrowCategory = document.getElementById('arrow-category');
 
     if (arrow === 'assign') {
         arrowAssign.style.transform = 'rotate(0)';
@@ -82,32 +155,50 @@ function defaultArrow(arrow) {
 
 
 function resetInputValue() {
-    let assignInputField = document.getElementById('assign');
-    assignInputField.value = 'Select contacts to assign';
+    assignInput.value = 'Select contacts to assign';
 }
 
 
 function selectContact(i) {
-    let contact = document.getElementById(`assign-contact${i}`);
-    let iconContainer = document.getElementById(`assign-icon-container${i}`);
+    const contact = document.getElementById(`assign-contact${i}`);
+    const iconContainer = document.getElementById(`assign-icon-container${i}`);
 
-    if (contact.classList.contains('bg-darkblue')) {
-        contact.classList.remove('bg-darkblue');
+    if (contact.classList.contains('assign-contact-selected')) {
+        contact.classList.remove('assign-contact-selected');
         iconContainer.innerHTML = `
             <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
         `;
+        removeUser(i);
     } else {
-        contact.classList.add('bg-darkblue');
+        contact.classList.add('assign-contact-selected');
         iconContainer.innerHTML = `
             <svg class="assign-checked-icon"><use href="assets/img/icons.svg#checked-icon"></use></svg>
         `;
+        pushUser(i);
+    }
+}
+
+
+function pushUser(i) {
+    const userName = document.querySelector(`.assign-contact-name${i}`).innerText;
+    if (!selectedUsers.includes(userName)) {
+        selectedUsers.push(userName);
+    }
+}
+
+
+function removeUser(i) {
+    const userName = document.querySelector(`.assign-contact-name${i}`).innerText;
+    const indexOfUser = selectedUsers.indexOf(userName);
+    if (selectedUsers.includes(userName)) {
+        selectedUsers.splice(indexOfUser, 1);
     }
 }
 
 
 function toggleCategoryDropdown() {
-    let categoryContainer = document.getElementById('category-content');
-    let arrow = 'category';
+    const categoryContainer = document.getElementById('category-content');
+    const arrow = 'category';
 
     if (document.querySelector('.category-dropdown-menu')) {
         closeCategoryDropdown();
@@ -119,28 +210,28 @@ function toggleCategoryDropdown() {
 
 
 function closeCategoryDropdown() {
-    let categoryContainer = document.getElementById('category-content');
-    let arrow = 'category';
+    const categoryContainer = document.getElementById('category-content');
+    const arrow = 'category';
     categoryContainer.innerHTML = '';
     defaultArrow(arrow);
 }
 
 
 function selectCategoryItem(i) {
-    let selectedItem = document.getElementById(`category-item${i}`).innerText;
-    let categoryField = document.getElementById('category');
+    const selectedItem = document.getElementById(`category-item${i}`).innerText;
+    const categoryField = document.getElementById('category');
 
-    categoryField.innerText = selectedItem;
+    categoryField.value = selectedItem;
     closeCategoryDropdown();
 }
 
 
 function selectPrioButton(buttonID) {
-    let selectedButton = document.getElementById(buttonID);
-    let buttonLow = document.getElementById('low-btn');
-    let buttonMedium = document.getElementById('medium-btn');
-    let buttonUrgent = document.getElementById('urgent-btn');
-    let buttons = [buttonLow, buttonMedium, buttonUrgent];
+    const selectedButton = document.getElementById(buttonID);
+    const lowButton = document.getElementById('low-btn');
+    const mediumButton = document.getElementById('medium-btn');
+    const urgentButton = document.getElementById('urgent-btn');
+    const buttons = [lowButton, mediumButton, urgentButton];
 
     for (let i = 0; i < buttons.length; i++) {
         const button = buttons[i];
@@ -156,112 +247,118 @@ function selectPrioButton(buttonID) {
 
 
 function setMinDate() {
-    let dateField = document.getElementById('date');
-    let date = new Date();
-    let dateFormated = date.toISOString().split('T')[0];
+    const dateField = document.getElementById('date');
+    const date = new Date();
+    const dateFormated = date.toISOString().split('T')[0];
     dateField.min = dateFormated;
 }
 
 
 function addSubtask() {
-    let subtasksContainer = document.getElementById('subtasks-container');
-    let subtaskField = document.getElementById('subtasks').value;
+    const subtasksContainer = document.getElementById('subtasks-container');
+    const subtaskField = document.getElementById('subtasks');
 
-    if (subtaskField) {
-        subtasksContainer.innerHTML += subtaskHTML(subtaskField, subtaskIndex);
+    if (subtaskField.value) {
+        subtasksContainer.innerHTML += subtaskHTML(subtaskField.value, subtaskIndex);
         subtaskIndex++;
+        subtaskField.value = '';
     }
 }
 
 
 function editSubtask(index) {
-    let subtaskSpan = document.getElementById(`subtask-input${index}`);
-    let inputElement = document.createElement('input');
+    const subtaskSpan = document.getElementById(`subtask-input${index}`);
 
-    if (document.getElementById(`subtask-text${index}`)) {
-        document.getElementById(`subtask-text${index}`).focus();
-    } else {
-        inputElement.value = subtaskSpan.innerText;
-        inputElement.name = 'subtask';
-        inputElement.type = 'text';
-        inputElement.className = 'subtask-text';
-        inputElement.id = `subtask-text${index}`;
-        subtaskSpan.parentNode.replaceChild(inputElement, subtaskSpan);
-        inputElement.focus();
+    if (!subtaskSpan.isContentEditable) {
+        subtaskSpan.contentEditable = true;
+        subtaskSpan.focus();
+        document.getElementById(`subtask-icons${index}`).innerHTML = subtaskEditHTML(index);
+    }
+}
+
+
+function stopEditingSubtask(index) {
+    const subtaskSpan = document.getElementById(`subtask-input${index}`);
+    
+    if (subtaskSpan.isContentEditable) {
+        subtaskSpan.contentEditable = false;
+        document.getElementById(`subtask-icons${index}`).innerHTML = subtaskEditDefaultHTML(index);
     }
 }
 
 
 function deleteSubtask(index) {
-    let subtaskItem = document.getElementById(`subtask-item${index}`);
+    const subtaskItem = document.getElementById(`subtask-item${index}`);
     subtaskItem.remove();
 }
 
 
-function assignDropdownHTML() {
+function getPrioButton() {
+    const urgentButton = document.getElementById('urgent-btn');
+    const mediumButton = document.getElementById('medium-btn');
+    const lowButton = document.getElementById('low-btn');
+    const buttons = [lowButton, mediumButton, urgentButton];
+
+    for (let i = 0; i < buttons.length; i++) {
+        const button = buttons[i];
+        const buttonClassName = button.className; 
+        if (buttonClassName.includes('active')) {
+            return button.id;
+        }
+    }
+    return null;
+}
+
+
+function getSelectedUsers() {
+    if (selectedUsers.length) {
+        return selectedUsers;
+    } else if (!selectedUsers.length) {
+        return null;
+    }
+}
+
+
+function getSubtasks() {
+    const subtaskInputList = document.querySelectorAll('.subtask-input');
+    const subtasks = [];
+
+    for (let i = 0; i < subtaskInputList.length; i++) {
+        const subtaskInput = subtaskInputList[i];
+        subtasks.push(subtaskInput.innerText);
+    }
+    if (subtaskInputList.length) {
+        return subtasks;
+    } else if (!subtaskInputList.length) {
+        return null;
+    }
+}
+
+
+function assignDropdownHTML(i) {
+    const userFirstName = users[i]['firstName'];
+    const userLastName = users[i]['lastName'];
+    const userInitials = users[i]['initials'];
+    const userColor = users[i]['userColor'];
     return /*html*/ `
-        <div class="assign-overlay" id="assign-overlay" onclick="closeAssignDropdown()"></div>
-        <div class="assign-dropdown-menu">
-            <div class="assign-contact" id="assign-contact0" onclick="selectContact(0)">
-                <div class="assign-contact-info">
-                    <div class="assign-initials bg-lightblue">SM</div>
-                    <span class="assign-contact-name">Sofia Müller (You)<span>
-                </div>
-                <div id="assign-icon-container0">
-                    <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
-                </div>
+        <div class="assign-contact" id="assign-contact${i}" onclick="selectContact(${i})">
+            <div class="assign-contact-info">
+                <div class="assign-initials" style="background-color: ${userColor}">${userInitials}</div>
+                <span class="assign-contact-name${i}">${userFirstName} ${userLastName}<span>
             </div>
-            <div class="assign-contact" id="assign-contact1" onclick="selectContact(1)">
-                <div class="assign-contact-info">
-                    <div class="assign-initials bg-orange">AM</div>
-                    <span class="assign-contact-name">Anton Meyer<span>
-                </div>
-                <div id="assign-icon-container1">
-                    <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
-                </div>
-            </div>
-            <div class="assign-contact" id="assign-contact2" onclick="selectContact(2)">
-                <div class="assign-contact-info">
-                    <div class="assign-initials bg-violet">AS</div>
-                    <span class="assign-contact-name">Anja Schulz<span>
-                </div>
-                <div id="assign-icon-container2">
-                    <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
-                </div>
-            </div>
-            <div class="assign-contact" id="assign-contact3" onclick="selectContact(3)">
-                <div class="assign-contact-info">
-                    <div class="assign-initials bg-pink">BZ</div>
-                    <span class="assign-contact-name">Benedikt Ziegler<span>
-                </div>
-                <div id="assign-icon-container3">
-                    <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
-                </div>
-            </div>
-            <div class="assign-contact" id="assign-contact4" onclick="selectContact(4)">
-                <div class="assign-contact-info">
-                    <div class="assign-initials bg-yellow">DE</div>
-                    <span class="assign-contact-name">David Eisenberg<span>
-                </div>
-                <div id="assign-icon-container4">
-                    <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
-                </div>
-            </div>
-            <div class="assign-contact" id="assign-contact5" onclick="selectContact(5)">
-                <div class="assign-contact-info">
-                    <div class="assign-initials bg-salmon">EF</div>
-                    <span class="assign-contact-name">Eva Fischer<span>
-                </div>
-                <div id="assign-icon-container5">
-                    <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
-                </div>
+            <div id="assign-icon-container${i}">
+                <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
             </div>
         </div>
-        <div class="assign-button-container">
-            <button class="main-button main-button--assign" type="button">Add new Contact
-                <svg class="assign-person-icon"><use href="assets/img/icons.svg#person-icon"></use></svg>
-            </button>
-        </div>
+    `;
+}
+
+
+function assignDropdownBtnHTML() {
+    return /*html*/`
+        <button class="main-button main-button--assign" type="button">Add new Contact
+            <svg class="assign-person-icon"><use href="assets/img/icons.svg#person-icon"></use></svg>
+        </button>
     `;
 }
 
@@ -282,9 +379,9 @@ function subtaskHTML(subtaskField, index) {
         <div class="subtask-item" id="subtask-item${index}">
             <div class="subtask-info">
                 <span>&#x2022</span>
-                <span id="subtask-input${index}">${subtaskField}</span>
+                <span class="subtask-input" id="subtask-input${index}">${subtaskField}</span>
             </div>
-            <div class="subtask-icon-container">
+            <div class="subtask-icon-container" id="subtask-icons${index}">
                 <div onclick="editSubtask(${index})">
                     <svg class="subtask-edit-icon"><use href="assets/img/icons.svg#edit-icon"></use></svg>
                 </div>
@@ -293,6 +390,32 @@ function subtaskHTML(subtaskField, index) {
                     <svg class="subtask-delete-icon"><use href="assets/img/icons.svg#delete-icon"></use></svg>
                 </div>
             </div>
+        </div>
+    `;
+}
+
+
+function subtaskEditHTML(index) {
+    return /*html*/`
+        <div onclick="deleteSubtask(${index})">
+            <svg class="subtask-delete-icon"><use href="assets/img/icons.svg#delete-icon"></use></svg>
+        </div>
+        <span class="subtask-separator"></span>
+        <div onclick="stopEditingSubtask(${index})">
+            <svg class="subtask-accept-icon"><use href="assets/img/icons.svg#check-icon-blue"></use></svg>
+        </div>
+    `;
+}
+
+
+function subtaskEditDefaultHTML(index) {
+    return /*html*/`
+       <div onclick="editSubtask(${index})">
+            <svg class="subtask-edit-icon"><use href="assets/img/icons.svg#edit-icon"></use></svg>
+        </div>
+        <span class="subtask-separator"></span>
+        <div onclick="deleteSubtask(${index})">
+            <svg class="subtask-delete-icon"><use href="assets/img/icons.svg#delete-icon"></use></svg>
         </div>
     `;
 }

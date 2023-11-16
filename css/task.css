@@ -91,6 +91,7 @@
 .task-form-input:focus,
 .task-form-text:focus,
 .task-assign:focus,
+.task-category:focus,
 .task-form-date:focus {
     outline: none;
     border-color: #29ABE2 !important;
@@ -130,21 +131,13 @@
     pointer-events: none;
 }
 
-.task-assign {
+.task-assign,
+.task-category {
     font-family: inherit;
     -webkit-appearance: none;
     appearance: none;
     position: relative;
     z-index: 8;
-}
-
-.task-category {
-    position: relative;
-    z-index: 8;
-}
-
-.task-assign,
-.task-category {
     height: 50.5px;
     width: 100%;
     cursor: pointer;
@@ -158,6 +151,10 @@
 .task-assign:hover,
 .task-category:hover {
     border-color: #a7a6a6;
+}
+
+.task-category::placeholder {
+    color: black;
 }
 
 .task-dropdown-container {
@@ -279,12 +276,18 @@
     background: #eeefef;
 }
 
+#subtasks-container {
+    max-height: 8rem;
+    overflow: auto;
+}
+
 .subtask-item {
     display: flex;
     justify-content: space-between;
     padding: 0.4rem 1rem;
     font-size: 1rem;
     border-radius:  0.45rem;
+    height: 36.8px;
     cursor: pointer;
     transition: all .15s ease-in-out;
 }
@@ -298,6 +301,8 @@
 }
 
 .subtask-edit-icon {
+    position: relative;
+    top: 1px;
     opacity: 0;
     width: 20px;
     height: 20px;
@@ -306,6 +311,8 @@
 }
 
 .subtask-delete-icon {
+    position: relative;
+    top: 2px;
     opacity: 0;
     width: 18px;
     height: 18px;
@@ -314,6 +321,8 @@
 }
 
 .subtask-separator {
+    position: relative;
+    top: 1px;
     display: inline-block;
     opacity: 0;
     width: 1px;
@@ -324,23 +333,32 @@
     transition: all .15s ease-in-out;
 }
 
+.subtask-accept-icon {
+    position: relative;
+    top: 1px;
+    fill: #2A3647;
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: all .15s ease-in-out;
+}
+
 .subtask-item:hover .subtask-edit-icon,
 .subtask-item:hover .subtask-delete-icon,
-.subtask-item:hover .subtask-separator {
+.subtask-item:hover .subtask-separator,
+.subtask-item:hover .subtask-accept-icon {
     opacity: 1;
 }
 
-.subtask-text {
-    font-family: inherit;
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: transparent;
-    border: unset;
-    font-size: 1rem;
+[contenteditable] {
+    outline: 1px solid transparent;
+    border-radius: 0.2rem;
+    padding: 0.1rem;
 }
 
-.subtask-text:focus {
-    outline-color: #29ABE2;
+[contenteditable]:focus {
+    outline: 1px solid #29ABE2;
 }
 
 .task-submit-container {
@@ -424,13 +442,20 @@
     fill: #29ABE2;
 }
 
+.assign-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 2.8rem;
+    padding-bottom: 1rem;
+}
+
 .assign-dropdown-menu {
+    position: relative;
     z-index: 7;
     height: 10rem;
     width: 100%;
     background-color: white;
-    position: absolute;
-    top: 45px;
     padding-top: 6px;
     overflow: auto;
 }
@@ -501,8 +526,7 @@
 }
 
 .assign-button-container {
-    position: absolute;
-    top: 12.81rem;
+    position: relative;
     z-index: 11;
     background-color: white;
     width: 100%;
@@ -524,39 +548,56 @@
     fill: currentColor;
 }
 
-.bg-darkblue {
+.assign-contact-selected {
     background-color: #2A3647;
     border-radius: 0.45rem;
     color: white;
 }
 
-.bg-darkblue:hover {
+.assign-contact-selected:hover {
     background-color: #1c2635;
 }
 
 .bg-lightblue {
-    background-color: lightskyblue;
+    background-color: #87cefa;
 }
 
 .bg-orange {
-    background-color: orange;
+    background-color: #ffa500;
 }
 
-.bg-violet {
-    background-color: violet;
+.bg-violet1 {
+    background-color: #462F8A;
+}
+
+.bg-violet2 {
+    background-color: #ee82ee;
 }
 
 .bg-pink {
-    background-color: rgb(193, 109, 238);
+    background-color: #c16dee;
 }
 
 .bg-yellow {
-    background-color: gold;
+    background-color: #ffd700;
 }
 
 .bg-salmon {
-    background-color: lightsalmon;
+    background-color: #ffa07a;
 }
+
+.bg-lightgreen {
+    background-color: #1FD7C1
+}
+
+.bg-blue {
+    background-color: #0038FF;
+}
+
+.bg-green {
+    background-color: #009b00;
+}
+
 
 .b-shadow {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.16);
