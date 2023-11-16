@@ -18,21 +18,15 @@
     <script src="js/contactArray.js" defer></script>
     <script src="js/board.js" defer></script>
     <script src="js/add_task.js" defer></script>
-    <script src="script.js" defer></script>
+    <!-- <script src="js/script.js" defer></script> -->
 
     <title>Board</title>
-    <link rel="shortcut icon" href="./img/favicon/join-favicon.png" type="image/x-icon">
-    
+    <link
+      rel="shortcut icon"
+      href="./img/favicon/join-favicon.png"
+      type="image/x-icon"
+    />
   </head>
-  <body onload="updateHTML();init()">
-    <head></head>
-    <div>sidebar</div>
-    <section class="boardHeader">
-      <h1>Board</h1>
-      <div class="boardHeaderInteract">
-        <div class="inputWithImg">
-          <input id="findTask" type="text" placeholder="Find Task" />
-          <div class="findTaskImg" onclick="searchTask()"></div>
   <body onload="updateHTML(), includeHTML()">
     <header w3-include-html="./assets/templates/test_header.html"></header>
     <section
@@ -48,7 +42,7 @@
             <input id="findTask" type="text" placeholder="Find Task" />
             <div class="findTaskImg" onclick="searchTask()"></div>
           </div>
-          <button onclick="addTaskFunktion()">
+          <button onclick="addTaskOnBoard('toDo'); includeHTML()">
             Add task
             <img src="img/board_add_taks.png" alt="" />
           </button>
@@ -60,6 +54,7 @@
         <div class="headerDragArea">
           <h2>To do</h2>
           <img
+            onclick="addTaskOnBoard('toDo')"
             class="addTaskToSection"
             src="img/board_plus_button.svg"
             alt="Add Task to to do"
@@ -77,6 +72,7 @@
         <div class="headerDragArea">
           <h2>In pogress</h2>
           <img
+            onclick="addTaskOnBoard('inProgress')"
             class="addTaskToSection"
             src="img/board_plus_button.svg"
             alt="Add Task to in Progress"
@@ -94,6 +90,7 @@
         <div class="headerDragArea">
           <h2>Await feedback</h2>
           <img
+            onclick="addTaskOnBoard('awaitFeedback')"
             class="addTaskToSection"
             src="img/board_plus_button.svg"
             alt="Add Task to Await Feedback"
