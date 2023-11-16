@@ -1,6 +1,40 @@
 let currentDraggedElement;
 let filteredToDos = [];
 let originalTodos = todos.slice();
+let editPrio;
+let editSubtasks = [];
+
+function includeHTML() {
+  var z, i, elmnt, file, xhttp;
+  /* Loop through a collection of all HTML elements: */
+  z = document.getElementsByTagName("*");
+  for (i = 0; i < z.length; i++) {
+    elmnt = z[i];
+    /*search for elements with a certain atrribute:*/
+    file = elmnt.getAttribute("w3-include-html");
+    if (file) {
+      /* Make an HTTP request using the attribute value as the file name: */
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4) {
+          if (this.status == 200) {
+            elmnt.innerHTML = this.responseText;
+          }
+          if (this.status == 404) {
+            elmnt.innerHTML = "Page not found.";
+          }
+          /* Remove the attribute, and call this function once more: */
+          elmnt.removeAttribute("w3-include-html");
+          includeHTML();
+        }
+      };
+      xhttp.open("GET", file, true);
+      xhttp.send();
+      /* Exit the function: */
+      return;
+    }
+  }
+}
 
 function updateHTML() {
   if (filteredToDos.length !== 0) {
@@ -12,7 +46,6 @@ function updateHTML() {
   }
 
   // Clear the filteredToDos array
-  filteredToDos = [];
 
   let toDo = todos.filter((t) => t["status"] == "toDo");
 
@@ -89,6 +122,7 @@ function updateHTML() {
       generateAssigned(element);
     }
   }
+  // filteredToDos = [];
 }
 
 function startDragging(id) {
@@ -129,7 +163,8 @@ function allowDrop(ev) {
 }
 
 function moveTo(status) {
-  todos[currentDraggedElement]["status"] = status;
+  originalTodos[currentDraggedElement]["status"] = status;
+  // document.getElementById("findTask").value = "";
   updateHTML();
 }
 
@@ -138,17 +173,17 @@ function generatePrio(element) {
   prioDiv.innerHTML = "";
   if (element["prio"] === "Low") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <svg class="boardPrioIconLow" viewBox="0 0 21 16">
         <use href="assets/img/icons.svg#lowprio-icon"></use>
         </svg>`;
   } else if (element["prio"] === "Medium") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 8">
+        <svg class="boardPrioIconMedium" viewBox="0 0 21 8">
         <use href="assets/img/icons.svg#mediumprio-icon"></use>
         </svg>`;
   } else if (element["prio"] === "Urgent") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <svg class="boardPrioIconUrgent" viewBox="0 0 21 16">
         <use href="assets/img/icons.svg#urgentprio-icon"></use>
         </svg>
         `;
@@ -239,15 +274,21 @@ function generateSubtask(element) {
 }
 
 function openToDo(id) {
-  document.getElementById("findTask").value = "";
-  let todo = todos[id];
+  let todo = originalTodos[id];
+  editPrio = originalTodos[id]["prio"];
+  editSubtasks =
+    originalTodos[id][
+      "subtasks"
+    ].slice(); /* only edit the originaltods when clicke ok at bottom of edit page */
+  let originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
   document.getElementById("boradContent").innerHTML += /*html*/ `
         <div id="toDoOpenBg" onclick="closeToDo()">
-            <div class="toDoOpen" onclick="event.stopPropagation()">
+            <div id="toDoOpen" class="toDoOpen" onclick="event.stopPropagation()">
                 <div class="toDoOpenHeader">
             <div class="toDoOpenCategory" id="toDoOpenCategory${id}" >  ${todo["category"]}</div>
             <div onclick="closeToDo()">      
-                <img class="closeToDo" src="/img/closeToDo.svg" alt="">
+                <img class="closeToDo" src="./img/closeToDo.svg" alt="">
             </div>
             </div>
             <div class="toDoOpenTitle" >  ${todo["title"]}</div>
@@ -267,27 +308,39 @@ function openToDo(id) {
             </div> 
             <div class="todoFooter">
 
-    <div onclick="deletToDo(${id})" class="deleteToDo"><img class="deleteToDoImg" src="/img/deleteToDo.svg" alt=""><div>Delete</div></div>
-    <div onclick="editToDo(${id})"class="todoFooterSeparator"></div>
-    <div class="editToDo">  <img class="editToDoImg" src="/img/editToDo.svg" alt=""><div>Edit</div></div>
+    <div onclick="deletToDo(${id})" class="deleteToDo"><img class="deleteToDoImg" src="./img/deleteToDo.svg" alt=""><div>Delete</div></div>
+    <div class="todoFooterSeparator"></div>
+    <div onclick="editToDo(${id})" class="editToDo">  <img class="editToDoImg" src="./img/editToDo.svg" alt=""><div>Edit</div></div>
             </div>
 
             </div>
         </div>
     `;
+  setTimeout(() => {
+    document.getElementById("toDoOpen").classList.add("showToDoOpen");
+  }, 0);
+  setTimeout(() => {
+    document.body.style.overflow = originalOverflow;
+  }, 200); // Adjust the timeout value based on your transition duration
 
   setToDoCategoryColor(todo, id);
   setTime(todo, id);
   generateToDoPrio(todo, id);
   generateToDoAssigned(todo, id);
   generateTodSubtask(todo, id);
-
-  // Fuktionen für: subtask render, edit, delete , hover und so
 }
 
 function closeToDo() {
-  document.getElementById("toDoOpenBg").remove();
-  updateHTML();
+  let originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+
+  document.getElementById("toDoOpen").classList.remove("showToDoOpen");
+
+  setTimeout(() => {
+    document.getElementById("toDoOpenBg").remove();
+    updateHTML();
+    document.body.style.overflow = originalOverflow;
+  }, 200);
 }
 
 function setToDoCategoryColor(todo, id) {
@@ -302,14 +355,13 @@ function setToDoCategoryColor(todo, id) {
 
 function setTime(todo, id) {
   let dateDiv = document.getElementById(`toDoOpenDate${id}`);
+  let inputDateString = todo["dueDate"];
   dateDiv.innerHTML = "";
-  timestamp = todo["dueDate"];
+  let inputDate = new Date(inputDateString);
 
-  let dateObject = new Date(timestamp * 1000); // Multiply by 1000 to convert seconds to milliseconds
-
-  let day = String(dateObject.getUTCDate()).padStart(2, "0");
-  let month = String(dateObject.getUTCMonth() + 1).padStart(2, "0"); // Months are zero-based
-  let year = dateObject.getUTCFullYear();
+  let day = inputDate.getDate().toString().padStart(2, "0");
+  let month = (inputDate.getMonth() + 1).toString().padStart(2, "0");
+  let year = inputDate.getFullYear();
 
   let formattedDate = `${day}/${month}/${year}`;
   dateDiv.innerHTML = `${formattedDate}`;
@@ -320,17 +372,17 @@ function generateToDoPrio(todo, id) {
   prioDiv.innerHTML = "";
   if (todo["prio"] === "Low") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <svg class="boardPrioIconLow" viewBox="0 0 21 16">
         <use href="assets/img/icons.svg#lowprio-icon"></use>
         </svg>`;
   } else if (todo["prio"] === "Medium") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 8">
+        <svg class="boardPrioIconMedium" viewBox="0 0 21 8">
         <use href="assets/img/icons.svg#mediumprio-icon"></use>
         </svg>`;
   } else if (todo["prio"] === "Urgent") {
     prioDiv.innerHTML = /*html*/ `
-        <svg class="boardPrioIcon" viewBox="0 0 21 16">
+        <svg class="boardPrioIconUrgent" viewBox="0 0 21 16">
         <use href="assets/img/icons.svg#urgentprio-icon"></use>
         </svg>
         `;
@@ -391,7 +443,7 @@ ${description}
 }
 
 function updateSubtask(id, i) {
-  let task = todos[id]["subtasks"][i];
+  let task = originalTodos[id]["subtasks"][i];
   if (task["isDone"]) {
     task["isDone"] = false;
   } else {
@@ -400,12 +452,19 @@ function updateSubtask(id, i) {
 }
 
 function deletToDo(id) {
-  todos.splice(id, 1);
-  for (let i = 0; i < todos.length; i++) {
-    todos[i]["id"] = i;
+  originalTodos.splice(id, 1);
+  for (let i = 0; i < originalTodos.length; i++) {
+    originalTodos[i]["id"] = i;
   }
-  originalTodos = todos.slice();
+
+  // if (filteredToDos.length === 1) {
+  //   //when deliting while searching
+  //   document.getElementById("findTask").value = "";
+  //   filteredToDos = [];
+  // }
+  // originalTodos = todos.slice();
   closeToDo();
+  searchTask(); //when deliting while searching
 }
 
 function searchTask() {
@@ -427,3 +486,267 @@ let searchInput = document.getElementById("findTask");
 searchInput.addEventListener("input", function () {
   searchTask();
 });
+
+function editToDo(id) {
+  let todoDiv = document.getElementById("toDoOpen");
+  let todoDivHeight = todoDiv.clientHeight;
+
+  todoDiv.innerHTML = "";
+  todoDiv.style.height = todoDivHeight + "px";
+
+  todoDiv.innerHTML = /*html*/ `
+
+     
+                <img onclick="closeToDo()" class="closeToDo closeToDoEdit" src="./img/closeToDo.svg" alt="">
+          
+
+<div class="editToDoDiv">
+<form id="editFrom" onsubmit="saveEdit('${id}'); return false">
+<div class="task-input-container">
+                            <label class="task-form-label" for="title">
+                                Title
+                            </label>
+                            <input class="task-form-input" type="text" name="title" id="title" placeholder="Enter a title"
+                                required>
+                            <label class="task-form-label" for="description">Description</label>
+                            <div class="task-form-text-wrapper">
+                                <textarea class="task-form-text" name="text" id="description" placeholder="Enter a Description"
+                                
+                              ></textarea>
+                                <svg class="task-form-resize-icon"><use href="assets/img/icons.svg#resize-icon"></use></svg>
+                            </div>
+                            <label class="task-form-label" for="date">
+                                Due date
+                            </label>
+                            <input class="task-form-date" type="date" name="date" id="date" max="2025-12-31" required>
+                            
+                            <label class="task-form-label" for="assign">Assigned to</label>
+                            <div class="task-dropdown-container">
+                                <span id="arrow-assign" class="task-arrow-dropdown" onclick="toggleAssignDropdown()">
+                                    <svg viewBox="0 0 8 5">
+                                        <use href="assets/img/icons.svg#arrow-icon"></use>
+                                    </svg>
+                                </span>
+                                <input class="task-assign" id="assign" type="text"  name="assign" value="Select contacts to assign" onclick="toggleAssignDropdown()">
+                                <div id="assign-content"></div>
+                            </div>
+                      
+                            <div class="task-form-label">Prio</div>
+                            <div class="task-form-prio">
+                                <div class="task-form-btn" id="urgent-btn" onclick="selectPrioButton('urgent-btn'); changePrio('Urgent')">Urgent
+                                    <svg class="task-form-urgent-icon" viewBox="0 0 21 16">
+                                        <use href="assets/img/icons.svg#urgentprio-icon"></use>
+                                    </svg>
+                                </div>
+                                <div class="task-form-btn" id="medium-btn" onclick="selectPrioButton('medium-btn'); changePrio('Medium')">Medium
+                                    <svg class="task-form-medium-icon" viewBox="0 0 21 8">
+                                        <use href="assets/img/icons.svg#mediumprio-icon"></use>
+                                    </svg>
+                                </div>
+                                <div class="task-form-btn" id="low-btn" onclick="selectPrioButton('low-btn'); changePrio('Low')">Low
+                                    <svg class="task-form-low-icon" viewBox="0 0 21 16">
+                                        <use href="assets/img/icons.svg#lowprio-icon"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <label class="task-form-label" for="subtasks">Subtasks</label>
+                            <div class="task-form-subtasks" id="subtasks-container">
+                                <input class="task-form-input m-b05" type="text" name="subtasks" id="subtasks"
+                                    placeholder="Add new subtask">
+                                <div onclick="addSubtaskEdit()">
+                                    <svg class="task-form-add-icon" id="task-add-icon" viewBox="0 0 15 14">
+                                        <use href="assets/img/icons.svg#add-icon"></use>
+                                    </svg>
+                                </div>
+                            </div>
+
+    </div>
+</div>
+</form>
+<button type="submit" class="savedEdit" form="editFrom">
+Ok
+<img src="img/saveEditBoard.svg" alt="">
+
+</button>
+
+
+
+  `;
+
+  loadeInputFromTask(id);
+
+  if (originalTodos[id]["prio"] === "Urgent") {
+    selectPrioButton("urgent-btn");
+  } else if (originalTodos[id]["prio"] === "Medium") {
+    selectPrioButton("medium-btn");
+  } else if (originalTodos[id]["prio"] === "Low") {
+    selectPrioButton("low-btn");
+  } else {
+  }
+
+  let subtasksContainer = document.getElementById("subtasks-container");
+  let subtask = originalTodos[id]["subtasks"];
+  for (let index = 0; index < subtask.length; index++) {
+    let subtaskField = subtask[index]["taskDescription"];
+    subtasksContainer.innerHTML += editSubtaskHTML(subtaskField, index);
+    subtaskIndex++;
+  }
+}
+
+function loadeInputFromTask(id) {
+  document.getElementById("title").value = originalTodos[id]["title"];
+  document.getElementById("description").value =
+    originalTodos[id]["description"];
+  document.getElementById("date").value = originalTodos[id]["dueDate"];
+}
+
+function saveEdit(id) {
+  let todo = originalTodos[id];
+  todo["title"] = document.getElementById("title").value;
+  todo["description"] = document.getElementById("description").value;
+  todo["dueDate"] = document.getElementById("date").value;
+  todo["prio"] = editPrio;
+  todo["subtasks"] = editSubtasks;
+
+  showEdit(id);
+}
+
+function showEdit(id) {
+  let todo = originalTodos[id];
+  let todoDiv = document.getElementById("toDoOpen");
+  todoDiv.innerHTML = "";
+  todoDiv.style.height = "unset";
+
+  todoDiv.innerHTML = /*html*/ `
+   <div class="toDoOpenHeader">
+            <div class="toDoOpenCategory" id="toDoOpenCategory${id}" >  ${todo["category"]}</div>
+            <div onclick="closeToDo()">      
+                <img class="closeToDo" src="./img/closeToDo.svg" alt="">
+            </div>
+            </div>
+            <div class="toDoOpenTitle" >  ${todo["title"]}</div>
+            <div class="toDoOpenDescription" >  ${todo["description"]}</div>
+            <div class="toDoOpenDate"><div class="toDoOpenSection">Due date:</div><div id="toDoOpenDate${id}"></div></div>
+            <div class="toDoOpenPrio" id="" ><div class="toDoOpenSection">Priority:</div> <div class="toDoOpenPrioText">${todo["prio"]}</div>  <div class="toDoOpenPrioIcon" id="toDoOpenPrio${id}"></div> </div>
+          
+                <div class="toDoOpenAssignedContainer">
+            <div class="toDoOpenSection">Assigned To:</div>
+            <div class="toDoOpenAssigned" id="toDoOpenAssigned${id}"></div>
+            </div>
+             
+       
+            <div class="toDoOpenSubtasksContainer" >
+            <div class="toDoOpenSection">Subtasks</div>
+            <div class="toDoOpenSubtasks" id="toDoOpenSubtasks${id}"></div> 
+            </div> 
+            <div class="todoFooter">
+
+    <div onclick="deletToDo(${id})" class="deleteToDo"><img class="deleteToDoImg" src="./img/deleteToDo.svg" alt=""><div>Delete</div></div>
+    <div class="todoFooterSeparator"></div>
+    <div onclick="editToDo(${id})" class="editToDo">  <img class="editToDoImg" src="./img/editToDo.svg" alt=""><div>Edit</div></div>
+            </div>`;
+
+  setToDoCategoryColor(todo, id);
+  setTime(todo, id);
+  generateToDoPrio(todo, id);
+  generateToDoAssigned(todo, id);
+  generateTodSubtask(todo, id);
+}
+
+function changePrio(selectedPrio) {
+  editPrio = selectedPrio;
+}
+
+function addSubtaskEdit() {
+  let subtasksContainer = document.getElementById("subtasks-container");
+  let subtaskField = document.getElementById("subtasks").value;
+
+  if (subtaskField) {
+    subtasksContainer.innerHTML += editSubtaskHTML(subtaskField, subtaskIndex);
+    subtaskIndex++;
+    let newSubtask = {
+      taskDescription: subtaskField,
+      isDone: false,
+    };
+    editSubtasks.push(newSubtask);
+  }
+}
+
+function editSubtaskHTML(subtaskField, index) {
+  return /*html*/ `
+      <div class="subtask-item" id="subtask-item${index}">
+          <div class="subtask-info">
+              <span>&#x2022</span>
+              <span id="subtask-input${index}">${subtaskField}</span>
+          </div>
+          <div class="subtask-icon-container">
+              <div onclick="editTextSubtask(${index})">
+                  <svg class="subtask-edit-icon"><use href="assets/img/icons.svg#edit-icon"></use></svg>
+              </div>
+              <span class="subtask-separator"></span>
+              <div onclick="editdeleteSubtask(${index})">
+                  <svg class="subtask-delete-icon"><use href="assets/img/icons.svg#delete-icon"></use></svg>
+              </div>
+          </div>
+      </div>
+  `;
+}
+
+function editTextSubtask(index) {
+  /* also change isture when edeting? */
+  let subtaskSpan = document.getElementById(`subtask-input${index}`);
+  let inputElement = document.createElement("input");
+
+  if (document.getElementById(`subtask-text${index}`)) {
+    document.getElementById(`subtask-text${index}`).focus();
+  } else {
+    inputElement.value = subtaskSpan.innerText;
+    inputElement.name = "subtask";
+    inputElement.type = "text";
+    inputElement.className = "subtask-text";
+    inputElement.id = `subtask-text${index}`;
+
+    inputElement.addEventListener("input", function () {
+      editSubtasks[index]["taskDescription"] = inputElement.value;
+    });
+
+    subtaskSpan.parentNode.replaceChild(inputElement, subtaskSpan);
+    inputElement.focus();
+  }
+}
+
+function editdeleteSubtask(index) {
+  let subtaskItem = document.getElementById(`subtask-item${index}`);
+  subtaskItem.remove();
+  editSubtasks.splice(index, 1);
+}
+
+function addTaskOnBoard(status) {
+  let originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+  document.getElementById("boradContent").innerHTML += /*html*/ `
+  <div id="addTaskOpenBg" onclick="closeAddTask()">
+      <div w3-include-html="./assets/templates/add_task.html" id="addTaskOpen" class="addTaskOpen" onclick="event.stopPropagation()"> 
+        
+      </div>
+</div>`;
+  setTimeout(() => {
+    document.getElementById("addTaskOpen").classList.add("showToDoOpen");
+  }, 0);
+  setTimeout(() => {
+    document.body.style.overflow = originalOverflow;
+  }, 200); // Adjust the timeout value based on your transition duration
+}
+
+function closeAddTask() {
+  let originalOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+
+  document.getElementById("addTaskOpen").classList.remove("showToDoOpen");
+
+  setTimeout(() => {
+    document.getElementById("addTaskOpenBg").remove();
+    updateHTML();
+    document.body.style.overflow = originalOverflow;
+  }, 200);
+}

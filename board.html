@@ -8,71 +8,100 @@
     <link rel="stylesheet" href="css/open_sans.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/board.css" />
+
+    <link rel="stylesheet" href="css/task.css" />
+
+    <link rel="stylesheet" href="./css/sidebar.css" />
+    <link rel="stylesheet" href="./css/header.css" />
+
     <script src="js/todosArray.js" defer></script>
+    <script src="js/contactArray.js" defer></script>
     <script src="js/board.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="js/add_task.js" defer></script>
+    <!-- <script src="js/script.js" defer></script> -->
+
     <title>Board</title>
+    <link
+      rel="shortcut icon"
+      href="./img/favicon/join-favicon.png"
+      type="image/x-icon"
+    />
   </head>
-  <body onload="updateHTML()">
-    <head></head>
-    <div>sidebar</div>
-    <section class="boardHeader">
-      <h1>Board</h1>
-      <div class="boardHeaderInteract">
-        <div class="inputWithImg">
-          <input id="findTask" type="text" placeholder="Find Task" />
-          <div class="findTaskImg" onclick="searchTask()"></div>
+  <body onload="updateHTML(), includeHTML()">
+    <header w3-include-html="./assets/templates/test_header.html"></header>
+    <section
+      w3-include-html="./assets/templates/test_sidebar.html"
+      class="navMainContent"
+      id="navMainContent"
+    ></section>
+    <section class="boardHeaderContainer">
+      <div class="boardHeader">
+        <h1>Board</h1>
+        <div class="boardHeaderInteract">
+          <div class="inputWithImg">
+            <input id="findTask" type="text" placeholder="Find Task" />
+            <div class="findTaskImg" onclick="searchTask()"></div>
+          </div>
+          <button onclick="addTaskOnBoard('toDo'); includeHTML()">
+            Add task
+            <img src="img/board_add_taks.png" alt="" />
+          </button>
         </div>
-        <button onclick="addTaskFunktion()">
-          Add task
-          <img src="img/board_add_taks.png" alt="" />
-        </button>
       </div>
     </section>
     <section class="boradContent" id="boradContent">
       <div class="sectionDragArea">
         <div class="headerDragArea">
           <h2>To do</h2>
-          <img src="img/board_plus_button.png" alt="" />
+          <img
+            onclick="addTaskOnBoard('toDo')"
+            class="addTaskToSection"
+            src="img/board_plus_button.svg"
+            alt="Add Task to to do"
+          />
         </div>
         <div
           id="toDo"
           class="draArea"
           ondrop="moveTo('toDo')"
           ondragover="allowDrop(event)"
-        >
-          dragarea
-        </div>
+        ></div>
       </div>
 
       <div class="sectionDragArea">
         <div class="headerDragArea">
           <h2>In pogress</h2>
-          <img src="img/board_plus_button.png" alt="" />
+          <img
+            onclick="addTaskOnBoard('inProgress')"
+            class="addTaskToSection"
+            src="img/board_plus_button.svg"
+            alt="Add Task to in Progress"
+          />
         </div>
         <div
           id="inProgress"
           class="draArea"
           ondrop="moveTo('inProgress')"
           ondragover="allowDrop(event)"
-        >
-          dragarea
-        </div>
+        ></div>
       </div>
 
       <div class="sectionDragArea">
         <div class="headerDragArea">
           <h2>Await feedback</h2>
-          <img src="img/board_plus_button.png" alt="" />
+          <img
+            onclick="addTaskOnBoard('awaitFeedback')"
+            class="addTaskToSection"
+            src="img/board_plus_button.svg"
+            alt="Add Task to Await Feedback"
+          />
         </div>
         <div
           id="awaitFeedback"
           class="draArea"
           ondrop="moveTo('awaitFeedback')"
           ondragover="allowDrop(event)"
-        >
-          dragarea
-        </div>
+        ></div>
       </div>
 
       <div class="sectionDragArea">
@@ -84,9 +113,7 @@
           class="draArea"
           ondrop="moveTo('done')"
           ondragover="allowDrop(event)"
-        >
-          dragarea
-        </div>
+        ></div>
       </div>
     </section>
   </body>

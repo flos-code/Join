@@ -27,7 +27,7 @@ let todos = [
         isYou: false,
       },
     ],
-    dueDate: "1700438400",
+    dueDate: "2023-09-23" /*1700438400*/,
     prio: "Low",
     category: "User Story",
     subtasks: [
@@ -44,11 +44,11 @@ let todos = [
   {
     id: 1,
     status: "done",
-    title: "todo1",
+    title: "todo1 id1",
     description:
       "Build start page with recipe recommendation. this is very long  Hund way to long to be displayed",
     assigned: [],
-    dueDate: "1699138800",
+    dueDate: "2023-10-11",
     prio: "Medium",
     category: "Technical Task",
     subtasks: [
@@ -65,7 +65,7 @@ let todos = [
   {
     id: 2,
     status: "inProgress",
-    title: "todo2",
+    title: "todo2 id2",
     description: "Build start page with recipe recommendation.",
     assigned: [
       {
@@ -139,7 +139,7 @@ let todos = [
         isYou: false,
       },
     ],
-    dueDate: "1700460000",
+    dueDate: "2023-11-01",
     prio: "Urgent",
     category: "User Story",
     subtasks: [],
@@ -147,10 +147,10 @@ let todos = [
   {
     id: 3,
     status: "done",
-    title: "todo1",
+    title: "todo1 id3",
     description: "Build start page with recipe recommendation.",
     assigned: [],
-    dueDate: "1700434800",
+    dueDate: "2023-12-24",
     prio: "Medium",
     category: "Technical Task",
     subtasks: [

@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacts</title>
+    <title>Help</title>
+    <link rel="shortcut icon" href="./img/favicon/join-favicon.png" type="image/x-icon">
     <script src="js/header.js"></script>
-    
+    <script src="js/script.js"></script>
+
     <link rel="stylesheet" href="./css/sidebar.css">
     <link rel="stylesheet" href="./css/contacts.css">
     <link rel="stylesheet" href="./css/header.css">
@@ -15,81 +17,16 @@
     <link rel="stylesheet" href="./css/help.css">
 </head>
 
-<body>
-    <div class="navMainContent" id="navMainContent">
-        <img class="navLogo" src="./img/join-logo.png">
-        <div class="navMenu" id="sidebar-menu">
-            <a class="navLink" href="summary.html" id="id-0">
-                <div class="navCategory">
-                    <div class="navCategory-inner-frame">
-                        <img src="./img/summary-icon.svg">
-                        <p>Summary</p>
-                    </div>
-                </div>
-            </a>
-            <a class="navLink" href="board.html" id="id-1">
-                <div class="navCategory">
-                    <div class="navCategory-inner-frame">
-                        <img src="./img//board-icon.svg">
-                        <p>Board</p>
-                    </div>
-                </div>
-            </a>
-            <a class="navLink" href="task.html" id="id-2">
-                <div class="navCategory">
-                    <div class="navCategory-inner-frame">
-                        <img src="./img/write-task-icon.svg">
-                        <p>Add Task</p>
-                    </div>
-                </div>
-            </a>
-            <a class="navLink" href="contacts.html" id="id-3">
-                <div class="navCategory">
-                    <div class="navCategory-inner-frame">
-                        <img src="./img/contacts-icon.svg">
-                        <p>Contacts</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="sidebar-footer">
-            <a class="navLink" href="legal_notice.html" id="id-4">
-                <div class="navCategory">
-                    <div class="navCategory-inner-frame">
-                        <img src="./img/info-icon.png">
-                        <p>Legal notice</p>
-                    </div>
-                </div>
-            </a>
-            <a class="navLink" href="privacy_policy.html" id="id-5">
-                <div class="navCategory">
-                    <div class="navCategory-inner-frame">
-                        <img src="./img/info-icon.png">
-                        <p>Privacy</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
+<body onload="Init(); includeHTML(); addActiveClass6();">
 
-    <header>
-        <img class="headerJoinLogo" src="./img/favicon/join.logo-dark.png">
-        <div class="headerText">Kanban Project Management Tool</div>
-        <div class="headerIcons">
-            <a class="header-help" href="help.html" id="id-6">
-                <div><img src="./img/help-icon.png">
-                </div>
-            </a>
-            <div>
-                <img class="userImage" src="./img/profile-img.png" onclick="showLogout()">
-            </div>
-        </div>
-        </div>
-    </header>
+    <div w3-include-html="assets/templates/header.html"></div>
 
-    <div id="header-logout"></div>
+    <div w3-include-html="assets/templates/sidebar.html"></div>
 
-    
+    <script>
+        includeHTML();
+    </script>
+
 
 </body>
 
