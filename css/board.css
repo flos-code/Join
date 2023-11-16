@@ -29,7 +29,7 @@ header {
 button {
   border: unset;
   border-radius: 10px;
-  background-color: #2a3647;
+
   padding: 8px 16px;
   color: white;
   font-size: 24px;
@@ -40,7 +40,7 @@ button {
 
 button:hover {
   cursor: pointer;
-  background-color: #29abe2;
+
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -69,6 +69,13 @@ button:hover {
 .boardHeaderInteract {
   display: flex;
   align-items: center;
+}
+
+.boardHeaderInteract button {
+  background-color: #2a3647;
+}
+.boardHeaderInteract button:hover {
+  background-color: #29abe2;
 }
 
 .inputWithImg {
@@ -603,17 +610,11 @@ button:hover {
 }
 
 .addTaskOpen {
-  width: 50vw;
-  height: 70vh;
+  width: 1116px;
+  height: 870px;
   background-color: white;
   border-radius: 30px;
   padding: 48px 40px;
-  /* display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 24px;
-  font-size: 20px;
-  font-weight: 400; */
 
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
@@ -621,4 +622,9 @@ button:hover {
 
   transition: transform 0.2s ease-in-out;
   transform: translateX(300%);
+}
+
+.addTaskOpenHead {
+  display: flex;
+  justify-content: space-between;
 }

@@ -42,7 +42,7 @@
             <input id="findTask" type="text" placeholder="Find Task" />
             <div class="findTaskImg" onclick="searchTask()"></div>
           </div>
-          <button onclick="addTaskOnBoard('toDo'); includeHTML()">
+          <button onclick="addTaskOnBoard('toDoStatus'); includeHTML()">
             Add task
             <img src="img/board_add_taks.png" alt="" />
           </button>
@@ -54,7 +54,7 @@
         <div class="headerDragArea">
           <h2>To do</h2>
           <img
-            onclick="addTaskOnBoard('toDo')"
+            onclick="addTaskOnBoard('toDoStatus')"
             class="addTaskToSection"
             src="img/board_plus_button.svg"
             alt="Add Task to to do"
@@ -63,7 +63,7 @@
         <div
           id="toDo"
           class="draArea"
-          ondrop="moveTo('toDo')"
+          ondrop="moveTo('toDoStatus')"
           ondragover="allowDrop(event)"
         ></div>
       </div>
@@ -72,7 +72,7 @@
         <div class="headerDragArea">
           <h2>In pogress</h2>
           <img
-            onclick="addTaskOnBoard('inProgress')"
+            onclick="addTaskOnBoard('inProgressStatus')"
             class="addTaskToSection"
             src="img/board_plus_button.svg"
             alt="Add Task to in Progress"
@@ -81,7 +81,7 @@
         <div
           id="inProgress"
           class="draArea"
-          ondrop="moveTo('inProgress')"
+          ondrop="moveTo('inProgressStatus')"
           ondragover="allowDrop(event)"
         ></div>
       </div>
@@ -90,7 +90,7 @@
         <div class="headerDragArea">
           <h2>Await feedback</h2>
           <img
-            onclick="addTaskOnBoard('awaitFeedback')"
+            onclick="addTaskOnBoard('awaitFeedbackStatus')"
             class="addTaskToSection"
             src="img/board_plus_button.svg"
             alt="Add Task to Await Feedback"
@@ -99,7 +99,7 @@
         <div
           id="awaitFeedback"
           class="draArea"
-          ondrop="moveTo('awaitFeedback')"
+          ondrop="moveTo('awaitFeedbackStatus')"
           ondragover="allowDrop(event)"
         ></div>
       </div>
@@ -111,7 +111,7 @@
         <div
           id="done"
           class="draArea"
-          ondrop="moveTo('done')"
+          ondrop="moveTo('doneStatus')"
           ondragover="allowDrop(event)"
         ></div>
       </div>

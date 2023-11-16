@@ -1,7 +1,7 @@
 let todos = [
   {
     id: 0,
-    status: "toDo",
+    status: "toDoStatus",
     title: "Kochwelt Page & Recipe Redommender",
     description: "Build start page with recipe recommendation.",
     assigned: [
@@ -43,7 +43,7 @@ let todos = [
   },
   {
     id: 1,
-    status: "done",
+    status: "doneStatus",
     title: "todo1 id1",
     description:
       "Build start page with recipe recommendation. this is very long  Hund way to long to be displayed",
@@ -64,7 +64,7 @@ let todos = [
   },
   {
     id: 2,
-    status: "inProgress",
+    status: "inProgressStatus",
     title: "todo2 id2",
     description: "Build start page with recipe recommendation.",
     assigned: [
@@ -146,7 +146,7 @@ let todos = [
   },
   {
     id: 3,
-    status: "done",
+    status: "doneStatus",
     title: "todo1 id3",
     description: "Build start page with recipe recommendation.",
     assigned: [],

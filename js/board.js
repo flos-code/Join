@@ -3,6 +3,8 @@ let filteredToDos = [];
 let originalTodos = todos.slice();
 let editPrio;
 let editSubtasks = [];
+let addTaskPrio;
+let addTaskStatus;
 
 function includeHTML() {
   var z, i, elmnt, file, xhttp;
@@ -47,7 +49,7 @@ function updateHTML() {
 
   // Clear the filteredToDos array
 
-  let toDo = todos.filter((t) => t["status"] == "toDo");
+  let toDo = todos.filter((t) => t["status"] == "toDoStatus");
 
   document.getElementById("toDo").innerHTML = "";
 
@@ -65,7 +67,7 @@ function updateHTML() {
     }
   }
 
-  let inProgress = todos.filter((t) => t["status"] == "inProgress");
+  let inProgress = todos.filter((t) => t["status"] == "inProgressStatus");
 
   if (inProgress.length === 0) {
     document.getElementById("inProgress").innerHTML =
@@ -85,7 +87,7 @@ function updateHTML() {
     }
   }
 
-  let awaitFeedback = todos.filter((t) => t["status"] == "awaitFeedback");
+  let awaitFeedback = todos.filter((t) => t["status"] == "awaitFeedbackStatus");
 
   document.getElementById("awaitFeedback").innerHTML = "";
 
@@ -105,7 +107,7 @@ function updateHTML() {
     }
   }
 
-  let done = todos.filter((t) => t["status"] == "done");
+  let done = todos.filter((t) => t["status"] == "doneStatus");
 
   document.getElementById("done").innerHTML = "";
 
@@ -162,9 +164,21 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
+// function moveTo(status) {
+//   originalTodos[currentDraggedElement]["status"] = status;
+//   // document.getElementById("findTask").value = "";
+//   updateHTML();
+// }
+
 function moveTo(status) {
-  originalTodos[currentDraggedElement]["status"] = status;
-  // document.getElementById("findTask").value = "";
+  let draggedTask = originalTodos.splice(currentDraggedElement, 1)[0];
+  draggedTask.status = status;
+  originalTodos.push(draggedTask);
+
+  for (let i = 0; i < originalTodos.length; i++) {
+    originalTodos[i].id = i;
+  }
+
   updateHTML();
 }
 
@@ -456,13 +470,6 @@ function deletToDo(id) {
   for (let i = 0; i < originalTodos.length; i++) {
     originalTodos[i]["id"] = i;
   }
-
-  // if (filteredToDos.length === 1) {
-  //   //when deliting while searching
-  //   document.getElementById("findTask").value = "";
-  //   filteredToDos = [];
-  // }
-  // originalTodos = todos.slice();
   closeToDo();
   searchTask(); //when deliting while searching
 }
@@ -488,6 +495,7 @@ searchInput.addEventListener("input", function () {
 });
 
 function editToDo(id) {
+  subtaskIndex = 0;
   let todoDiv = document.getElementById("toDoOpen");
   let todoDivHeight = todoDiv.clientHeight;
 
@@ -659,16 +667,21 @@ function changePrio(selectedPrio) {
 
 function addSubtaskEdit() {
   let subtasksContainer = document.getElementById("subtasks-container");
-  let subtaskField = document.getElementById("subtasks").value;
+  let subtaskField = document.getElementById("subtasks");
 
-  if (subtaskField) {
-    subtasksContainer.innerHTML += editSubtaskHTML(subtaskField, subtaskIndex);
+  if (subtaskField.value) {
+    subtasksContainer.innerHTML += editSubtaskHTML(
+      subtaskField.value,
+      subtaskIndex
+    );
     subtaskIndex++;
+
     let newSubtask = {
-      taskDescription: subtaskField,
+      taskDescription: subtaskField.value,
       isDone: false,
     };
     editSubtasks.push(newSubtask);
+    subtaskField.value = "";
   }
 }
 
@@ -677,9 +690,9 @@ function editSubtaskHTML(subtaskField, index) {
       <div class="subtask-item" id="subtask-item${index}">
           <div class="subtask-info">
               <span>&#x2022</span>
-              <span id="subtask-input${index}">${subtaskField}</span>
+              <span class="subtask-input" id="subtask-input${index}">${subtaskField}</span>
           </div>
-          <div class="subtask-icon-container">
+          <div class="subtask-icon-container" id="subtask-icons${index}">
               <div onclick="editTextSubtask(${index})">
                   <svg class="subtask-edit-icon"><use href="assets/img/icons.svg#edit-icon"></use></svg>
               </div>
@@ -693,25 +706,28 @@ function editSubtaskHTML(subtaskField, index) {
 }
 
 function editTextSubtask(index) {
-  /* also change isture when edeting? */
+  /* also change isture when editing? */
   let subtaskSpan = document.getElementById(`subtask-input${index}`);
-  let inputElement = document.createElement("input");
 
-  if (document.getElementById(`subtask-text${index}`)) {
-    document.getElementById(`subtask-text${index}`).focus();
-  } else {
-    inputElement.value = subtaskSpan.innerText;
-    inputElement.name = "subtask";
-    inputElement.type = "text";
-    inputElement.className = "subtask-text";
-    inputElement.id = `subtask-text${index}`;
+  if (subtaskSpan.contentEditable !== "true") {
+    subtaskSpan.contentEditable = "true";
+    subtaskSpan.focus();
+    document.getElementById(`subtask-icons${index}`).innerHTML =
+      subtaskEditHTML(index);
 
-    inputElement.addEventListener("input", function () {
-      editSubtasks[index]["taskDescription"] = inputElement.value;
+    subtaskSpan.addEventListener("input", function () {
+      editSubtasks[index]["taskDescription"] = subtaskSpan.textContent; // Use textContent instead of value for contentEditable
     });
+  }
+}
 
-    subtaskSpan.parentNode.replaceChild(inputElement, subtaskSpan);
-    inputElement.focus();
+function stopEditingSubtask(index) {
+  const subtaskSpan = document.getElementById(`subtask-input${index}`);
+
+  if (subtaskSpan.isContentEditable) {
+    subtaskSpan.contentEditable = false;
+    document.getElementById(`subtask-icons${index}`).innerHTML =
+      subtaskEditDefaultHTML(index);
   }
 }
 
@@ -719,16 +735,144 @@ function editdeleteSubtask(index) {
   let subtaskItem = document.getElementById(`subtask-item${index}`);
   subtaskItem.remove();
   editSubtasks.splice(index, 1);
+  subtaskIndex--;
 }
 
-function addTaskOnBoard(status) {
+function addTaskOnBoard(statusTask) {
   let originalOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
+  editSubtasks = [];
+  subtaskIndex = 0;
   document.getElementById("boradContent").innerHTML += /*html*/ `
   <div id="addTaskOpenBg" onclick="closeAddTask()">
-      <div w3-include-html="./assets/templates/add_task.html" id="addTaskOpen" class="addTaskOpen" onclick="event.stopPropagation()"> 
+      <!-- <div w3-include-html="./assets/templates/add_task.html" id="addTaskOpen" class="addTaskOpen" onclick="event.stopPropagation()"> 
         
+      </div>  bug bei w3 include lädt nur bis due date-->
+      <div id="addTaskOpen" class="addTaskOpen" onclick="event.stopPropagation()"> 
+        <div class="addTaskOpenHead">
+        <h1 class="task-heading-h1">Add Task</h1>
+
+<div onclick="closeAddTask()">      
+          <img class="closeToDo" src="./img/closeToDo.svg" alt="">
       </div>
+        </div>
+    
+
+            <div class="task-form-container">
+                <form class="task-form" onsubmit="addTaskBoard('${statusTask}'); return false" autocomplete="off">
+                    <div class="task-form-subcontainer">
+                        <div class="task-input-container">
+                            <label class="task-form-label" for="title">
+                                Title<svg class="task-form-star" viewBox="0 0 16 16">
+                                    <use href="assets/img/icons.svg#star-icon"></use>
+                                </svg>
+                            </label>
+                            <input class="task-form-input" type="text" name="title" id="title"
+                                placeholder="Enter a title" required>
+                            <label class="task-form-label" for="description">Description</label>
+                            <div class="task-form-text-wrapper">
+                                <textarea class="task-form-text" name="text" id="description"
+                                    placeholder="Enter a Description"></textarea>
+                                <svg class="task-form-resize-icon">
+                                    <use href="assets/img/icons.svg#resize-icon"></use>
+                                </svg>
+                            </div>
+
+                            <label class="task-form-label" for="assign">Assigned to</label>
+                            <div class="task-dropdown-container">
+                                <span id="arrow-assign" class="task-arrow-dropdown" onclick="toggleAssignDropdown()">
+                                    <svg viewBox="0 0 8 5">
+                                        <use href="assets/img/icons.svg#arrow-icon"></use>
+                                    </svg>
+                                </span>
+                                <input class="task-assign" id="assign" type="text" name="assign"
+                                    value="Select contacts to assign" onclick="toggleAssignDropdown()">
+                                <div id="assign-content" class="assign-content d-none">
+                                    <div class="assign-overlay" id="assign-overlay" onclick="closeAssignDropdown()"></div>
+                                    <div class="assign-dropdown-menu" id="assign-dropdown-menu"></div>
+                                    <div class="assign-button-container" id="assign-button-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-input-container">
+                            <label class="task-form-label" for="date">
+                                Due date<svg class="task-form-star" viewBox="0 0 16 16">
+                                    <use href="assets/img/icons.svg#star-icon"></use>
+                                </svg>
+                            </label>
+                            <input class="task-form-date" type="date" name="date" id="date" max="2025-12-31" required>
+                            <div class="task-form-label">Prio</div>
+                            <div class="task-form-prio">
+                                <div class="task-form-btn" id="urgent-btn" onclick="selectPrioButton('urgent-btn'); setAddTaskPrio('Urgent')">
+                                    Urgent
+                                    <svg class="task-form-urgent-icon" viewBox="0 0 21 16">
+                                        <use href="assets/img/icons.svg#urgentprio-icon"></use>
+                                    </svg>
+                                </div>
+                                <div class="task-form-btn" id="medium-btn" onclick="selectPrioButton('medium-btn'); setAddTaskPrio('Medium')">
+                                    Medium
+                                    <svg class="task-form-medium-icon" viewBox="0 0 21 8">
+                                        <use href="assets/img/icons.svg#mediumprio-icon"></use>
+                                    </svg>
+                                </div>
+                                <div class="task-form-btn" id="low-btn" onclick="selectPrioButton('low-btn'); setAddTaskPrio('Low')">
+                                    Low
+                                    <svg class="task-form-low-icon" viewBox="0 0 21 16">
+                                        <use href="assets/img/icons.svg#lowprio-icon"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="task-form-label">
+                                Category<svg class="task-form-star" viewBox="0 0 16 16">
+                                    <use href="assets/img/icons.svg#star-icon"></use>
+                                </svg>
+                            </div>
+                            <div class="task-dropdown-container">
+                                <span id="arrow-category" class="task-arrow-dropdown"
+                                    onclick="toggleCategoryDropdown()">
+                                    <svg viewBox="0 0 8 5">
+                                        <use href="assets/img/icons.svg#arrow-icon"></use>
+                                    </svg>
+                                </span>
+                                <input class="task-category" id="category" placeholder="Select task category" type="text"
+                                    onkeydown="return false;" required onclick="toggleCategoryDropdown()">
+                                <div id="category-content"></div>
+                            </div>
+                            <label class="task-form-label" for="subtasks">Subtasks</label>
+                            <div class="task-form-subtasks">
+                                <input class="task-form-input m-b05" type="text" name="subtasks" id="subtasks"
+                                    placeholder="Add new subtask">
+                                <div onclick="addSubtaskEdit()">
+                                    <svg class="task-form-add-icon" id="task-add-icon" viewBox="0 0 15 14">
+                                        <use href="assets/img/icons.svg#add-icon"></use>
+                                    </svg>
+                                </div>
+                                <div id="subtasks-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-submit-container">
+                        <div class="task-required-text">
+                            <svg class="task-form-star" viewBox="0 0 16 16">
+                                <use href="assets/img/icons.svg#star-icon"></use>
+                            </svg>This field is required
+                        </div>
+                        <div class="task-submit-buttons">
+                            <button class="task-clear-button" type="reset" onclick="closeAddTask()">Cancel
+                                <svg class="task-clear-icon">
+                                    <use href="assets/img/icons.svg#x-icon"></use>
+                                </svg>
+                            </button>
+                            <button class="main-button" type="submit" id="create-task">Create Task
+                                <svg class="task-create-icon">
+                                    <use href="assets/img/icons.svg#check-icon"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 </div>`;
   setTimeout(() => {
     document.getElementById("addTaskOpen").classList.add("showToDoOpen");
@@ -749,4 +893,26 @@ function closeAddTask() {
     updateHTML();
     document.body.style.overflow = originalOverflow;
   }, 200);
+  updateHTML();
+}
+
+function addTaskBoard(statusTask) {
+  let newTask = {
+    id: originalTodos.length,
+    status: statusTask,
+    title: document.getElementById("title").value,
+    description: document.getElementById("description").value,
+    assigned: [],
+    dueDate: document.getElementById("date").value,
+    prio: addTaskPrio,
+    category: document.getElementById("category").value,
+    subtasks: editSubtasks,
+  };
+
+  originalTodos.push(newTask);
+  closeAddTask();
+}
+
+function setAddTaskPrio(prio) {
+  addTaskPrio = prio;
 }
