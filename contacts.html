@@ -10,11 +10,13 @@
     
     <link rel="stylesheet" href="./css/sidebar.css">
     <link rel="stylesheet" href="./css/contacts.css">
+    <link rel="stylesheet" href="./css/contacts-overlay.css">
     <link rel="stylesheet" href="./css/header.css">
 
     <script src="js/header.js"></script>
     <script src="js/script.js"></script>
-
+    <script src="js/contacts.js"></script>
+    <script src="js/contacts-templates.js"></script>
 <head>
 
 
@@ -38,17 +40,19 @@
             <img class="addContactImg" src="./img/new-contact.png">
         </div>
         
-    
+        <!--Add Contact-->
+     
+    </div>
+</div>
+</div>
+<!--- JS -->
+<div class="contact-book-main" id="contact-book"></div>
+<div class="contact-book-main-rs" id="contact-book-rs"></div>
 
-    <!--Add Contact-->
-    
-    
-      
+<div id="contactCard"></div>
 
-        <div class="contact-book-main" id="contact-book"></div>
-
-
-
+<div id="edit"></div>
+                       
 
         <script>
             includeHTML();

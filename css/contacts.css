@@ -27,12 +27,6 @@ body {
   font-size: 50px;
 }
 
-.headline {
-  font-weight: 700;
-  font-size: 50px;
-  padding-right:200px;
-}
-
 .borderStyle {
   height: 50px;
   border: 2px solid #29ABE2;
@@ -43,62 +37,6 @@ body {
   height: 32px;
   font-size: 22px;
   color: #2A3647;
-}
-
-.contact-book-main {
-  overflow-y: auto;
-  box-sizing: border-box;
-  background-color: #FFFFFF;
-  width: 400px;
-  height: calc(100% - 80px);
-  position: absolute;
-  top: 80px;
-  left: 231px;
-  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 40px;
-  z-index: -1;
-  display: flex;
-  flex-direction: column;
-}
-
-.contact-book-main-rs {
-  overflow-y: auto;
-  box-sizing: border-box;
-  background-color: #FFFFFF;
-  width: 400px;
-  height: calc(100% - 80px);
-  position: absolute;
-  top: 80px;
-  left: 231px;
-  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 40px;
-  z-index: -1;
-  display: none;
-  flex-direction: column;
-}
-
-.addContactBtn:hover {
-  cursor: pointer;
-  border: 1px solid #29ABE2;
-  background: #29ABE2;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.addContactBtn-text {
-  width: 130px;
-  height: 25px;
-  font-weight: 500;
-  font-size: 20px;
-  color: #FFFFFF;
-}
-
-.addContactImg {
-  width: 33px;
-  height: 29px;
 }
 
 .addContactBtn {
@@ -137,25 +75,20 @@ body {
   height: 29px;
 }
 
-.addContactBtn-rs {
+.contact-book-main {
+  overflow-y: auto;
   box-sizing: border-box;
-  display: none;
-  justify-content: center;
-  align-items: center;
+  background-color: #FFFFFF;
+  width: 400px;
+  height: calc(100% - 80px);
   position: absolute;
-  top: 90px;
-  right: 25px;
-  gap: 10px;
-  width: 193px;
-  height: 53px;
-  background: #2A3647;
-  border: 1px solid #2A3647;
-  border-radius: 10px;
-}
-
-.addContactBtn-rs:hover {
-  cursor: pointer;
-  border: 1px solid #29ABE2;
-  background: #29ABE2;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  top: 80px;
+  left: 231px;
+  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 40px;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
 }
