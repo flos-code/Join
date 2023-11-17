@@ -139,7 +139,7 @@ let todos = [
         isYou: false,
       },
     ],
-    dueDate: "2023-11-01",
+    dueDate: "2025-11-20",
     prio: "Urgent",
     category: "User Story",
     subtasks: [],
@@ -152,6 +152,34 @@ let todos = [
     assigned: [],
     dueDate: "2023-12-24",
     prio: "Medium",
+    category: "Technical Task",
+    subtasks: [
+      {
+        taskDescription: "Implement Recipe Recommendation",
+        isDone: true,
+      },
+      {
+        taskDescription: "Start Page Layout",
+        isDone: false,
+      },
+      {
+        taskDescription: "Start Page Layout",
+        isDone: true,
+      },
+      {
+        taskDescription: "Start Page Layout",
+        isDone: true,
+      },
+    ],
+  },
+  {
+    id: 4,
+    status: "toDoStatus",
+    title: "todo1 id3",
+    description: "Build start page with recipe recommendation.",
+    assigned: [],
+    dueDate: "2023-12-01",
+    prio: "Urgent",
     category: "Technical Task",
     subtasks: [
       {

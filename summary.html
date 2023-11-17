@@ -1,35 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Summary</title>
-    <link rel="shortcut icon" href="./img/favicon/join-favicon.png" type="image/x-icon">e>
+    <link
+      rel="shortcut icon"
+      href="./img/favicon/join-favicon.png"
+      type="image/x-icon"
+    />
 
-    <script src="js/header.js"></script>
-    <script src="js/script.js"></script>
-    
-    <link rel="stylesheet" href="./css/sidebar.css">
-    <link rel="stylesheet" href="./css/contacts.css">
-    <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/inter.css">
-</head>
+    <script src="js/summary.js" defer></script>
+    <script src="js/todosArray.js" defer></script>
+    <script src="js/header.js" defer></script>
+    <!-- <script src="js/script.js" defer></script> -->
 
-<body onload="Init(); includeHTML();">
+    <link rel="stylesheet" href="./css/sidebar.css" />
+    <link rel="stylesheet" href="./css/contacts.css" />
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/inter.css" />
 
-    <div w3-include-html="assets/templates/header.html"></div>
+    <link rel="stylesheet" href="./css/summary.css" />
+  </head>
 
-    <div w3-include-html="assets/templates/sidebar.html"></div>
+  <!-- <body onload="init(); includeHTML();"> wenn script.js fertig is kann init() rein -->
+  <body onload="includeHTML(); renderSummaryConten()">
+    <header w3-include-html="./assets/templates/test_header.html"></header>
+    <section
+      w3-include-html="./assets/templates/test_sidebar.html"
+      class="navMainContent"
+      id="navMainContent"
+    ></section>
 
-    <script>
-        includeHTML();
-    </script>
+    <section class="summaryContent">
+      <div class="summaryHead">
+        <h1>Join 360</h1>
+        <div class="sumHeadDevider"></div>
+        <span class="sumHeadSlogan">Key Metrics at a Glance</span>
+      </div>
+      <div class="summaryMainContent">
+        <div class="summaryBoxes">
+          <div class="summaryBoxesTop">
+            <div
+              class="summaryBox summaryBoxTop"
+              onclick="location.href ='board.html'"
+            >
+              <div class="summaryBoxTopIcon">
+                <img
+                  class="summaryBoxesTopIcons"
+                  src="./img/summaryTodoIcon.svg"
+                  alt=""
+                />
+              </div>
+              <div class="summaryCountContainer">
+                <div class="summaryCountNum" id="todoCount">1</div>
+                <div class="summaryCountText">To-do</div>
+              </div>
+            </div>
+            <div
+              class="summaryBox summaryBoxTop"
+              onclick="location.href ='board.html'"
+            >
+              <div class="summaryBoxTopIcon">
+                <img
+                  class="summaryBoxesTopIcons"
+                  src="./img/summaryDoneIcon.svg"
+                  alt=""
+                />
+              </div>
+              <div class="summaryCountContainer">
+                <div class="summaryCountNum" id="doneCount">1</div>
+                <div class="summaryCountText">Done</div>
+              </div>
+            </div>
+          </div>
 
-    
+          <div
+            class="summaryBox summaryBoxMid"
+            onclick="location.href ='board.html'"
+          >
+            <div class="urgentIconCount">
+              <div class="summaryBoxMidIcon">
+                <img src="./img/summaryUrgentIcon.svg" alt="" />
+              </div>
+              <div class="summaryCountContainer">
+                <div class="summaryCountNum" id="urgentCount">1</div>
+                <div class="summaryCountText">Urgent</div>
+              </div>
+            </div>
+            <div class="sumUrgentDevider"></div>
+            <div>
+              <div class="nextUrgentDate" id="nextUrgentDate">date</div>
+              <div class="nextUrgentDateText">Upcoming Deadline</div>
+            </div>
+          </div>
 
-        
-    
-  
-</body>
+          <div class="summaryBoxesBottom">
+            <div
+              class="summaryBox summaryBoxBottom"
+              onclick="location.href ='board.html'"
+            >
+              <div class="summaryCountContainer">
+                <div class="summaryCountNum" id="totalCount">1</div>
+                <div class="summaryCountText">
+                  Tasks in <br />
+                  Board
+                </div>
+              </div>
+            </div>
+            <div
+              class="summaryBox summaryBoxBottom"
+              onclick="location.href ='board.html'"
+            >
+              <div class="summaryCountContainer">
+                <div class="summaryCountNum" id="progressCount">1</div>
+                <div class="summaryCountText">
+                  Tasks in <br />
+                  Progress
+                </div>
+              </div>
+            </div>
+            <div
+              class="summaryBox summaryBoxBottom"
+              onclick="location.href ='board.html'"
+            >
+              <div class="summaryCountContainer">
+                <div class="summaryCountNum" id="feedbackCount">1</div>
+                <div class="summaryCountText">
+                  Awaiting <br />
+                  Feedback
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="userGreet">
+          <div id="timedGreeting">Good morning,</div>
+          <div class="logedinUser">Guest-js einbinden</div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>
