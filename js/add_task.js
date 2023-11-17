@@ -15,14 +15,14 @@ let users = [
         lastName: "Bauer",
         initials: 'MB',
         userColor: "#462F8A",
-        isYou: false,
+        isYou: false
     },
     {
         firstName: "Anton",
         lastName: "Mayer",
         initials: 'AM',
         userColor: "#0038FF",
-        isYou: false,
+        isYou: false
       },
     { 
         firstName: 'Anja',
@@ -55,7 +55,8 @@ let users = [
 ];
 
 
-function init() {
+async function init() {
+    await includeHTML();
     setMinDate();
 }
 
@@ -64,7 +65,7 @@ function addTask() {
     const title = document.getElementById('title');
     const description = document.getElementById('description');
     const date = document.getElementById('date');
-    const category = document.getElementById('title');
+    const category = document.getElementById('category');
     let task = {
         "title": title.value,
         "description": description.value,
@@ -73,7 +74,7 @@ function addTask() {
         "prio": getPrioButton(),
         "category": category.value,
         "subtasks": getSubtasks()
-    }
+    };
 
     allTasks.push(task);
     resetForm();
@@ -93,12 +94,16 @@ function resetForm() {
     resetPrioButton();
     category.value = '';
     resetSubtasks(); 
+    resetCategory();
 }
 
 
 function resetSelectedUsers() {
     selectedUsers = [];
-    const usersDiv = document.querySelectorAll('.assign-contact');
+    const usersDiv = document.querySelectorAll('.assign-contact')
+    assignDropdown = document.getElementById('assign-content');
+    assignInput = document.getElementById('assign');
+    closeAssignDropdown();
 
     for (const userDiv of usersDiv) {
         if (userDiv.classList.contains('assign-contact-selected'))
@@ -134,6 +139,13 @@ function resetSubtasks() {
 }
 
 
+function resetCategory() {
+    const categoryInputField = document.getElementById('category');
+    categoryInputField.value = 'Select task category';
+    closeCategoryDropdown();
+}
+
+
 function toggleAssignDropdown() {
     assignInput = document.getElementById('assign');
     assignDropdown = document.getElementById('assign-content');
@@ -145,7 +157,7 @@ function toggleAssignDropdown() {
     } else if (assignDropdown.classList.contains('d-none') && !assignContactItem) {
         openAssignDropdown();
     } else if (assignContactItem) {
-        assignInput.value = '';
+        assignInput.placeholder = '';
         rotateArrow(arrow);
         assignDropdown.classList.remove('d-none');
     }
@@ -156,26 +168,72 @@ function openAssignDropdown() {
     const assignDropdownMenu = document.getElementById('assign-dropdown-menu');
     const assignBtnContainer = document.getElementById('assign-button-container');
     const arrow = 'assign';
-    let container = '<div>';
+    let container = '<div id="assign-contacts">';
 
-    assignInput.value = '';
+    assignInput.placeholder = '';
     rotateArrow(arrow);
     assignDropdown.classList.remove('d-none');
-    for (let i = 0; i < users.length; i++) {
-        container += assignDropdownHTML(i);
+    if (!assignInput.value) {
+        for (let i = 0; i < users.length; i++) {
+            container += assignDropdownHTML(i);
+        }
+        container += '</div>';
+        assignDropdownMenu.innerHTML = container;
+        assignBtnContainer.innerHTML += assignDropdownBtnHTML();
     }
-    container += '</div>';
-    assignDropdownMenu.innerHTML = container;
-    assignBtnContainer.innerHTML += assignDropdownBtnHTML();
+    initSearchUser();
 }
 
 
 function closeAssignDropdown() {
     const arrow = 'assign';
+    assignInput.blur();
 
     assignDropdown.classList.add('d-none');
     defaultArrow(arrow);
     resetInputValue();
+}
+
+
+function resetInputValue() {
+    assignInput.placeholder = 'Select contacts to assign';
+}
+
+
+function initSearchUser() {
+    assignInput.addEventListener('input', searchUser);
+}
+
+
+function searchUser() {
+    const inputValue = assignInput.value.toLowerCase();
+    const assignContacts = document.getElementById('assign-contacts');
+    assignContacts.innerHTML = '';
+    
+    if (assignContacts.childElementCount === 0) {
+        for (let i = 0; i < users.length; i++) {
+            const user = users[i];
+            const userName = user['firstName'].toLowerCase() + ' ' + user['lastName'].toLowerCase();
+            if (userName.includes(inputValue.trim())) {
+                assignContacts.innerHTML += assignDropdownHTML(i);
+                handleSelectedUsers(i);
+            }
+        }
+    }
+}
+
+
+function handleSelectedUsers(i) {
+    const userNameRendered = document.querySelector(`.assign-contact-name${i}`);
+    const iconContainer = document.getElementById(`assign-icon-container${i}`);
+    const userContainer = document.getElementById(`assign-contact${i}`);
+
+    if (selectedUsers.includes(userNameRendered.innerText)) {
+        userContainer.classList.add('assign-contact-selected');
+        iconContainer.innerHTML = `
+            <svg class="assign-checked-icon"><use href="assets/img/icons.svg#checked-icon"></use></svg>
+        `;
+    }
 }
 
 
@@ -200,11 +258,6 @@ function defaultArrow(arrow) {
     } else if (arrow === 'category') {
         arrowCategory.style.transform = 'rotate(0)';
     }
-}
-
-
-function resetInputValue() {
-    assignInput.value = 'Select contacts to assign';
 }
 
 
@@ -259,9 +312,11 @@ function toggleCategoryDropdown() {
 
 
 function closeCategoryDropdown() {
+    const categoryInputField = document.getElementById('category');
     const categoryContainer = document.getElementById('category-content');
     const arrow = 'category';
     categoryContainer.innerHTML = '';
+    categoryInputField.blur();
     defaultArrow(arrow);
 }
 

@@ -9,14 +9,16 @@
     <link rel="shortcut icon" href="./img/favicon/join-favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/inter.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/task.css">
 </head>
 
-<body onload="init(),addActiveClass2()">
-    <header class="header"></header>
-    <div class="task-container">
-        <section class="sidebar"></section>
-        <section class="main">
+<body onload="init(), addActiveClass2()">
+    <header w3-include-html="assets/templates/header.html"></header>
+    <section w3-include-html="assets/templates/sidebar.html"></section>
+    <section class="main">
+        <div class="main-container">
             <h1 class="task-heading-h1">Add Task</h1>
             <div class="task-form-container">
                 <form class="task-form" onsubmit="addTask(); return false" autocomplete="off">
@@ -46,7 +48,7 @@
                                     </svg>
                                 </span>
                                 <input class="task-assign" id="assign" type="text" name="assign"
-                                    value="Select contacts to assign" onclick="toggleAssignDropdown()">
+                                    placeholder="Select contacts to assign" onclick="toggleAssignDropdown()">
                                 <div id="assign-content" class="assign-content d-none">
                                     <div class="assign-overlay" id="assign-overlay" onclick="closeAssignDropdown()"></div>
                                     <div class="assign-dropdown-menu" id="assign-dropdown-menu"></div>
@@ -94,8 +96,8 @@
                                         <use href="assets/img/icons.svg#arrow-icon"></use>
                                     </svg>
                                 </span>
-                                <input class="task-category" id="category" placeholder="Select task category" type="text"
-                                    onkeydown="return false;" required onclick="toggleCategoryDropdown()">
+                                <input class="task-category" id="category" placeholder="Select task category"
+                                    type="text" onkeydown="return false;" required onclick="toggleCategoryDropdown()">
                                 <div id="category-content"></div>
                             </div>
                             <label class="task-form-label" for="subtasks">Subtasks</label>
@@ -132,9 +134,10 @@
                     </div>
                 </form>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
+    <script src="js/script.js"></script>
     <script src="js/add_task.js"></script>
     <script src="js/storage.js"></script>
 </body>
