@@ -95,6 +95,7 @@ function resetForm() {
     category.value = '';
     resetSubtasks(); 
     resetCategory();
+    removeInitials();
 }
 
 
@@ -160,6 +161,7 @@ function toggleAssignDropdown() {
         assignInput.placeholder = '';
         rotateArrow(arrow);
         assignDropdown.classList.remove('d-none');
+        removeInitials();
     }
 }
 
@@ -182,6 +184,7 @@ function openAssignDropdown() {
         assignBtnContainer.innerHTML += assignDropdownBtnHTML();
     }
     initSearchUser();
+    removeInitials();
 }
 
 
@@ -192,11 +195,46 @@ function closeAssignDropdown() {
     assignDropdown.classList.add('d-none');
     defaultArrow(arrow);
     resetInputValue();
+    renderInitials();
 }
 
 
 function resetInputValue() {
     assignInput.placeholder = 'Select contacts to assign';
+}
+
+
+function renderInitials() {
+    let initialsContent = document.getElementById('initials-content');
+    let initialsContainer = '<div class="initials-container">';
+    if (selectedUsers.length > 0) {
+        for (let i = 0; i < selectedUsers.length; i++) {
+            const selectedUser = selectedUsers[i];
+            initialsContainer += renderInitialsHTML(selectedUser);
+        }
+        initialsContainer += '</div>';
+        initialsContent.innerHTML += initialsContainer;
+    } 
+}
+
+
+function renderInitialsHTML(selectedUser) {
+    const selectedUserArrName = selectedUser.split(' ');
+    for (const user of users) {
+        if (user.firstName === selectedUserArrName[0]) {
+            return `
+                <span class="selected-initials" style="background: ${user.userColor}">${selectedUserArrName[0].charAt(0)}${selectedUserArrName[1].charAt(0)}</span>
+            `;
+        }
+    }
+}
+
+
+function removeInitials() {
+    const initialsContainer = document.querySelector('.initials-container');
+    if (initialsContainer) {
+        initialsContainer.remove();
+    }
 }
 
 
