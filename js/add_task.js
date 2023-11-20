@@ -1,82 +1,41 @@
-let allTasks = [];
+let tasks = [];
 let subtaskIndex = 0;
 let selectedUsers = []; 
 let assignInput, assignDropdown;
-let users = [
-    { 
-        firstName: 'Sofia',
-        lastName: 'Müller',
-        initials: 'SM',
-        userColor: '#1FD7C1',
-        isYou: true
-    },
-    {
-        firstName: "Marcel",
-        lastName: "Bauer",
-        initials: 'MB',
-        userColor: "#462F8A",
-        isYou: false
-    },
-    {
-        firstName: "Anton",
-        lastName: "Mayer",
-        initials: 'AM',
-        userColor: "#0038FF",
-        isYou: false
-      },
-    { 
-        firstName: 'Anja',
-        lastName: 'Schulz',
-        initials: 'AS',
-        userColor: '#ffa500',
-        isYou: false
-    },
-    { 
-        firstName: 'Benedikt',
-        lastName: 'Ziegler',
-        initials: 'BZ',
-        userColor: '#ee82ee',
-        isYou: false
-    },
-    { 
-        firstName: 'David',
-        lastName: 'Eisenberg',
-        initials: 'DE',
-        userColor: '#ffa07a',
-        isYou: false
-    },
-    { 
-        firstName: 'Eva',
-        lastName: 'Fischer',
-        initials: 'EF',
-        userColor: '#c16dee',
-        isYou: false
-    }
-];
 
 
 async function init() {
     await includeHTML();
+    await loadTasks();
     setMinDate();
 }
 
 
-function addTask() {
+async function loadTasks() {
+    try {
+        tasks = JSON.parse(await getItem('tasksss'));
+    } catch(e) {
+        console.error('Loading error:', e);
+    }
+}
+
+
+async function addTask() {
     const title = document.getElementById('title');
     const description = document.getElementById('description');
     const date = document.getElementById('date');
     const category = document.getElementById('category');
-    let task = {
-        "title": title.value,
-        "description": description.value,
-        "assignedTo": getSelectedUsers(),
-        "date": date.value,
-        "prio": getPrioButton(),
-        "category": category.value,
-        "subtasks": getSubtasks()
-    };
+    tasks.push({
+        title: title.value,
+        description: description.value,
+        assignedTo: getSelectedUsers(),
+        date: date.value,
+        prio: getPrioButton(),
+        category: category.value,
+        subtasks: getSubtasks()
+    });
 
-    allTasks.push(task);
+    await setItem('tasks', JSON.stringify(tasks));
     resetForm();
 }
 
