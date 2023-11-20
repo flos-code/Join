@@ -1,0 +1,42 @@
+.content {
+  margin-left: 326px;
+  margin-top: 128px;
+  width: calc(100% - 422px);
+}
+
+.content h1 {
+  font-size: 61px;
+  font-weight: 700;
+  margin-block: unset;
+  margin-bottom: 28px;
+}
+
+.content h2 {
+  font-size: 27px;
+  font-weight: 700;
+  margin-block: unset;
+}
+
+.content h3 {
+  margin-block: unset;
+  margin-top: 8px;
+}
+
+.content a {
+  text-decoration: none;
+  color: #29abe2;
+}
+
+.content a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.content p {
+  margin-block: unset;
+  margin-bottom: 24px;
+}
+
+.blue {
+  color: #29abe2;
+}

@@ -16,6 +16,7 @@
     <script src="js/header.js" defer></script>
     <!-- <script src="js/script.js" defer></script> -->
 
+    <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/sidebar.css" />
     <link rel="stylesheet" href="./css/contacts.css" />
     <link rel="stylesheet" href="./css/header.css" />
@@ -26,12 +27,8 @@
 
   <!-- <body onload="init(); includeHTML();"> wenn script.js fertig is kann init() rein -->
   <body onload="includeHTML(); renderSummaryConten()">
-    <header w3-include-html="./assets/templates/test_header.html"></header>
-    <section
-      w3-include-html="./assets/templates/test_sidebar.html"
-      class="navMainContent"
-      id="navMainContent"
-    ></section>
+    <header w3-include-html="./assets/templates/header.html"></header>
+    <section w3-include-html="./assets/templates/sidebar.html"></section>
 
     <section class="summaryContent">
       <div class="summaryHead">

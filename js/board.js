@@ -640,6 +640,7 @@ function showEdit(id) {
                 <div class="toDoOpenAssignedContainer">
             <div class="toDoOpenSection">Assigned To:</div>
             <div class="toDoOpenAssigned" id="toDoOpenAssigned${id}"></div>
+       
             </div>
              
        
@@ -786,13 +787,15 @@ function addTaskOnBoard(statusTask) {
                                     </svg>
                                 </span>
                                 <input class="task-assign" id="assign" type="text" name="assign"
-                                    value="Select contacts to assign" onclick="toggleAssignDropdown()">
+                                    placeholder="Select contacts to assign" onclick="toggleAssignDropdown()">
                                 <div id="assign-content" class="assign-content d-none">
                                     <div class="assign-overlay" id="assign-overlay" onclick="closeAssignDropdown()"></div>
                                     <div class="assign-dropdown-menu" id="assign-dropdown-menu"></div>
                                     <div class="assign-button-container" id="assign-button-container"></div>
                                 </div>
+                                <div id="initials-content"></div>
                             </div>
+
                         </div>
                         <div class="task-input-container">
                             <label class="task-form-label" for="date">
