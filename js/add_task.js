@@ -1,4 +1,5 @@
 let tasks = [];
+let users = [];
 let subtaskIndex = 0;
 let selectedUsers = []; 
 let assignInput, assignDropdown;
@@ -7,15 +8,25 @@ let assignInput, assignDropdown;
 async function init() {
     await includeHTML();
     await loadTasks();
+    await loadUsers();
     setMinDate();
 }
 
 
 async function loadTasks() {
     try {
-        tasks = JSON.parse(await getItem('tasksss'));
+        tasks = JSON.parse(await getItem('tasks'));
     } catch(e) {
-        console.error('Loading error:', e);
+        console.error('Loading Tasks error:', e);
+    }
+}
+
+
+async function loadUsers() {
+    try {
+        users = JSON.parse(await getItem('users'));
+    } catch(e) {
+        console.error('Loading Users error: ', e);
     }
 }
 
