@@ -2,6 +2,7 @@ let tasks = [];
 let users = [];
 let subtaskIndex = 0;
 let selectedUsers = []; 
+let assignedUsers = [];
 let assignInput, assignDropdown;
 
 
@@ -9,6 +10,7 @@ async function init() {
     await includeHTML();
     await loadTasks();
     await loadUsers();
+    initAssignOnclick();
     setMinDate();
 }
 
@@ -25,7 +27,7 @@ async function loadTasks() {
 async function loadUsers() {
     try {
         users = JSON.parse(await getItem('users'));
-    } catch(e) {
+    } catch(e) {
         console.error('Loading Users error: ', e);
     }
 }
@@ -117,9 +119,17 @@ function resetCategory() {
 }
 
 
-function toggleAssignDropdown() {
+function initAssignOnclick() {
     assignInput = document.getElementById('assign');
     assignDropdown = document.getElementById('assign-content');
+    const assignArrow = document.getElementById('arrow-assign');
+
+    assignInput.addEventListener('click', toggleAssignDropdown);
+    assignArrow.addEventListener('click', toggleAssignDropdown);
+}
+
+
+function toggleAssignDropdown() {
     const assignContactItem = document.querySelector('.assign-contact');
     const arrow = 'assign';
 
@@ -291,17 +301,26 @@ function selectContact(i) {
 
 function pushUser(i) {
     const userName = document.querySelector(`.assign-contact-name${i}`).innerText;
+    const userObj = users[i];
     if (!selectedUsers.includes(userName)) {
         selectedUsers.push(userName);
+    }
+    if (!assignedUsers.includes(userObj)) {
+        assignedUsers.push(userObj);
     }
 }
 
 
 function removeUser(i) {
     const userName = document.querySelector(`.assign-contact-name${i}`).innerText;
-    const indexOfUser = selectedUsers.indexOf(userName);
+    const indexOfUserName = selectedUsers.indexOf(userName);
+    const userObj = users[i];
+    const indexOfUserObj = assignedUsers.indexOf(userObj);
     if (selectedUsers.includes(userName)) {
-        selectedUsers.splice(indexOfUser, 1);
+        selectedUsers.splice(indexOfUserName, 1);
+    }
+    if (assignedUsers.includes(userObj)) {
+        assignedUsers.splice(indexOfUserObj, 1);
     }
 }
 
@@ -423,9 +442,9 @@ function getPrioButton() {
 
 
 function getSelectedUsers() {
-    if (selectedUsers.length) {
-        return selectedUsers;
-    } else if (!selectedUsers.length) {
+    if (assignedUsers.length) {
+        return assignedUsers;
+    } else if (!assignedUsers.length) {
         return null;
     }
 }
