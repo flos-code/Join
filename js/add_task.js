@@ -10,6 +10,7 @@ async function init() {
     await includeHTML();
     await loadTasks();
     await loadUsers();
+    initAssignOnclick();
     setMinDate();
 }
 
@@ -118,9 +119,17 @@ function resetCategory() {
 }
 
 
-function toggleAssignDropdown() {
+function initAssignOnclick() {
     assignInput = document.getElementById('assign');
     assignDropdown = document.getElementById('assign-content');
+    const assignArrow = document.getElementById('arrow-assign');
+
+    assignInput.addEventListener('click', toggleAssignDropdown);
+    assignArrow.addEventListener('click', toggleAssignDropdown);
+}
+
+
+function toggleAssignDropdown() {
     const assignContactItem = document.querySelector('.assign-contact');
     const arrow = 'assign';
 
