@@ -17,8 +17,10 @@
     <script src="js/todosArray.js" defer></script>
     <script src="js/contactArray.js" defer></script>
     <script src="js/board.js" defer></script>
+
+    <script src="js/script.js" defer></script>
     <script src="js/add_task.js" defer></script>
-    <!-- <script src="js/script.js" defer></script> -->
+    <script src="js/storage.js" defer></script>
 
     <title>Board</title>
     <link
@@ -27,7 +29,7 @@
       type="image/x-icon"
     />
   </head>
-  <body onload="updateHTML(), includeHTML()">
+  <body onload="init(), updateHTML()">
     <header w3-include-html="./assets/templates/header.html"></header>
     <section w3-include-html="./assets/templates/sidebar.html"></section>
 
