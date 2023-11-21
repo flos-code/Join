@@ -83,6 +83,14 @@ function countTodos(todos) {
     ) {
       todoCounts.closestDueDateForUrgent = formatDate(todo.dueDate);
     }
+
+    if (todoCounts.urgentPriority > 0) {
+      document.getElementById("nextUrgentDateText").innerHTML =
+        "Upcoming Deadline";
+    } else {
+      document.getElementById("nextUrgentDateText").innerHTML =
+        "No Upcoming Deadline";
+    }
   });
 }
 

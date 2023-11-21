@@ -153,7 +153,7 @@ let todos = [
       },
     ],
     dueDate: "2025-11-20",
-    prio: "Urgent",
+    prio: "Low",
     category: "User Story",
     subtasks: [],
   },
