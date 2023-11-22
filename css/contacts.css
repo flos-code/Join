@@ -2,11 +2,12 @@ body {
   margin: 0;
   background: #F5F5F5;
   font-family: 'Inter', sans-serif;
-}
+} 
 
 .kanban-title {
   margin-top: 30px;
 }
+
 
 .contactHeadlineContent {
   box-sizing: border-box;
@@ -347,3 +348,4 @@ body {
 .backContactsButton:hover {
   background-color: #0D99FF;
 }
+
