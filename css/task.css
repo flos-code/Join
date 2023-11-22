@@ -395,7 +395,9 @@
     border-radius: 0.5rem;
     padding: 0.75rem 1.25rem;
     font-size: 1.25rem;
+    font-weight: 700;
     cursor: pointer;
+    transition: all .075s ease-in-out;
 }
 
 .main-button:hover {
