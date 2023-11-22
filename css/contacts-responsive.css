@@ -1,0 +1,177 @@
+@media(max-width: 1210px) {
+    .contact-book-main {
+        width: 280px;
+        word-wrap: break-word;
+    }
+
+    .contact-book-container {
+        padding-left: 0;
+        gap: 15px;
+    }
+
+    .contactHeadlineContent {
+        width: 378px;
+        gap: 10px;
+        left: 460px;
+    }
+
+    .headlineContacts {
+        height: auto;
+        font-size: 30px;
+    }
+
+    .borderStyle {
+        height: 40px;
+    }
+
+    .textBetter {
+        height: auto;
+        font-size: 18px;
+    }
+
+    .contactCard-main {
+        left: 530px;
+    }
+
+    .contactCard-header {
+        gap: 15px;
+        width: 480px;
+    }
+
+    .contactCard-initials {
+        width: 70px;
+        height: 70px;
+        font-size: 23px;
+    }
+
+    .contactCard-name {
+        font-size: 30px;
+        width: 225px;
+    }
+   
+}
+
+
+@media(max-width: 1030px) {
+    .contactCard-header {
+        width: 300px;
+    }
+
+    .contactCard-initials {
+        width: 55px;
+        height: 55px;
+        font-size: 20px;
+    }
+
+    
+}
+
+
+@media(max-width: 850px) {
+    .kanban-title {
+        display: block;
+        padding-left: 20px;
+    }
+
+    .save-contact-form {
+        display: none;
+    }
+
+    .edit-responsive-form {
+        display: block;
+    }
+
+    .contactCard-main {
+        left: 20px;
+        margin-top: -35px;
+        word-wrap: break-word;
+        display: none;
+    }
+
+    .contactCard-header {
+        width: auto;
+    }
+
+    .contactCard-edit-frame {
+        display: none;
+    }
+
+    .contactCard-phone-frame {
+        margin-top: 15px;
+    }
+
+    .contactCard-email-frame {
+        margin-top: 15px;
+    }
+
+    .contactHeadlineContent {
+        width: auto;
+        left: 20px;
+        top: 145px;
+        display: none;
+    }
+
+    .contact-book-main {
+        display: none;
+    }
+
+    .contact-book-main-rs {
+        width: 100%;
+        left: 0;
+        padding-top: 55px;
+        display: flex;
+        word-wrap: break-word;
+        min-height: initial;
+        height: calc(100% - 160px);
+    }
+
+    .contact-book-container {
+        justify-content: flex-start;
+    }
+
+    .contact-circle {
+        height: 45px;
+        width: 45px;
+    }
+
+    .addContactBtn {
+        display: none;
+    }
+
+    .addContactBtn-rs {
+        display: flex;
+    }
+
+    .edit-responsive {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .delete-contact {
+        margin-top: 0;
+    }
+
+    .moveBackBtn {
+        opacity: 1;
+    }
+}
+
+
+@media(max-width: 350px) {
+    .headlineContacts {
+        font-size: 20px;
+    }
+
+    .textBetter {
+        font-size: 14px;
+    }
+
+    .kanban-title {
+        font-size: 14px;
+    }
+
+    .contactCard-name {
+        width: 160px;
+    }
+}

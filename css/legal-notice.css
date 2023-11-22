@@ -40,3 +40,41 @@
 .blue {
   color: #29abe2;
 }
+
+.steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  display: flex;
+  align-items: start;
+}
+
+.mb24 {
+  margin-bottom: 24px !important;
+}
+
+.mt0 {
+  margin-top: 0 !important;
+}
+
+.mr35 {
+  margin-right: 35px;
+}
+
+.backArrow {
+  width: 37px;
+  height: 37px;
+  position: fixed;
+  left: 90vw;
+  top: 20vh;
+  border-radius: 50%;
+  transition: all 150;
+}
+
+.backArrow:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+  transform: scale(1.1);
+}

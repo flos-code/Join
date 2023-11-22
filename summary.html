@@ -27,8 +27,13 @@
 
   <!-- <body onload="init(); includeHTML();"> wenn script.js fertig is kann init() rein -->
   <body onload="includeHTML(); renderSummaryConten()">
+    <!----Mona 
     <header w3-include-html="./assets/templates/header.html"></header>
-    <section w3-include-html="./assets/templates/sidebar.html"></section>
+    <section w3-include-html="./assets/templates/sidebar.html"></section> -->
+    
+    <div w3-include-html="assets/templates/header.html"></div>
+
+    <div w3-include-html="assets/templates/sidebar.html"></div>
 
     <section class="summaryContent">
       <div class="summaryHead">
@@ -141,5 +146,7 @@
         </div>
       </div>
     </section>
+    <div w3-include-html="assets/templates/mobile.html"></div>
+
   </body>
 </html>

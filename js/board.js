@@ -345,6 +345,8 @@ function openToDo(id) {
 }
 
 function closeToDo() {
+  assignedUsers = [];
+  selectedUsers = [];
   let originalOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
 
@@ -530,13 +532,19 @@ function editToDo(id) {
                             
                             <label class="task-form-label" for="assign">Assigned to</label>
                             <div class="task-dropdown-container">
-                                <span id="arrow-assign" class="task-arrow-dropdown" onclick="toggleAssignDropdown()">
+                                <span id="arrow-assign" class="task-arrow-dropdown">
                                     <svg viewBox="0 0 8 5">
                                         <use href="assets/img/icons.svg#arrow-icon"></use>
                                     </svg>
                                 </span>
-                                <input class="task-assign" id="assign" type="text"  name="assign" value="Select contacts to assign" onclick="toggleAssignDropdown()">
-                                <div id="assign-content"></div>
+                                <input class="task-assign" id="assign" type="text" name="assign"
+                                    placeholder="Select contacts to assign">
+                                <div id="assign-content" class="assign-content d-none">
+                                    <div class="assign-overlay" id="assign-overlay" onclick="closeAssignDropdown()"></div>
+                                    <div class="assign-dropdown-menu" id="assign-dropdown-menu"></div>
+                                    <div class="assign-button-container" id="assign-button-container"></div>
+                                </div>
+                                <div id="initials-content"></div>
                             </div>
                       
                             <div class="task-form-label">Prio</div>
@@ -580,8 +588,19 @@ Ok
 
 
   `;
-
+  initAssignOnclick();
   loadeInputFromTask(id);
+
+  assignedUsers = originalTodos[id]["assigned"];
+  for (let index = 0; index < originalTodos[id]["assigned"].length; index++) {
+    user = originalTodos[id]["assigned"][index];
+    let name = user["firstName"] + " " + user["lastName"];
+    selectedUsers.push(name);
+  }
+
+  if (selectedUsers.length > 0) {
+    renderInitials();
+  }
 
   if (originalTodos[id]["prio"] === "Urgent") {
     selectPrioButton("urgent-btn");
@@ -613,9 +632,12 @@ function saveEdit(id) {
   todo["title"] = document.getElementById("title").value;
   todo["description"] = document.getElementById("description").value;
   todo["dueDate"] = document.getElementById("date").value;
+  todo["assigned"] = assignedUsers;
   todo["prio"] = editPrio;
   todo["subtasks"] = editSubtasks;
 
+  assignedUsers = [];
+  selectedUsers = [];
   showEdit(id);
 }
 
@@ -742,6 +764,8 @@ function editdeleteSubtask(index) {
 function addTaskOnBoard(statusTask) {
   let originalOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
+  assignedUsers = [];
+  selectedUsers = [];
   editSubtasks = [];
   subtaskIndex = 0;
   document.getElementById("boradContent").innerHTML += /*html*/ `
@@ -781,13 +805,13 @@ function addTaskOnBoard(statusTask) {
 
                             <label class="task-form-label" for="assign">Assigned to</label>
                             <div class="task-dropdown-container">
-                                <span id="arrow-assign" class="task-arrow-dropdown" onclick="toggleAssignDropdown()">
+                                <span id="arrow-assign" class="task-arrow-dropdown">
                                     <svg viewBox="0 0 8 5">
                                         <use href="assets/img/icons.svg#arrow-icon"></use>
                                     </svg>
                                 </span>
                                 <input class="task-assign" id="assign" type="text" name="assign"
-                                    placeholder="Select contacts to assign" onclick="toggleAssignDropdown()">
+                                    placeholder="Select contacts to assign">
                                 <div id="assign-content" class="assign-content d-none">
                                     <div class="assign-overlay" id="assign-overlay" onclick="closeAssignDropdown()"></div>
                                     <div class="assign-dropdown-menu" id="assign-dropdown-menu"></div>
@@ -877,6 +901,7 @@ function addTaskOnBoard(statusTask) {
             </div>
         </div>
 </div>`;
+  initAssignOnclick();
   setTimeout(() => {
     document.getElementById("addTaskOpen").classList.add("showToDoOpen");
   }, 0);
@@ -905,7 +930,7 @@ function addTaskBoard(statusTask) {
     status: statusTask,
     title: document.getElementById("title").value,
     description: document.getElementById("description").value,
-    assigned: [],
+    assigned: assignedUsers,
     dueDate: document.getElementById("date").value,
     prio: addTaskPrio,
     category: document.getElementById("category").value,

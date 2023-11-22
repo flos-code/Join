@@ -15,8 +15,14 @@
 </head>
 
 <body onload="init(), addActiveClass2()">
-    <header w3-include-html="assets/templates/header.html"></header>
-    <section w3-include-html="assets/templates/sidebar.html"></section>
+    <!----Mona 
+    <header w3-include-html="./assets/templates/header.html"></header>
+    <section w3-include-html="./assets/templates/sidebar.html"></section> -->
+    
+    <div w3-include-html="assets/templates/header.html"></div>
+
+    <div w3-include-html="assets/templates/sidebar.html"></div>
+
     <section class="main">
         <div class="main-container">
             <h1 class="task-heading-h1">Add Task</h1>
@@ -137,6 +143,8 @@
             </div>
         </div>
     </section>
+    <div w3-include-html="assets/templates/mobile.html"></div>
+
 
     <script src="js/script.js"></script>
     <script src="js/add_task.js"></script>
