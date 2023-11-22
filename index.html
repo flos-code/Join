@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+  <link rel="shortcut icon" href="./img/favicon/join-favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/inter.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/login.css">
+
+</head>
+
+<body>
+  <div class="login-logo-container">
+    <img class="login-logo" src="img/login/join-logo-signup.svg" alt="Join Logo">
+  </div>
+  <div class="login-signup" id="login-signup">
+    <span class="login-signup-text">Not a Join user?</span>
+    <button class="main-button main-button-signup" onclick="renderRegister()">Sign up</button>
+  </div>
+  <div class="container" id="container">
+    <div class="login-card">
+      <h1 class="login-heading">Log in</h1>
+      <form class="login-form" onsubmit="login(); return false">
+        <div class="login-input-container">
+          <div class="login-input-wrapper">
+            <input class="login-email-input" type="email" name="email-login" id="email-login" placeholder="Email" required
+              autocomplete="on">
+            <img class="email-icon" src="img/login/mail.svg" alt="Email Icon">
+          </div>
+        </div>
+        <div class="login-input-container">
+          <div class="login-input-wrapper" id="pw-wrapper">
+            <input class="login-pw-input" type="password" name="password-login" id="password-login" placeholder="Password"
+              required autocomplete="current-password" onclick="replaceLockIcon('login')">
+            <img class="lock-icon" id="lock-icon-login" src="img/login/lock.svg" alt="Password Icon">
+          </div>
+        </div>
+        <div class="login-remember">
+          <img class="unchecked-icon" src="img/login/unchecked.svg" alt="Unchecked Box" id="unchecked" onclick="toggleCheckIcon()">
+          <span class="login-remember-text">Remember Me</span>
+        </div>
+        <div class="login-button-container">
+          <button type="submit" class="main-button">Log in</button>
+          <button type="button" class="main-button main-button-white">Guest Log in</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-container">
+      <a class="footer-link" href="privacy_policy.html">Privacy Policy</a>
+      <a class="footer-link" href="legal_notice.html">Legal Notice</a>
+    </div>
+  </footer>
+
+  <script src="js/login.js"></script>
+</body>
+
+</html>
