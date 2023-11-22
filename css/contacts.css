@@ -75,24 +75,6 @@ body {
   height: 29px;
 }
 
-.contact-book-main {
-  overflow-y: auto;
-  box-sizing: border-box;
-  background-color: #FFFFFF;
-  width: 400px;
-  height: calc(100% - 80px);
-  position: absolute;
-  top: 80px;
-  left: 231px;
-  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 40px;
-  z-index: -1;
-  display: flex;
-  flex-direction: column;
-}
-
 .addContactBtn-rs {
   box-sizing: border-box;
   display: none;

@@ -73,7 +73,7 @@ function generateBusinessCard(i) {
             <div class="contactCard-initials">${contacts[i]['initials']}</div>
             <div>
                 <div class="contactCard-name">${contacts[i]['name']}</div>
-                <a href="addTask.html" class="contactCard-task">+ Add Task</a>
+                <a href="task.html" class="contactCard-task">+ Add Task</a>  
             </div>
         </div>
         <div class="contactCard-text">
@@ -91,7 +91,7 @@ function generateBusinessCard(i) {
             <div class="contactCard-phone-headline">Phone</div>
             <div class="contactCard-phone-number">${contacts[i]['phone']}</div>
         </div>
-        <div class="edit-responsive"><img src="assets/img/contacts/edit-responsive.svg" onclick="editContactResponsive(${i})"></div>
+        <div class="edit-responsive"><img src="./img/edit-responsive.svg" onclick="editContactResponsive(${i})"></div>
         <div class="delete-contact" onclick="deleteContact(${i})">Delete Contact!</div>
     </div>
     `;

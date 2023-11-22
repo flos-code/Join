@@ -3,7 +3,8 @@ let contactInitials;
 let newEmail = 0;
 
 
-let contacts = [
+let contacts = [ 
+    /*
     {
         name: "Anton Meyer",
         email: "anton.mayer@mail.de",
@@ -11,19 +12,22 @@ let contacts = [
         initials: "AM",
       },
       {
-        name: "Hans Lager",
-        email: "lagerhans@mail.de",
+        name: "Anton Meyer",
+        email: "anton.mayer@mail.de",
         phone: "+49 01233542",
-        initials: "HL",
+        initials: "AM",
       },
       {
-        name: "Lisa Gans",
-        email: "lisig@mail.de",
+        name: "Anton Meyer",
+        email: "anton.mayer@mail.de",
         phone: "+49 01233542",
-        initials: "LG",
-      },
+        initials: "AM",
+      }, */
 ];
 
+/*
+load();
+*/
 async function InitContacts() {
     await init();
     await initStart();
@@ -32,6 +36,51 @@ async function InitContacts() {
     if (contacts > [])
         openBusinessCard(0);
 }
+/*
+function render() {
+    let contactbook = document.getElementById('contactbook');
+    contactbook.innerHTML = '';
+
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+        contactbook.innerHTML += `
+        <div class="card"> 
+          <div class="initialen">
+           <img class="design-prof" src="${contact['name']}" > 
+             <h2 class="author">${contact['email']}</h2>
+         </div>
+              <img class="imgDesign" src="${contact['phone']}"><br>
+              <img class="imgDesign" src="${contact['initials']}"><br>
+        
+              </div>
+
+           
+            `
+            ;
+
+
+       
+        }
+
+
+    }
+
+
+function save() {
+    let contactsASText = JSON.stringify(contacts);
+
+    localStorage.setItem('contactsASText', contactsASText);
+}
+
+function load() {
+    let contactsASText = localStorage.getItem('contactsASText');
+
+    if (contactsASText) {
+        contacts = JSON.parse(contactsASText);
+
+    }
+}
+*/
 
 
 /**
@@ -50,6 +99,7 @@ function closeOverlay() {
     hideEmailMessage();
     clearInputAtOverlay();
 }
+
 
 
 /**
@@ -341,7 +391,7 @@ async function saveContactResponsive(i) {
     closeEditOverlay();
     renderContactBookResponsive();
     openBusinessCardResponsive(i);
-    //document.getElementById('moveBackBtn').classList.remove('d-none');//
+   // document.getElementById('moveBackBtn').classList.remove('d-none');//
 }
 
 

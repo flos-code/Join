@@ -128,3 +128,48 @@ a.active {
 }
 
 
+/*Responsive Sidebar*/
+
+
+@media (max-width: 850px) {
+    .navMainContent {
+        display: none;
+    }
+
+    .responsiveMain {
+        display: flex;
+    }
+}
+
+@media (max-width: 340px) {
+    .responsiveMain {
+        padding: 0px 6px;
+    }
+
+    .responsiveIcons {
+        height: 20px;
+    }
+
+    .responsiveText {
+        font-size: 12px;
+    }
+
+    .responsiveBox {
+        width: 60px;
+    }
+}
+
+@media (max-height: 750px) {
+    .navMainContent {
+        gap: 60px;
+    }
+
+    .navMenu {
+        gap: 0;
+    }
+
+    .navLogo {
+        height: 80px;
+        padding-top: 40px;
+    }
+}
