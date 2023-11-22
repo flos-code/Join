@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/inter.css" />
-    <link rel="stylesheet" href="css/open_sans.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/board.css" />
+    <link rel="stylesheet" href="./css/inter.css" />
+    <link rel="stylesheet" href="./css/open_sans.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/board.css" />
 
-    <link rel="stylesheet" href="css/task.css" />
+    <link rel="stylesheet" href="./css/task.css" />
 
     <link rel="stylesheet" href="./css/sidebar.css" />
     <link rel="stylesheet" href="./css/header.css" />
@@ -17,8 +17,10 @@
     <script src="js/todosArray.js" defer></script>
     <script src="js/contactArray.js" defer></script>
     <script src="js/board.js" defer></script>
+
+    <script src="js/script.js" defer></script>
     <script src="js/add_task.js" defer></script>
-    <!-- <script src="js/script.js" defer></script> -->
+    <script src="js/storage.js" defer></script>
 
     <title>Board</title>
     <link
@@ -27,13 +29,10 @@
       type="image/x-icon"
     />
   </head>
-  <body onload="updateHTML(), includeHTML()">
-    <header w3-include-html="./assets/templates/test_header.html"></header>
-    <section
-      w3-include-html="./assets/templates/test_sidebar.html"
-      class="navMainContent"
-      id="navMainContent"
-    ></section>
+  <body onload="init(), updateHTML()">
+    <header w3-include-html="./assets/templates/header.html"></header>
+    <section w3-include-html="./assets/templates/sidebar.html"></section>
+
     <section class="boardHeaderContainer">
       <div class="boardHeader">
         <h1>Board</h1>

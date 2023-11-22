@@ -1,5 +1,5 @@
 .navMainContent {
-    position: absolute;
+    position: fixed;
     top: 0;
     background-color: #2A3647;
     height: 100%;

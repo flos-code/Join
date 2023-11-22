@@ -21,8 +21,8 @@ async function includeHTML() {
             element.innerHTML = 'Page not found';
         }
     }
-    await downloadFromServer(); // wait for server
-    activeUserAsJson = localStorage.getItem('activeUser');
-    activeUser = JSON.parse(activeUserAsJson) || [];
+    // await downloadFromServer(); // wait for server
+    // activeUserAsJson = localStorage.getItem('activeUser');
+    // activeUser = JSON.parse(activeUserAsJson) || [];
     //activeUser = JSON.parse(backend.getItem('activeUser')) || [];
 }

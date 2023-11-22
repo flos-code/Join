@@ -1,81 +1,54 @@
-let allTasks = [];
+let tasks = [];
+let users = [];
 let subtaskIndex = 0;
 let selectedUsers = []; 
+let assignedUsers = [];
 let assignInput, assignDropdown;
-let users = [
-    { 
-        firstName: 'Sofia',
-        lastName: 'Müller',
-        initials: 'SM',
-        userColor: '#1FD7C1',
-        isYou: true
-    },
-    {
-        firstName: "Marcel",
-        lastName: "Bauer",
-        initials: 'MB',
-        userColor: "#462F8A",
-        isYou: false,
-    },
-    {
-        firstName: "Anton",
-        lastName: "Mayer",
-        initials: 'AM',
-        userColor: "#0038FF",
-        isYou: false,
-      },
-    { 
-        firstName: 'Anja',
-        lastName: 'Schulz',
-        initials: 'AS',
-        userColor: '#ffa500',
-        isYou: false
-    },
-    { 
-        firstName: 'Benedikt',
-        lastName: 'Ziegler',
-        initials: 'BZ',
-        userColor: '#ee82ee',
-        isYou: false
-    },
-    { 
-        firstName: 'David',
-        lastName: 'Eisenberg',
-        initials: 'DE',
-        userColor: '#ffa07a',
-        isYou: false
-    },
-    { 
-        firstName: 'Eva',
-        lastName: 'Fischer',
-        initials: 'EF',
-        userColor: '#c16dee',
-        isYou: false
-    }
-];
 
 
-function init() {
+async function init() {
+    await includeHTML();
+    await loadTasks();
+    await loadUsers();
+    initAssignOnclick();
     setMinDate();
 }
 
 
-function addTask() {
+async function loadTasks() {
+    try {
+        tasks = JSON.parse(await getItem('tasks'));
+    } catch(e) {
+        console.error('Loading Tasks error:', e);
+    }
+}
+
+
+async function loadUsers() {
+    try {
+        users = JSON.parse(await getItem('users'));
+    } catch(e) {
+        console.error('Loading Users error: ', e);
+    }
+}
+
+
+async function addTask() {
     const title = document.getElementById('title');
     const description = document.getElementById('description');
     const date = document.getElementById('date');
-    const category = document.getElementById('title');
-    let task = {
-        "title": title.value,
-        "description": description.value,
-        "assignedTo": getSelectedUsers(),
-        "date": date.value,
-        "prio": getPrioButton(),
-        "category": category.value,
-        "subtasks": getSubtasks()
-    }
+    const category = document.getElementById('category');
+    tasks.push({
+        title: title.value,
+        description: description.value,
+        assignedTo: getSelectedUsers(),
+        date: date.value,
+        prio: getPrioButton(),
+        category: category.value,
+        subtasks: getSubtasks()
+    });
 
-    allTasks.push(task);
+    await setItem('tasks', JSON.stringify(tasks));
     resetForm();
 }
 
@@ -93,12 +66,17 @@ function resetForm() {
     resetPrioButton();
     category.value = '';
     resetSubtasks(); 
+    resetCategory();
+    removeInitials();
 }
 
 
 function resetSelectedUsers() {
     selectedUsers = [];
-    const usersDiv = document.querySelectorAll('.assign-contact');
+    const usersDiv = document.querySelectorAll('.assign-contact')
+    assignDropdown = document.getElementById('assign-content');
+    assignInput = document.getElementById('assign');
+    closeAssignDropdown();
 
     for (const userDiv of usersDiv) {
         if (userDiv.classList.contains('assign-contact-selected'))
@@ -134,9 +112,24 @@ function resetSubtasks() {
 }
 
 
-function toggleAssignDropdown() {
+function resetCategory() {
+    const categoryInputField = document.getElementById('category');
+    categoryInputField.value = 'Select task category';
+    closeCategoryDropdown();
+}
+
+
+function initAssignOnclick() {
     assignInput = document.getElementById('assign');
     assignDropdown = document.getElementById('assign-content');
+    const assignArrow = document.getElementById('arrow-assign');
+
+    assignInput.addEventListener('click', toggleAssignDropdown);
+    assignArrow.addEventListener('click', toggleAssignDropdown);
+}
+
+
+function toggleAssignDropdown() {
     const assignContactItem = document.querySelector('.assign-contact');
     const arrow = 'assign';
 
@@ -145,9 +138,10 @@ function toggleAssignDropdown() {
     } else if (assignDropdown.classList.contains('d-none') && !assignContactItem) {
         openAssignDropdown();
     } else if (assignContactItem) {
-        assignInput.value = '';
+        assignInput.placeholder = '';
         rotateArrow(arrow);
         assignDropdown.classList.remove('d-none');
+        removeInitials();
     }
 }
 
@@ -156,26 +150,108 @@ function openAssignDropdown() {
     const assignDropdownMenu = document.getElementById('assign-dropdown-menu');
     const assignBtnContainer = document.getElementById('assign-button-container');
     const arrow = 'assign';
-    let container = '<div>';
+    let container = '<div id="assign-contacts">';
 
-    assignInput.value = '';
+    assignInput.placeholder = '';
     rotateArrow(arrow);
     assignDropdown.classList.remove('d-none');
-    for (let i = 0; i < users.length; i++) {
-        container += assignDropdownHTML(i);
+    if (!assignInput.value) {
+        for (let i = 0; i < users.length; i++) {
+            container += assignDropdownHTML(i);
+        }
+        container += '</div>';
+        assignDropdownMenu.innerHTML = container;
+        assignBtnContainer.innerHTML += assignDropdownBtnHTML();
     }
-    container += '</div>';
-    assignDropdownMenu.innerHTML = container;
-    assignBtnContainer.innerHTML += assignDropdownBtnHTML();
+    initSearchUser();
+    removeInitials();
 }
 
 
 function closeAssignDropdown() {
     const arrow = 'assign';
+    assignInput.blur();
 
     assignDropdown.classList.add('d-none');
     defaultArrow(arrow);
     resetInputValue();
+    renderInitials();
+}
+
+
+function resetInputValue() {
+    assignInput.placeholder = 'Select contacts to assign';
+}
+
+
+function renderInitials() {
+    let initialsContent = document.getElementById('initials-content');
+    let initialsContainer = '<div class="initials-container">';
+    if (selectedUsers.length > 0) {
+        for (let i = 0; i < selectedUsers.length; i++) {
+            const selectedUser = selectedUsers[i];
+            initialsContainer += renderInitialsHTML(selectedUser);
+        }
+        initialsContainer += '</div>';
+        initialsContent.innerHTML += initialsContainer;
+    } 
+}
+
+
+function renderInitialsHTML(selectedUser) {
+    const selectedUserArrName = selectedUser.split(' ');
+    for (const user of users) {
+        if (user.firstName === selectedUserArrName[0]) {
+            return `
+                <span class="selected-initials" style="background: ${user.userColor}">${selectedUserArrName[0].charAt(0)}${selectedUserArrName[1].charAt(0)}</span>
+            `;
+        }
+    }
+}
+
+
+function removeInitials() {
+    const initialsContainer = document.querySelector('.initials-container');
+    if (initialsContainer) {
+        initialsContainer.remove();
+    }
+}
+
+
+function initSearchUser() {
+    assignInput.addEventListener('input', searchUser);
+}
+
+
+function searchUser() {
+    const inputValue = assignInput.value.toLowerCase();
+    const assignContacts = document.getElementById('assign-contacts');
+    assignContacts.innerHTML = '';
+    
+    if (assignContacts.childElementCount === 0) {
+        for (let i = 0; i < users.length; i++) {
+            const user = users[i];
+            const userName = user['firstName'].toLowerCase() + ' ' + user['lastName'].toLowerCase();
+            if (userName.includes(inputValue.trim())) {
+                assignContacts.innerHTML += assignDropdownHTML(i);
+                handleSelectedUsers(i);
+            }
+        }
+    }
+}
+
+
+function handleSelectedUsers(i) {
+    const userNameRendered = document.querySelector(`.assign-contact-name${i}`);
+    const iconContainer = document.getElementById(`assign-icon-container${i}`);
+    const userContainer = document.getElementById(`assign-contact${i}`);
+
+    if (selectedUsers.includes(userNameRendered.innerText)) {
+        userContainer.classList.add('assign-contact-selected');
+        iconContainer.innerHTML = `
+            <svg class="assign-checked-icon"><use href="assets/img/icons.svg#checked-icon"></use></svg>
+        `;
+    }
 }
 
 
@@ -203,11 +279,6 @@ function defaultArrow(arrow) {
 }
 
 
-function resetInputValue() {
-    assignInput.value = 'Select contacts to assign';
-}
-
-
 function selectContact(i) {
     const contact = document.getElementById(`assign-contact${i}`);
     const iconContainer = document.getElementById(`assign-icon-container${i}`);
@@ -230,17 +301,26 @@ function selectContact(i) {
 
 function pushUser(i) {
     const userName = document.querySelector(`.assign-contact-name${i}`).innerText;
+    const userObj = users[i];
     if (!selectedUsers.includes(userName)) {
         selectedUsers.push(userName);
+    }
+    if (!assignedUsers.includes(userObj)) {
+        assignedUsers.push(userObj);
     }
 }
 
 
 function removeUser(i) {
     const userName = document.querySelector(`.assign-contact-name${i}`).innerText;
-    const indexOfUser = selectedUsers.indexOf(userName);
+    const indexOfUserName = selectedUsers.indexOf(userName);
+    const userObj = users[i];
+    const indexOfUserObj = assignedUsers.indexOf(userObj);
     if (selectedUsers.includes(userName)) {
-        selectedUsers.splice(indexOfUser, 1);
+        selectedUsers.splice(indexOfUserName, 1);
+    }
+    if (assignedUsers.includes(userObj)) {
+        assignedUsers.splice(indexOfUserObj, 1);
     }
 }
 
@@ -259,9 +339,11 @@ function toggleCategoryDropdown() {
 
 
 function closeCategoryDropdown() {
+    const categoryInputField = document.getElementById('category');
     const categoryContainer = document.getElementById('category-content');
     const arrow = 'category';
     categoryContainer.innerHTML = '';
+    categoryInputField.blur();
     defaultArrow(arrow);
 }
 
@@ -360,9 +442,9 @@ function getPrioButton() {
 
 
 function getSelectedUsers() {
-    if (selectedUsers.length) {
-        return selectedUsers;
-    } else if (!selectedUsers.length) {
+    if (assignedUsers.length) {
+        return assignedUsers;
+    } else if (!assignedUsers.length) {
         return null;
     }
 }

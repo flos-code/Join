@@ -8,6 +8,7 @@ let todos = [
       {
         firstName: "Emmanuel",
         lastName: "Mauer",
+        initials: "EM",
         userId: 0,
         userColor: "#1FD7C1",
         isYou: true /*is logged in */,
@@ -15,6 +16,7 @@ let todos = [
       {
         firstName: "Marcel",
         lastName: "Bauer",
+        initials: "MB",
         userId: 1,
         userColor: "#462F8A",
         isYou: false,
@@ -22,6 +24,7 @@ let todos = [
       {
         firstName: "Anton",
         lastName: "Mayer",
+        initials: "AM",
         userId: 0,
         userColor: "#0038FF",
         isYou: false,
@@ -71,6 +74,7 @@ let todos = [
       {
         firstName: "kläger",
         lastName: "maus",
+        initials: "KM",
         userId: 0,
         userColor: "black",
         isYou: false,
@@ -78,6 +82,7 @@ let todos = [
       {
         firstName: "Marcel",
         lastName: "Bauer",
+        initials: "BM",
         userId: 1,
         userColor: "#462F6A",
         isYou: false,
@@ -85,6 +90,7 @@ let todos = [
       {
         firstName: "Önton",
         lastName: "Mayer",
+        initials: "ÖM",
         userId: 0,
         userColor: "red",
         isYou: false,
@@ -92,6 +98,7 @@ let todos = [
       {
         firstName: "kläger",
         lastName: "maus",
+        initials: "KM",
         userId: 0,
         userColor: "black",
         isYou: false,
@@ -99,6 +106,7 @@ let todos = [
       {
         firstName: "Marcel",
         lastName: "Bauer",
+        initials: "MB",
         userId: 1,
         userColor: "#462F6A",
         isYou: false,
@@ -106,6 +114,7 @@ let todos = [
       {
         firstName: "Önton",
         lastName: "Mayer",
+        initials: "ÖM",
         userId: 0,
         userColor: "red",
         isYou: false,
@@ -113,6 +122,7 @@ let todos = [
       {
         firstName: "kläger",
         lastName: "maus",
+        initials: "KM",
         userId: 0,
         userColor: "black",
         isYou: false,
@@ -120,6 +130,7 @@ let todos = [
       {
         firstName: "kläger",
         lastName: "maus",
+        initials: "KM",
         userId: 0,
         userColor: "black",
         isYou: false,
@@ -127,6 +138,7 @@ let todos = [
       {
         firstName: "kläger",
         lastName: "maus",
+        initials: "KM",
         userId: 0,
         userColor: "black",
         isYou: false,
@@ -134,13 +146,14 @@ let todos = [
       {
         firstName: "kläger",
         lastName: "maus",
+        initials: "KM",
         userId: 0,
         userColor: "black",
         isYou: false,
       },
     ],
-    dueDate: "2023-11-01",
-    prio: "Urgent",
+    dueDate: "2025-11-20",
+    prio: "Low",
     category: "User Story",
     subtasks: [],
   },
@@ -152,6 +165,34 @@ let todos = [
     assigned: [],
     dueDate: "2023-12-24",
     prio: "Medium",
+    category: "Technical Task",
+    subtasks: [
+      {
+        taskDescription: "Implement Recipe Recommendation",
+        isDone: true,
+      },
+      {
+        taskDescription: "Start Page Layout",
+        isDone: false,
+      },
+      {
+        taskDescription: "Start Page Layout",
+        isDone: true,
+      },
+      {
+        taskDescription: "Start Page Layout",
+        isDone: true,
+      },
+    ],
+  },
+  {
+    id: 4,
+    status: "toDoStatus",
+    title: "todo1 id3",
+    description: "Build start page with recipe recommendation.",
+    assigned: [],
+    dueDate: "2023-12-01",
+    prio: "Urgent",
     category: "Technical Task",
     subtasks: [
       {
