@@ -2,6 +2,25 @@ html, body {
     height: 100%;
 }
 
+.content {
+    height: 100%;
+    opacity: 1;
+    animation-name: content-loaded;
+    animation-fill-mode: backwards;
+    animation-timing-function: ease-in-out;
+    animation-duration: .6s;
+    animation-delay: 1s;
+}
+
+@keyframes content-loaded {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .login-signup {
     position: absolute;
     top: 4rem;
@@ -53,16 +72,35 @@ html, body {
     box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
 }
 
-.login-logo-container {
-    position: absolute;
-    left: 6rem;
-    top: 4rem;
-}
-
 .login-logo {
-    display: inline-block;
+    position: absolute;
     width: 110px;
     height: 110px;
+    top: 4rem;
+    left: 6rem;
+    z-index: 99;
+    display: inline-block;
+    animation-name: logo-animation;
+    animation-fill-mode: backwards;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-delay: 0.75s;
+}
+
+@keyframes logo-animation {
+    from {
+        width: 300px;
+        height: 300px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    to {
+        width: 110px;
+        height: 110px;
+        top: 4rem;
+        left: 6rem;
+    }
 }
 
 .container {
