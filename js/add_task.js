@@ -77,7 +77,7 @@ function success() {
     successElement.classList.remove('d-none');
     setTimeout(() => {
         window.open('board.html', '_self');
-    }, 1000);
+    }, 1500);
 }
 
 
