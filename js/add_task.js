@@ -34,6 +34,7 @@ async function loadUsers() {
 
 
 async function addTask() {
+    showLoader();
     const title = document.getElementById('title');
     const description = document.getElementById('description');
     const date = document.getElementById('date');
@@ -50,6 +51,33 @@ async function addTask() {
 
     await setItem('tasks', JSON.stringify(tasks));
     resetForm();
+    removeLoader();
+    success();
+}
+
+
+function showLoader() {
+    const loader = document.getElementById('loader');
+    const overlay = document.getElementById('loader-overlay');
+    loader.classList.add('loader');
+    overlay.classList.remove('d-none');
+}
+
+
+function removeLoader() {
+    const loader = document.getElementById('loader');
+    const overlay = document.getElementById('loader-overlay');
+    loader.classList.remove('loader');
+    overlay.classList.add('d-none');
+}
+
+
+function success() {
+    const successElement = document.getElementById('success');
+    successElement.classList.remove('d-none');
+    setTimeout(() => {
+        window.open('board.html', '_self');
+    }, 1000);
 }
 
 

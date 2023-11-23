@@ -1,9 +1,9 @@
-.task-container {
-    display: flex;
-}
-
 .main {
     padding: 5rem 2rem 0 21rem;
+}
+
+.main-container {
+    position: relative;
 }
 
 .task-heading-h1 {
@@ -13,9 +13,11 @@
 }
 
 .task-form-container {
+    position: relative;
     padding-top: 3rem;
     padding-bottom: 3rem;
     max-width: 1040px;
+    overflow: hidden;
 }
 
 .task-form-subcontainer {
@@ -489,10 +491,6 @@
     left: 0;
 }
 
-.d-none {
-    display: none;
-}
-
 .assign-square-icon {
     fill: none;
     width: 20px;
@@ -639,4 +637,83 @@
     justify-content: center;
     margin-right: 0.75rem;
     color: white;
+}
+
+.loader {
+    border: 12px solid rgba(41, 171, 226, 0.1);
+    border-radius: 50%;
+    border-top: 12px solid #2A3647;
+    width: 70px;
+    height: 70px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-overlay {
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.success {
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.success-container {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background-color: #2A3647;
+    border-radius: 0.5rem;
+    padding: 1rem 2.5rem;
+    opacity: 0;
+    transform: translateY(600%);
+    animation: slideIn 0.35s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(600%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-message {
+    color: white;
+    font-size: 1.25rem;
+}
+
+.board-icon {
+    width: 24px;
+}
+
+.d-none {
+    display: none;
 }
