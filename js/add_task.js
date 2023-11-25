@@ -216,7 +216,7 @@ function resetInputValue() {
 
 function renderInitials() {
     let initialsContent = document.getElementById('initials-content');
-    let initialsContainer = '<div class="initials-container">';
+    let initialsContainer = '<div class="initials-container" id="initials-container">';
     if (selectedUsers.length > 0) {
         for (let i = 0; i < selectedUsers.length; i++) {
             const selectedUser = selectedUsers[i];

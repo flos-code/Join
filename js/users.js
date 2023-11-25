@@ -7,7 +7,8 @@ let users = [
         email: 'sofiam@gmail.com',
         phone: '+49 1111 111 11 1',
         password: null,
-        isYou: false
+        isYou: false,
+        userID: 0
     },
     {
         firstName: "Marcel",
@@ -17,7 +18,8 @@ let users = [
         email: 'marcelbauer@gmail.com',
         phone: '+49 1111 111 11 2',
         password: null,
-        isYou: false
+        isYou: false,
+        userID: 1
     },
     {
         firstName: "Anton",
@@ -27,7 +29,8 @@ let users = [
         email: 'antom@gmail.com',
         phone: '+49 1111 111 11 3',
         password: null,
-        isYou: false
+        isYou: false,
+        userID: 2
     },
     {
         firstName: 'Anja',
@@ -37,7 +40,8 @@ let users = [
         email: 'schulz@gmail.com',
         phone: '+49 1111 111 11 4',
         password: null,
-        isYou: false
+        isYou: false,
+        userID: 3
     },
     {
         firstName: 'Benedikt',
@@ -47,7 +51,8 @@ let users = [
         email: 'benedikt.s@gmail.com',
         phone: '+49 1111 111 11 5',
         password: null,
-        isYou: false
+        isYou: false,
+        userID: 4
     },
     {
         firstName: 'David',
@@ -57,7 +62,8 @@ let users = [
         email: 'davidberg@gmail.com',
         phone: '+49 1111 111 11 6',
         password: null,
-        isYou: false
+        isYou: false,
+        userID: 5
     },
     {
         firstName: 'Eva',
@@ -67,7 +73,8 @@ let users = [
         email: 'evafischer@gmail.com',
         phone: '+49 1111 111 11 7',
         password: null,
-        isYou: false
+        isYou: false,
+        userID: 6
     },
     {
         firstName: 'Emmanuel',
@@ -77,7 +84,8 @@ let users = [
         email: 'emmanuelma@gmail.com',
         phone: '+49 1111 111 11 8',
         password: null,
-        isYou: false
+        isYou: false,
+        userID: 7
     },
     {
         firstName: 'Tatjana',
@@ -87,6 +95,7 @@ let users = [
         email: 't.wolf@gmail.com',
         phone: '+49 1111 111 11 9',
         password: null,
-        isYou: false
+        isYou: false,
+        userID: 8
     },
 ];

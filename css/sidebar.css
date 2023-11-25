@@ -29,6 +29,7 @@
 
 .navLink {
     text-decoration: none;
+    color: #CDCDCD;
 }
 
 .navCategory {
@@ -51,6 +52,10 @@
     background-color: #091931;
     color: #FFFFFF;
     opacity: 1;
+}
+
+.navCategory:hover .navLink {
+    color: #FFFFFF;
 }
 
 .active {

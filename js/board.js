@@ -147,11 +147,15 @@ function allowDrop(ev) {
 
  async function moveTo(status) {
   let draggedTask = originalTodos.splice(currentDraggedElement, 1)[0];
+  let draggedTaskOriginal = tasks.splice(currentDraggedElement, 1)[0];
   draggedTask.status = status;
+  draggedTaskOriginal.status = status;
   originalTodos.push(draggedTask);
+  tasks.push(draggedTaskOriginal);
 
   for (let i = 0; i < originalTodos.length; i++) {
     originalTodos[i].id = i;
+    tasks[i].id = i;
   }
   await setItem('tasks', JSON.stringify(tasks));
   updateHTML();
@@ -433,13 +437,15 @@ ${description}
   }
 }
 
-function updateSubtask(id, i) {
+ async function updateSubtask(id, i) {
   let task = originalTodos[id]["subtasks"][i];
   if (task["isDone"]) {
     task["isDone"] = false;
   } else {
     task["isDone"] = true;
   }
+
+  await setItem('tasks', JSON.stringify(tasks));
 }
 
  async function deletToDo(id) {
@@ -475,11 +481,13 @@ searchInput.addEventListener("input", function () {
 });
 
 function editToDo(id) {
+  
   selectedUsers = [];
   assignedUsers = [];
+
   subtaskIndex = 0;
   let todoDiv = document.getElementById("toDoOpen");
-  let todoDivHeight = todoDiv.clientHeight;
+  let todoDivHeight = todoDiv.clientHeight; 
 
   todoDiv.innerHTML = "";
   todoDiv.style.height = todoDivHeight + "px";
@@ -568,19 +576,37 @@ Ok
 
 
   `;
+  setMinDate();
   initAssignOnclick();
   loadeInputFromTask(id);
+  toggleAssignDropdown();
 
-  assignedUsers = originalTodos[id]["assigned"];
+
+
+  let preAssignedUsers = originalTodos[id]["assigned"];
   for (let index = 0; index < originalTodos[id]["assigned"].length; index++) {
     user = originalTodos[id]["assigned"][index];
     let name = user["firstName"] + " " + user["lastName"];
     selectedUsers.push(name);
   }
 
-  if (selectedUsers.length > 0) {
-    renderInitials();
+  if (preAssignedUsers) {
+    for (let i = 0; i < preAssignedUsers.length; i++) {
+      userID = preAssignedUsers[i]["userID"];
+      let user = document.getElementById(`assign-contact${userID}`);
+      if (user && !user.classList.contains('assign-contact-selected')) {
+   
+        selectContact(userID);
+      
+    }
   }
+}
+
+  // if (selectedUsers.length > 0) {
+  //   renderInitials();
+  // }
+  document.getElementById("assign-button-container").classList.add("d-none");
+  toggleAssignDropdown();
 
   if (originalTodos[id]["prio"] === "Urgent") {
     selectPrioButton("urgent-btn");
@@ -693,7 +719,7 @@ function editSubtaskHTML(subtaskField, index) {
   return /*html*/ `
       <div class="subtask-item" id="subtask-item${index}">
           <div class="subtask-info">
-              <span>&#x2022</span>
+              <span></span>
               <span class="subtask-input" id="subtask-input${index}">${subtaskField}</span>
           </div>
           <div class="subtask-icon-container" id="subtask-icons${index}">
@@ -710,7 +736,7 @@ function editSubtaskHTML(subtaskField, index) {
 }
 
 function editTextSubtask(index) {
-  /* also change isture when editing? */
+
   let subtaskSpan = document.getElementById(`subtask-input${index}`);
 
   if (subtaskSpan.contentEditable !== "true") {
@@ -720,7 +746,7 @@ function editTextSubtask(index) {
       subtaskEditHTML(index);
 
     subtaskSpan.addEventListener("input", function () {
-      editSubtasks[index]["taskDescription"] = subtaskSpan.textContent; // Use textContent instead of value for contentEditable
+      editSubtasks[index]["taskDescription"] = subtaskSpan.textContent;
     });
   }
 }
@@ -745,15 +771,14 @@ function editdeleteSubtask(index) {
 function addTaskOnBoard(statusTask) {
   let originalOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
+
   assignedUsers = [];
   selectedUsers = [];
   editSubtasks = [];
   subtaskIndex = 0;
   document.getElementById("boradContent").innerHTML += /*html*/ `
   <div id="addTaskOpenBg" onclick="closeAddTask()">
-      <!-- <div w3-include-html="./assets/templates/add_task.html" id="addTaskOpen" class="addTaskOpen" onclick="event.stopPropagation()"> 
-        
-      </div>  bug bei w3 include lädt nur bis due date-->
+
       <div id="addTaskOpen" class="addTaskOpen" onclick="event.stopPropagation()"> 
         <div class="addTaskOpenHead">
         <h1 class="task-heading-h1">Add Task</h1>
@@ -882,6 +907,7 @@ function addTaskOnBoard(statusTask) {
             </div>
         </div>
 </div>`;
+  setMinDate();
   initAssignOnclick();
   setTimeout(() => {
     document.getElementById("addTaskOpen").classList.add("showToDoOpen");
