@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="./css/sidebar.css" />
     <link rel="stylesheet" href="./css/header.css" />
 
-    <script src="js/todosArray.js" defer></script>
-    <script src="js/contactArray.js" defer></script>
     <script src="js/board.js" defer></script>
 
     <script src="js/script.js" defer></script>
@@ -30,7 +28,7 @@
       type="image/x-icon"
     />
   </head>
-  <body onload="init(), updateHTML()">
+  <body onload="initBoard()">
     <!----Mona 
     <header w3-include-html="./assets/templates/header.html"></header>
     <section w3-include-html="./assets/templates/sidebar.html"></section> -->
@@ -54,7 +52,7 @@
       </div>
     </section>
     <section class="boradContent" id="boradContent">
-      <div cgilass="sectionDragArea">
+      <div class="sectionDragArea">
         <div class="headerDragArea">
           <h2>To do</h2>
           <img

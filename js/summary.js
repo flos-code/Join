@@ -1,33 +1,17 @@
-function includeHTML() {
-  /* nur aktuell hier später mit in script.js*/
-  var z, i, elmnt, file, xhttp;
-  /* Loop through a collection of all HTML elements: */
-  z = document.getElementsByTagName("*");
-  for (i = 0; i < z.length; i++) {
-    elmnt = z[i];
-    /*search for elements with a certain atrribute:*/
-    file = elmnt.getAttribute("w3-include-html");
-    if (file) {
-      /* Make an HTTP request using the attribute value as the file name: */
-      xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4) {
-          if (this.status == 200) {
-            elmnt.innerHTML = this.responseText;
-          }
-          if (this.status == 404) {
-            elmnt.innerHTML = "Page not found.";
-          }
-          /* Remove the attribute, and call this function once more: */
-          elmnt.removeAttribute("w3-include-html");
-          includeHTML();
-        }
-      };
-      xhttp.open("GET", file, true);
-      xhttp.send();
-      /* Exit the function: */
-      return;
-    }
+tasks = [];
+
+async function initSummary() {
+  await includeHTML();
+  await loadTasks();
+  renderSummaryConten();
+}
+
+
+async function loadTasks() {
+  try {
+      tasks = JSON.parse(await getItem('tasks'));
+  } catch(e) {
+      console.error('Loading Tasks error:', e);
   }
 }
 
@@ -49,7 +33,7 @@ function renderSummaryConten() {
 }
 
 function loadeCount() {
-  countTodos(todos);
+  countTodos(tasks);
   document.getElementById("todoCount").innerHTML = todoCounts.toDoStatus;
   document.getElementById("doneCount").innerHTML = todoCounts.doneStatus;
   document.getElementById("progressCount").innerHTML =
@@ -61,27 +45,27 @@ function loadeCount() {
   document.getElementById("nextUrgentDate").innerHTML =
     todoCounts.closestDueDateForUrgent;
 
-  document.getElementById("totalCount").innerHTML = todos.length;
+  document.getElementById("totalCount").innerHTML = tasks.length;
 }
 
-function countTodos(todos) {
-  todos.forEach((todo) => {
+function countTodos(tasks) {
+  tasks.forEach((task) => {
     // Count todos for each status
-    todoCounts[todo.status]++;
+    todoCounts[task.status]++;
 
     // Count todos with priority "Urgent"
-    if (todo.prio === "Urgent") {
+    if (task.prio === "Urgent") {
       todoCounts.urgentPriority++;
     }
 
     if (
-      todo.prio === "Urgent" &&
+      task.prio === "Urgent" &&
       (!todoCounts.closestDueDateForUrgent ||
-        (new Date(todo.dueDate) >= currentDate &&
-          new Date(todo.dueDate) <
+        (new Date(task.dueDate) >= currentDate &&
+          new Date(task.dueDate) <
             new Date(todoCounts.closestDueDateForUrgent)))
     ) {
-      todoCounts.closestDueDateForUrgent = formatDate(todo.dueDate);
+      todoCounts.closestDueDateForUrgent = formatDate(task.dueDate);
     }
 
     if (todoCounts.urgentPriority > 0) {

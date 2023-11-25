@@ -12,9 +12,10 @@
     />
 
     <script src="js/summary.js" defer></script>
-    <script src="js/todosArray.js" defer></script>
+    <script src="js/storage.js" defer></script>
     <script src="js/header.js" defer></script>
-    <!-- <script src="js/script.js" defer></script> -->
+    <script src="js/script.js" defer></script>
+
 
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/sidebar.css" />
@@ -25,11 +26,8 @@
     <link rel="stylesheet" href="./css/summary.css" />
   </head>
 
-  <!-- <body onload="init(); includeHTML();"> wenn script.js fertig is kann init() rein -->
-  <body onload="includeHTML(); renderSummaryConten()">
-    <!----Mona 
-    <header w3-include-html="./assets/templates/header.html"></header>
-    <section w3-include-html="./assets/templates/sidebar.html"></section> -->
+
+  <body onload="initSummary()">
     
     <div w3-include-html="assets/templates/header.html"></div>
 

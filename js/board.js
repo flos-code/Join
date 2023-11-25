@@ -1,42 +1,22 @@
 let currentDraggedElement;
 let filteredToDos = [];
-let originalTodos = todos.slice();
+let originalTodos = [];
 let editPrio;
 let editSubtasks = [];
 let addTaskPrio;
 let addTaskStatus;
 
-function includeHTML() {
-  var z, i, elmnt, file, xhttp;
-  /* Loop through a collection of all HTML elements: */
-  z = document.getElementsByTagName("*");
-  for (i = 0; i < z.length; i++) {
-    elmnt = z[i];
-    /*search for elements with a certain atrribute:*/
-    file = elmnt.getAttribute("w3-include-html");
-    if (file) {
-      /* Make an HTTP request using the attribute value as the file name: */
-      xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4) {
-          if (this.status == 200) {
-            elmnt.innerHTML = this.responseText;
-          }
-          if (this.status == 404) {
-            elmnt.innerHTML = "Page not found.";
-          }
-          /* Remove the attribute, and call this function once more: */
-          elmnt.removeAttribute("w3-include-html");
-          includeHTML();
-        }
-      };
-      xhttp.open("GET", file, true);
-      xhttp.send();
-      /* Exit the function: */
-      return;
-    }
-  }
+async function initBoard() {
+  await includeHTML();
+  await loadTasks();
+  await loadUsers();
+  todos = tasks;
+  originalTodos = todos.slice();
+  updateHTML();
 }
+
+
+
 
 function updateHTML() {
   if (filteredToDos.length !== 0) {
@@ -164,13 +144,8 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
-// function moveTo(status) {
-//   originalTodos[currentDraggedElement]["status"] = status;
-//   // document.getElementById("findTask").value = "";
-//   updateHTML();
-// }
 
-function moveTo(status) {
+ async function moveTo(status) {
   let draggedTask = originalTodos.splice(currentDraggedElement, 1)[0];
   draggedTask.status = status;
   originalTodos.push(draggedTask);
@@ -178,7 +153,7 @@ function moveTo(status) {
   for (let i = 0; i < originalTodos.length; i++) {
     originalTodos[i].id = i;
   }
-
+  await setItem('tasks', JSON.stringify(tasks));
   updateHTML();
 }
 
@@ -467,11 +442,14 @@ function updateSubtask(id, i) {
   }
 }
 
-function deletToDo(id) {
+ async function deletToDo(id) {
   originalTodos.splice(id, 1);
+  tasks.splice(id, 1);
   for (let i = 0; i < originalTodos.length; i++) {
     originalTodos[i]["id"] = i;
+    tasks[i]["id"] = i;
   }
+  await setItem('tasks', JSON.stringify(tasks));
   closeToDo();
   searchTask(); //when deliting while searching
 }
@@ -497,6 +475,8 @@ searchInput.addEventListener("input", function () {
 });
 
 function editToDo(id) {
+  selectedUsers = [];
+  assignedUsers = [];
   subtaskIndex = 0;
   let todoDiv = document.getElementById("toDoOpen");
   let todoDivHeight = todoDiv.clientHeight;
@@ -627,7 +607,7 @@ function loadeInputFromTask(id) {
   document.getElementById("date").value = originalTodos[id]["dueDate"];
 }
 
-function saveEdit(id) {
+ async function saveEdit(id) {
   let todo = originalTodos[id];
   todo["title"] = document.getElementById("title").value;
   todo["description"] = document.getElementById("description").value;
@@ -638,6 +618,7 @@ function saveEdit(id) {
 
   assignedUsers = [];
   selectedUsers = [];
+  await setItem('tasks', JSON.stringify(tasks));
   showEdit(id);
 }
 
@@ -924,7 +905,7 @@ function closeAddTask() {
   updateHTML();
 }
 
-function addTaskBoard(statusTask) {
+async function addTaskBoard(statusTask) {
   let newTask = {
     id: originalTodos.length,
     status: statusTask,
@@ -938,6 +919,8 @@ function addTaskBoard(statusTask) {
   };
 
   originalTodos.push(newTask);
+  tasks.push(newTask);
+  await setItem('tasks', JSON.stringify(tasks));
   closeAddTask();
 }
 

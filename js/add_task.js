@@ -42,11 +42,13 @@ async function addTask() {
     tasks.push({
         title: title.value,
         description: description.value,
-        assignedTo: getSelectedUsers(),
-        date: date.value,
-        prio: getPrioButton(),
+        assigned: getSelectedUsers(),
+        dueDate: date.value,
+        prio: modifyPrioString(),
         category: category.value,
-        subtasks: getSubtasks()
+        subtasks: getSubtasks(),
+        status: "toDoStatus",
+        id: tasks.length,
     });
 
     await setItem('tasks', JSON.stringify(tasks));
@@ -483,8 +485,14 @@ function getSubtasks() {
     const subtasks = [];
 
     for (let i = 0; i < subtaskInputList.length; i++) {
-        const subtaskInput = subtaskInputList[i];
-        subtasks.push(subtaskInput.innerText);
+        // const subtaskInput = subtaskInputList[i];
+        // subtasks.push(subtaskInput.innerText);
+
+        let newSubtask = {
+            taskDescription: subtaskInputList[i].innerText,
+            isDone: false,
+          };
+          subtasks.push(newSubtask);
     }
     if (subtaskInputList.length) {
         return subtasks;
@@ -577,4 +585,11 @@ function subtaskEditDefaultHTML(index) {
             <svg class="subtask-delete-icon"><use href="assets/img/icons.svg#delete-icon"></use></svg>
         </div>
     `;
+}
+
+function modifyPrioString () {
+    let prio = getPrioButton();
+    let modifiedPrio = prio.slice(0, -4);
+    modifiedPrio = modifiedPrio.charAt(0).toUpperCase() + modifiedPrio.slice(1);
+    return modifiedPrio;
 }
