@@ -145,7 +145,7 @@ function allowDrop(ev) {
 }
 
 
- async function moveTo(status) {
+async function moveTo(status) {
   let draggedTask = originalTodos.splice(currentDraggedElement, 1)[0];
   let draggedTaskOriginal = tasks.splice(currentDraggedElement, 1)[0];
   draggedTask.status = status;
@@ -437,7 +437,7 @@ ${description}
   }
 }
 
- async function updateSubtask(id, i) {
+async function updateSubtask(id, i) {
   let task = originalTodos[id]["subtasks"][i];
   if (task["isDone"]) {
     task["isDone"] = false;
@@ -448,7 +448,7 @@ ${description}
   await setItem('tasks', JSON.stringify(tasks));
 }
 
- async function deletToDo(id) {
+async function deletToDo(id) {
   originalTodos.splice(id, 1);
   tasks.splice(id, 1);
   for (let i = 0; i < originalTodos.length; i++) {
@@ -481,13 +481,13 @@ searchInput.addEventListener("input", function () {
 });
 
 function editToDo(id) {
-  
+
   selectedUsers = [];
   assignedUsers = [];
 
   subtaskIndex = 0;
   let todoDiv = document.getElementById("toDoOpen");
-  let todoDivHeight = todoDiv.clientHeight; 
+  let todoDivHeight = todoDiv.clientHeight;
 
   todoDiv.innerHTML = "";
   todoDiv.style.height = todoDivHeight + "px";
@@ -595,12 +595,12 @@ Ok
       userID = preAssignedUsers[i]["userID"];
       let user = document.getElementById(`assign-contact${userID}`);
       if (user && !user.classList.contains('assign-contact-selected')) {
-   
+
         selectContact(userID);
-      
+
+      }
     }
   }
-}
 
   // if (selectedUsers.length > 0) {
   //   renderInitials();
@@ -633,7 +633,7 @@ function loadeInputFromTask(id) {
   document.getElementById("date").value = originalTodos[id]["dueDate"];
 }
 
- async function saveEdit(id) {
+async function saveEdit(id) {
   let todo = originalTodos[id];
   todo["title"] = document.getElementById("title").value;
   todo["description"] = document.getElementById("description").value;
@@ -905,8 +905,17 @@ function addTaskOnBoard(statusTask) {
                     </div>
                 </form>
             </div>
+            </div>
+<div class="taskAddedContainer d-none" id="taskAddedContainer"> 
+  <div class="taskAdded">
+    <span>Task added to board</span>
+    <img class="board-icon" src="img/board-icon.svg" alt="Board icon">
+  </div>
+</div>
         </div>
-</div>`;
+
+
+`;
   setMinDate();
   initAssignOnclick();
   setTimeout(() => {
@@ -947,7 +956,12 @@ async function addTaskBoard(statusTask) {
   originalTodos.push(newTask);
   tasks.push(newTask);
   await setItem('tasks', JSON.stringify(tasks));
-  closeAddTask();
+  document.getElementById("taskAddedContainer").classList.remove("d-none");
+
+  setTimeout(() => {
+    document.getElementById("taskAddedContainer").classList.add("d-none");
+    closeAddTask();
+  }, 700);
 }
 
 function setAddTaskPrio(prio) {
