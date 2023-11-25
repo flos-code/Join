@@ -130,13 +130,13 @@ button:hover {
   display: flex;
   flex-grow: 1;
   margin-left: 294px;
-  width: 1208px;
+
 }
 
 .sectionDragArea {
   display: flex;
   flex-direction: column;
-  margin-right: 26px;
+  margin-right: 16px;
 }
 
 .headerDragArea {
@@ -405,7 +405,7 @@ button:hover {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  max-height: 160px;
+  max-height: 120px;
   overflow-y: auto;
   margin-top: 8px;
 }
@@ -633,3 +633,118 @@ button:hover {
   display: flex;
   justify-content: space-between;
 }
+
+.taskAddedContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+ width: 100%;
+ height: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.taskAdded {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 20px;
+  background-color: #2A3647;
+  border-radius: 20px;
+  height: 74px;
+  width: 326px;
+}
+
+.taskAdded img {
+  width: 30px;
+  height: 30px;
+  margin-left: 40px;
+}
+
+@media (max-width: 1399.98px) { 
+  .boardHeaderContainer {
+    margin-left: 198px;
+  }
+
+.boardHeader {
+    width: 856px;
+}
+
+  .boradContent {
+    margin-left: 262px;
+  }
+
+  .headerDragArea {
+    width: 200px;
+  }
+
+  .headerDragArea h2 {
+    font-size: 20px;
+  }
+
+  .todo {
+    width: 206px;
+  }
+
+  .toDoSubtasksProgress {
+    width: 100px;
+  }
+
+  .toDoSubtasksCount {
+    text-align: center;
+  }
+ }
+
+ @media (max-width: 1199.98px) {
+  .boradContent {
+    flex-direction: column;
+  }
+
+  .todo {
+
+    height: 240px;
+    flex: 0 0 280px;
+
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+  } 
+
+
+  .draArea {
+ 
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+    max-height: none;
+    overflow-y: unset;
+    flex: none;
+    margin-bottom: 16px;
+
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+  }
+
+  .noTask {
+width: 280px;
+height: 64px;
+  }
+
+  .inputWithImg {
+    width: 240px;
+  }
+
+  #findTask {
+    width: 160px;
+  }
+
+  .toDoSubtasksProgress {
+    width: 160px;
+  }
+
+  }
