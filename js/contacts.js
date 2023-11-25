@@ -6,36 +6,34 @@ let newEmail = 0;
 let contacts = [ 
     /*
     {
-        name: "Anton Meyer",
-        email: "anton.mayer@mail.de",
-        phone: "+49 01233542",
-        initials: "AM",
-      },
-      {
-        name: "Anton Meyer",
-        email: "anton.mayer@mail.de",
-        phone: "+49 01233542",
-        initials: "AM",
-      },
-      {
-        name: "Anton Meyer",
-        email: "anton.mayer@mail.de",
-        phone: "+49 01233542",
-        initials: "AM",
-      }, */
+        name: 'Sofia Lana',
+        email: 'sofiam@gmail.com',
+        phone: '+49 1111 111 11 1',
+        initials: 'SM',
+        
+    },
+    {
+        name: 'Anna Müller',
+        email: 'sofiam@gmail.com',
+        phone: '+49 1111 111 11 1',
+        initials: 'SM',
+    
+    },*/
 ];
 
-/*
-load();
-*/
+
+
 async function InitContacts() {
     await init();
     await initStart();
     await loadContactsFromBackend();
+    render();
     renderContactBook();
     if (contacts > [])
         openBusinessCard(0);
 }
+
+
 /*
 function render() {
     let contactbook = document.getElementById('contactbook');
@@ -80,8 +78,15 @@ function load() {
 
     }
 }
-*/
 
+
+async function loadContacts() {
+    try {
+        contacts = JSON.parse(await getItem('contacts'));
+    } catch(e) {
+        console.error('Loading Contactserror: ', e);
+    }
+} */
 
 /**
 * show the overlay mask, where you can creat a new contact
@@ -277,6 +282,9 @@ function loadContactsFromBackend() {
     let key = activeUser[0];
     contacts = JSON.parse(backend.getItem(key)) || [];
 }
+
+
+
 /*
 async function getItem(key) {
     const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
