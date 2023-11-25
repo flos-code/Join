@@ -274,10 +274,10 @@ input:focus {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    padding-top: 2.5rem;
+    padding-top: 1.5rem;
 }
 
-.register-policy-icon {
+.checkbox-icon {
     cursor: pointer;
 }
 
@@ -299,7 +299,7 @@ input:focus {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 3rem;
+    bottom: 2rem;
     display: flex;
     justify-content: center;
     gap: 2rem;
@@ -336,4 +336,56 @@ input:focus {
 
 .arrow-icon:hover {
     background-color: #eeefef;
+}
+
+.signup-success-overlay {
+    position: absolute; 
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.signup-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    overflow: hidden;
+}
+
+.signup-success-message {
+    background-color: #2A3647;
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    color: white;
+    font-size: 1.25rem;
+    opacity: 0;
+    transform: translateY(750%);
+}
+
+.success-message-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all .25s ease-in-out;
+}
+
+.register-checkbox-error,
+.register-password-error {
+    text-align: center;
+    font-size: 1rem;
+    color: red;
+    padding-top: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.outline-red {
+    border-color: red;
 }
