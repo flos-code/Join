@@ -260,8 +260,9 @@ function generateSubtask(element) {
         trueCount++;
       }
     }
+    barWidth = document.querySelector('.toDoSubtasksProgress').offsetWidth;
     doneSubtasksDiv.innerHTML = `${trueCount}`;
-    let fillWidth = 128 * (trueCount / subtasks.length);
+    let fillWidth = barWidth * (trueCount / subtasks.length);
     progessbarFillerDiv.style = `width: ${fillWidth}px`;
   }
 }
