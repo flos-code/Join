@@ -748,3 +748,43 @@ height: 64px;
   }
 
   }
+
+  @media (max-width: 991.98px) { 
+    .boardHeader h1 {
+      font-size: 48px;
+    }
+
+    .inputWithImg {
+      margin-right: 16px;
+      width: 200px;
+    }
+
+    #findTask {
+      width: 120px;
+    }
+
+    .boardHeaderInteract button {
+      font-size: 18px;
+    }
+   }
+
+   @media (max-width: 850px) {
+    .boardHeaderContainer {
+      margin-left: 32px;
+margin-right: 32px;      
+width: calc(100% - 32px);;
+    }
+
+    .boardHeader {
+      margin-left: 0;
+      width: calc(100% - 32px);
+    }
+
+    .boradContent {
+      margin-left: 32px;
+    }
+
+    .draArea {
+      width: calc(100% - 32px);
+    }
+   }
