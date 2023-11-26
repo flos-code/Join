@@ -3,23 +3,42 @@ let contactInitials;
 let newEmail = 0;
 
 
+
 let contacts = [ 
-    /*
+    
+   
     {
-        name: 'Sofia Lana',
-        email: 'sofiam@gmail.com',
-        phone: '+49 1111 111 11 1',
-        initials: 'SM',
+        name: 'sonja',
+        email: 't.wolf@gmail.com',
+        phone: '+49 1111 111 11 9',
+        initials: 'SW',
+    },
+   
+    {
+        name: 'Tatjana',
+        email: 't.wolf@gmail.com',
+        phone: '+49 1111 111 11 9',
+        initials: 'TW',
         
     },
     {
-        name: 'Anna Müller',
-        email: 'sofiam@gmail.com',
-        phone: '+49 1111 111 11 1',
-        initials: 'SM',
-    
-    },*/
+        name: 'ANA WOLF',
+        email: 't.wolf@gmail.com',
+        phone: '+49 1111 111 11 9',
+        initials: 'AW',
+        
+    },
+    {
+        name: 'ANDRE WOLF',
+        email: 't.wolf@gmail.com',
+        phone: '+49 1111 111 11 9',
+        initials: 'TW',
+        
+    },
+
 ];
+
+loadContactsFromBackend();
 
 
 
@@ -27,66 +46,10 @@ async function InitContacts() {
     await init();
     await initStart();
     await loadContactsFromBackend();
-    render();
     renderContactBook();
     if (contacts > [])
         openBusinessCard(0);
 }
-
-
-/*
-function render() {
-    let contactbook = document.getElementById('contactbook');
-    contactbook.innerHTML = '';
-
-    for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
-        contactbook.innerHTML += `
-        <div class="card"> 
-          <div class="initialen">
-           <img class="design-prof" src="${contact['name']}" > 
-             <h2 class="author">${contact['email']}</h2>
-         </div>
-              <img class="imgDesign" src="${contact['phone']}"><br>
-              <img class="imgDesign" src="${contact['initials']}"><br>
-        
-              </div>
-
-           
-            `
-            ;
-
-
-       
-        }
-
-
-    }
-
-
-function save() {
-    let contactsASText = JSON.stringify(contacts);
-
-    localStorage.setItem('contactsASText', contactsASText);
-}
-
-function load() {
-    let contactsASText = localStorage.getItem('contactsASText');
-
-    if (contactsASText) {
-        contacts = JSON.parse(contactsASText);
-
-    }
-}
-
-
-async function loadContacts() {
-    try {
-        contacts = JSON.parse(await getItem('contacts'));
-    } catch(e) {
-        console.error('Loading Contactserror: ', e);
-    }
-} */
 
 /**
 * show the overlay mask, where you can creat a new contact

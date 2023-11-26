@@ -28,14 +28,14 @@
     <head>
 
 
-    <body onload="InitContacts(); includeHTML();">
+    <body onload="InitContacts(); includeHTML();render()">
 
         <div w3-include-html="assets/templates/header.html"></div>
 
         <div w3-include-html="assets/templates/sidebar.html"></div>
-      
+
         <div id="contactInfo" class="kanban-title d-none">Kanban Project Managment Tool</div>
-        <div class="moveBackBtn d-none" id="moveBackBtn" onclick="backToContacts()">  
+        <div class="moveBackBtn d-none" id="moveBackBtn" onclick="backToContacts()">
             <img src="./img/arrrow-left.png">
         </div>
         <div class="contactHeadlineContent" id="contactHeadlineContent">
@@ -104,7 +104,9 @@
             </div>
         </div>
         <!--- JS -->
-        <div class="contact-book-main" id="contact-book"></div>
+        <div class="contact-book-main" id="contact-book">push and save Contacts/Users.Array
+
+        </div>
         <div class="contact-book-main-rs" id="contact-book-rs"></div>
 
         <div id="contactCard"></div>
