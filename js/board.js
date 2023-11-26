@@ -537,7 +537,7 @@ function editToDo(id) {
                             </div>
                       
                             <div class="task-form-label">Prio</div>
-                            <div class="task-form-prio">
+                            <div class="task-form-prio editPrioMobile">
                                 <div class="task-form-btn" id="urgent-btn" onclick="selectPrioButton('urgent-btn'); changePrio('Urgent')">Urgent
                                     <svg class="task-form-urgent-icon" viewBox="0 0 21 16">
                                         <use href="assets/img/icons.svg#urgentprio-icon"></use>
