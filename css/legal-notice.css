@@ -1,6 +1,6 @@
 .content {
   margin-left: 326px;
-  margin-top: 128px;
+  margin-top: 64px;
   width: calc(100% - 422px);
 }
 
@@ -9,6 +9,7 @@
   font-weight: 700;
   margin-block: unset;
   margin-bottom: 28px;
+ 
 }
 
 .content h2 {
@@ -77,4 +78,18 @@
   cursor: pointer;
   background-color: #eeeeee;
   transform: scale(1.1);
+}
+
+
+@media (max-width: 850px) {
+  .content {
+    margin-left: 16px;
+    margin-right: 16px;      
+    width: calc(100% - 32px);
+    margin-bottom: 96px;
+    
+  } 
+  .content h1 {
+    font-size: 48px;
+  }
 }

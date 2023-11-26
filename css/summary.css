@@ -1,5 +1,5 @@
 .summaryContent {
-  margin-left: 328px;
+  margin-left: 296px;
   margin-top: 120px;
   width: calc(100% - 328px);
   display: flex;
@@ -202,4 +202,193 @@
   font-size: 64px;
   font-weight: 700;
   color: #29abe2;
+
 }
+
+.sumHeadDeviderMobile {
+  display: none;
+  width: 90px;
+  height: 2px;
+  background-color: #29abe2;
+  border-radius: 1px;
+  margin-top: 12px;
+  
+}
+
+@media (max-width: 1399.98px) { 
+  .userGreet {
+    margin-left: 48px;
+}
+
+.logedinUser {
+ font-size: 56px;
+}
+ }
+
+ @media (max-width: 1199.98px) { 
+
+  .summaryContent {
+
+    margin-top: 48px;
+  }
+  .summaryMainContent {
+    flex-direction: column;
+    margin-top: 48px;
+  }
+
+  .userGreet {
+    margin-left: 0;
+    text-align: center;
+    margin-top: 24px;
+}
+
+  }
+
+  @media (max-width: 991.98px) { 
+    .summaryContent {
+      margin-left: 280px;
+   }  
+   .summaryContent {
+
+    margin-top: 32px;
+  }
+  .summaryMainContent {
+ 
+    margin-top: 32px;
+  } 
+
+  .summaryHead h1 {
+    font-size: 48px;
+  }
+
+    
+    .sumHeadSlogan {
+      font-size: 20px;
+  
+  }
+  
+  }
+
+
+   @media (max-width: 850px) {
+
+    .summaryContent {
+      margin-left: 32px;
+      width: calc(100% - 64px);
+      align-items: center;
+      margin-bottom: 112px;
+   }  
+   }
+
+   @media (max-width: 767.98px) { 
+    .userGreet {
+    display: none;
+  }
+    }
+
+    @media (max-width: 575.98px) { 
+
+      .summaryHead {
+flex-direction: column;
+align-items: flex-start;
+align-self: flex-start;
+    }
+
+    .sumHeadDevider {
+      display: none;
+    }
+
+    .sumHeadSlogan {
+      margin-top: 8px;
+    }
+
+    .summaryContent {
+      margin-top: 16px;
+      margin-bottom: 0;
+      margin-left: 4vw;
+      width: 92vw;
+     }
+
+     .summaryMainContent {
+     margin-top: 16px;
+     }
+
+     .summaryBoxes {
+      width: 92vw;
+      height: 92vw;
+     }
+
+     .summaryBoxTop {
+      width: 44vw;
+      padding: 24px 24px;
+      height: 28vw;
+
+     }
+
+     .summaryBoxTopIcon {
+      width: 48px;
+      height: 48px;
+     }
+
+     .summaryBoxesTopIcons {
+      width: 24px;
+      height: 24px;
+     }
+   
+     .summaryBoxMid {
+  
+      width: 92vw; 
+      padding: 20px 16px;
+      height: 28vw;
+
+    }
+
+    .sumUrgentDevider {
+  
+      height: 24vw;
+      margin: 0 16px; 
+    }
+
+    .summaryBoxMidIcon {
+      width: 48px;
+      height: 48px; 
+    }
+
+    .summaryBoxMidIcon img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .nextUrgentDate {
+      font-size: 16px;
+    margin-bottom: 8px; }
+
+    .summaryBoxBottom {
+      width: 28vw;
+      height: 28vw;
+      padding: 12px 0;
+   
+    }
+
+    .summaryCountNum {
+      font-size: 40px;
+    
+   
+  }
+
+  .summaryCountText {
+    font-size: 14px;
+    white-space: nowrap;
+    
+    }
+  
+    .summaryBox:hover {
+  
+      transform: scale(1.05);
+    }
+
+    .sumHeadDeviderMobile {
+      display: block;
+
+    }
+  }
