@@ -389,3 +389,12 @@ input:focus {
 .outline-red {
     border-color: red;
 }
+
+.login-error-message {
+    text-align: center;
+    font-size: 1rem;
+    color: red;
+    padding-top: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

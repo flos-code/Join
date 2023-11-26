@@ -24,18 +24,20 @@
       <div class="login-card">
         <h1 class="login-heading">Log in</h1>
         <form class="login-form" onsubmit="login(); return false">
-          <div class="login-input-container">
-            <div class="login-input-wrapper">
-              <input class="login-email-input" type="email" name="email-login" id="email-login" placeholder="Email" required
-                autocomplete="on">
-              <img class="email-icon" src="img/login/mail.svg" alt="Email Icon">
+          <div class="login-inputs" id="login-inputs">
+            <div class="login-input-container">
+              <div class="login-input-wrapper">
+                <input class="login-email-input" type="email" name="email-login" id="email-login" placeholder="Email" required
+                  autocomplete="on">
+                <img class="email-icon" src="img/login/mail.svg" alt="Email Icon">
+              </div>
             </div>
-          </div>
-          <div class="login-input-container">
-            <div class="login-input-wrapper" id="pw-wrapper">
-              <input class="login-pw-input" type="password" name="password-login" id="password-login" placeholder="Password"
-                required autocomplete="current-password" onclick="replaceLockIcon('login')">
-              <img class="lock-icon" id="lock-icon-login" src="img/login/lock.svg" alt="Password Icon">
+            <div class="login-input-container">
+              <div class="login-input-wrapper" id="pw-wrapper">
+                <input class="login-pw-input" type="password" name="password-login" id="password-login" placeholder="Password"
+                  required autocomplete="current-password" onclick="replaceLockIcon('login')">
+                <img class="lock-icon" id="lock-icon-login" src="img/login/lock.svg" alt="Password Icon">
+              </div>
             </div>
           </div>
           <div class="login-remember">
@@ -57,6 +59,7 @@
     </footer>
   </div>
 
+  <script src="js/storage.js"></script>
   <script src="js/login.js"></script>
 </body>
 
