@@ -12,24 +12,39 @@ async function loadUsers() {
 }
 
 
-function guestLogin() {
+async function guestLogin() {
+    for (const user of users) {
+        user.isYou = false;
+    }
+    await setItem('users', JSON.stringify(users));
     window.open('summary.html', '_self');
 }
 
 
-function login() {
+async function login() {
     const emailLogin = document.getElementById('email-login');
     const passwordLogin = document.getElementById('password-login');
     
-    // überprüfe ob die Eingaben im users Array vorhanden sind.
+    // überprüfe ob die Eingaben im users Array vorhanden sind und gebe das Object zurück.
     const user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
     if (user) {
+        await setUserToTrue(user);
         rememberMe();
         resetLoginForm();
         window.open('summary.html', '_self');
     } else {
         loginError();
     }
+}
+
+
+// loggedInUser to be set to true while all other users are set to false
+async function setUserToTrue(loggedInUser) {
+    for (const user of users) {
+        user.isYou = false;
+    }
+    loggedInUser.isYou = true;
+    await setItem('users', JSON.stringify(users));
 }
 
 
@@ -391,7 +406,7 @@ function registerHTML() {
                 <div id="register-policy-container">
                     <div class="register-policy">
                         <img class="checkbox-icon" src="img/login/unchecked.svg" alt="Checkbox" id="unchecked" onclick="toggleCheckIcon()">
-                        <span class="register-policy-text">I accept the <a href="../privacy_policy.html" class="register-policy-text text-blue">Privacy Policy</a></span>
+                        <span class="register-policy-text">I accept the <a href="../privacy_policy_out.html" class="register-policy-text text-blue">Privacy Policy</a></span>
                     </div>
                 </div>
                 <div class="register-button-container">
