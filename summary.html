@@ -30,7 +30,7 @@
 
     <div w3-include-html="assets/templates/sidebar.html"></div>
 
-    <section class="summaryContent">
+    <section id="summaryContent" class="summaryContent">
       <div class="summaryHead">
         <h1>Join 360</h1>
         <div class="sumHeadDevider"></div>
@@ -138,9 +138,13 @@
 
         <div class="userGreet">
           <div id="timedGreeting">Good morning,</div>
-          <div class="logedinUser">Guest-js einbinden</div>
+          <div id="logedinUser">Guest-js einbinden</div>
         </div>
       </div>
+    </section>
+    <section id="mobileGreet">
+      <div id="mobileTimedGreeting">Good morning,</div>
+      <div id="mobileLogedinUser">Guest-js einbinden</div>
     </section>
     <div w3-include-html="assets/templates/mobile.html"></div>
   </body>

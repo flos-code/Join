@@ -77,6 +77,7 @@ function timedGreeting() {
   }
 
   document.getElementById("timedGreeting").innerHTML = greeting;
+  document.getElementById("mobileTimedGreeting").innerHTML = greeting;
 }
 
 function setNextUrgentDate(task, todoCounts) {
@@ -100,3 +101,20 @@ function updateDeadlineText(UrgentTasksCount) {
       "No Upcoming Deadline";
   }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  let mobileGreetDiv = document.getElementById("mobileGreet");
+  let mainContent = document.getElementById("summaryContent");
+  let isMobileView = window.matchMedia("(max-width: 767.98px)").matches;
+  if (isMobileView) {
+    mainContent.style.display = "none";
+    mobileGreetDiv.classList.add("show");
+    setTimeout(function () {
+      mainContent.style.display = "flex";
+      mobileGreetDiv.classList.add("hidden");
+    }, 700);
+    setTimeout(function () {
+      mobileGreetDiv.style.display = "none";
+    }, 1700);
+  }
+});
