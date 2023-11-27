@@ -116,7 +116,7 @@ async function addUserToArray(emailSignup, passwordSignup) {
         email: emailSignup.value,
         phone: null,
         password: passwordSignup.value,
-        isYou: true,
+        isYou: false,
         userID: users.length
     });
 
