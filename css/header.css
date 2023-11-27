@@ -29,6 +29,11 @@ header {
     gap: 25px;
 }
 
+.help-icon {
+    display: inline-block;
+    width: 22px;
+}
+
 .userImage {
     height: 60px;
     width: 60px;
