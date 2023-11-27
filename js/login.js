@@ -3,6 +3,7 @@ let users = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadUsers();
+    loadLoginData();
 })
 
 
@@ -23,6 +24,7 @@ function login() {
     // überprüfe ob die Eingaben im users Array vorhanden sind.
     const user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
     if (user) {
+        rememberMe();
         resetLoginForm();
         window.open('summary.html', '_self');
     } else {
@@ -289,6 +291,45 @@ function toggleCheckIcon() {
     } else if (checkedIcon) {
         checkedIcon.src = 'img/login/unchecked.svg';
         checkedIcon.id = 'unchecked';
+        unrememberMe();
+    }
+}
+
+
+function rememberMe() {
+    const checkedIcon = document.getElementById('checked');
+    const email = document.getElementById('email-login');
+    const password = document.getElementById('password-login');
+
+    if (checkedIcon) {
+        if (email.value && password.value) {
+            localStorage.setItem('email', email.value);
+            localStorage.setItem('password', password.value);
+        }
+    }
+}
+
+
+function loadLoginData() {
+    const email = document.getElementById('email-login');
+    const password = document.getElementById('password-login');
+    const emailSaved = localStorage.getItem('email');
+    const passwordSaved = localStorage.getItem('password');
+
+    if (emailSaved && passwordSaved) {
+        email.value = emailSaved;
+        password.value = passwordSaved;
+    }
+}
+
+
+function unrememberMe() {
+    const emailSaved = localStorage.getItem('email');
+    const passwordSaved = localStorage.getItem('password');
+
+    if (emailSaved && passwordSaved) {
+        localStorage.removeItem('email');
+        localStorage.removeItem('password');
     }
 }
 
