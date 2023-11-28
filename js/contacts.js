@@ -109,7 +109,7 @@ async function loadContacts() {
 /**
 * show the overlay mask, where you can creat a new contact
 */
-function showAddNewContact() {
+function showOverlay() {
     const newContactContainer = document.getElementById('newContactContainer');
 
     newContactContainer.innerHTML = addNewContactHTML();
