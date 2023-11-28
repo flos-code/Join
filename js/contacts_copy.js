@@ -312,17 +312,18 @@ function openContact(i) {
         contactName.style = "color: ;"
 
     }
-    let contact = contacts[i];
+
     let contactDiv = document.getElementById(`contact-${i}`);
     let contactName = document.getElementById(`contactName-${i}`);
     contactDiv.style = "background-color: #2A3647;"
     contactName.style = "color: white;"
-    contactInfoDiv.innerHTML += genertaeContactInfo(contact, i);
+    contactInfoDiv.innerHTML += genertaeContactInfo(i);
 
 
 }
 
-function genertaeContactInfo(contact, i) {
+function genertaeContactInfo(i) {
+    let contact = contacts[i];
     return /*html*/`
 <div class="contactInfoContainer">
 
@@ -341,7 +342,7 @@ function genertaeContactInfo(contact, i) {
         <img class="editContactImg" src="./img/editToDo.svg" alt="Edit Contact">
           Edit
         </div>
-        <div class="deletContact" onclick="deketContact(${i})">
+        <div class="deletContact" onclick="deletContact(${i})">
         <img class="deletContactImg" src="./img/deleteToDo.svg" alt="Delet Contact">
           Delete
         </div>
@@ -363,11 +364,77 @@ function genertaeContactInfo(contact, i) {
   </div>
 
 </div>
+<div id="edit"></div>
 
   
     `
 }
 
 
+function editContact(i) {
+
+    document.getElementById("edit").innerHTML = generateEditOverlay(i);
+    document.getElementById("overlay-container").classList.add("transform-0")
+    loadeUserInfo(i);
+}
 
 
+function loadeUserInfo(i) {
+    let name = contacts[i]["firstName"] + " " + contacts[i]["lastName"];
+    document.getElementById("edit-name").value = name;
+    document.getElementById("edit-email").value = contacts[i]["email"];
+    document.getElementById("edit-phone").value = contacts[i]["phone"];
+}
+
+async function saveContact(i) {
+    let contact = contacts[i];
+    let id = contact["userID"];
+
+    let contactName = document.getElementById('edit-name').value;
+    let contactEmail = document.getElementById('edit-email').value;
+    let contactPhone = document.getElementById('edit-phone').value;
+
+    let formattedName = formatName(contactName);
+
+    contact["firstName"] = formattedName.firstName;
+    contact["lastName"] = formattedName.lastName;
+    contact["initials"] = formattedName.initials;
+    contact["email"] = contactEmail;
+    contact["phone"] = contactPhone;
+
+
+    users[id]["firstName"] = formattedName.firstName;
+    users[id]["lastName"] = formattedName.lastName;
+    users[id]["initials"] = formattedName.initials;
+    users[id]["email"] = contactEmail;
+    users[id]["phone"] = contactPhone;
+    await setItem('users', JSON.stringify(users));
+
+    document.getElementById("edit").innerHTML = "";
+    InitContacts();
+    openContact(i);
+}
+
+function formatName(name) {
+    let words = name.split(' ');
+    let capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    let firstName = capitalizedWords[0];
+    let lastName = capitalizedWords.slice(1).join(' ');
+    let initials = words.map(word => word.charAt(0).toUpperCase()).join('');
+
+    return {
+        firstName: firstName,
+        lastName: lastName,
+        initials: initials
+    };
+}
+
+async function deletContact(i) {
+    let id = contacts[i]["userID"];
+    contacts.splice(i, 1);
+    users.splice(id, 1);
+
+    await setItem('users', JSON.stringify(users));
+    document.getElementById("contactInfoContainer").innerHTML = "";
+    InitContacts();
+}

@@ -67,7 +67,7 @@ function generateEditOverlay(i) {
                 <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeEditOverlayResponsive()">
                 <div class="userInfo">
                     <div class="overlay-user-initials-container">
-                        <div class="overlay-user-initials">${contacts[i]['initials']}</div>
+                        <div style="background-color: ${contacts[i]["userColor"]};" class="overlay-user-initials">${contacts[i]['initials']}</div>
                     </div>
 
                     <form class="save-contact-form" onsubmit="saveContact(${i}); return false;">
