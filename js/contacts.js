@@ -88,11 +88,35 @@ async function loadContacts() {
     }
 } */
 
+// /**
+// * show the overlay mask, where you can creat a new contact
+// */
+// function showOverlay() {
+//     document.getElementById('overlay-background').classList.remove('d-none');
+// }
+
+
+// /**
+// * close the overlay mask, where you can create a new contact
+// */
+// function closeOverlay() {
+//     document.getElementById('overlay-background').classList.add('d-none');
+//     hideEmailMessage();
+//     clearInputAtOverlay();
+// }
+
+
 /**
 * show the overlay mask, where you can creat a new contact
 */
-function showOverlay() {
-    document.getElementById('overlay-background').classList.remove('d-none');
+function showAddNewContact() {
+    const newContactContainer = document.getElementById('newContactContainer');
+
+    newContactContainer.innerHTML = addNewContactHTML();
+    setTimeout(() => {
+        const newContactCard = document.getElementById('overlay-container');
+        newContactCard.classList.add('transform-0');
+    }, 0);
 }
 
 
@@ -100,11 +124,14 @@ function showOverlay() {
 * close the overlay mask, where you can create a new contact
 */
 function closeOverlay() {
-    document.getElementById('overlay-background').classList.add('d-none');
-    hideEmailMessage();
-    clearInputAtOverlay();
-}
+    const addContactDiv = document.getElementById('overlay-background');
+    const newContactContainer = document.getElementById('overlay-container');
+    newContactContainer.classList.remove('transform-0');
 
+    setTimeout(() => {
+        addContactDiv.remove();
+    }, 250);
+}
 
 
 /**
