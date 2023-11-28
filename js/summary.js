@@ -1,8 +1,10 @@
 tasks = [];
+users = [];
 
 async function initSummary() {
   await includeHTML();
   await loadTasks();
+  await loadUsers();
   renderSummaryConten();
 }
 
@@ -12,6 +14,14 @@ async function loadTasks() {
     tasks = JSON.parse(await getItem('tasks'));
   } catch (e) {
     console.error('Loading Tasks error:', e);
+  }
+}
+
+async function loadUsers() {
+  try {
+    users = JSON.parse(await getItem('users'));
+  } catch (e) {
+    console.error('Loading Users error: ', e);
   }
 }
 
@@ -30,6 +40,7 @@ let currentTime = new Date().getHours();
 function renderSummaryConten() {
   loadeCount();
   timedGreeting();
+  greetUser();
 }
 
 function loadeCount() {
@@ -118,3 +129,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1700);
   }
 });
+
+function greetUser() {
+  for (let i = 0; i < users.length; i++) {
+    let user = users[i]
+    if (user["isYou"]) {
+      document.getElementById("logedinUser").innerHTML = `${user["firstName"]} ${user["lastName"]}`
+      document.getElementById("mobileLogedinUser").innerHTML = `${user["firstName"]} ${user["lastName"]}`
+    }
+    else {
+      document.getElementById("logedinUser").innerHTML = `Guest`
+      document.getElementById("mobileLogedinUser").innerHTML = `Guest`
+    }
+
+  }
+}

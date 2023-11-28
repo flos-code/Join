@@ -1,149 +1,145 @@
 header {
-    display: flex;
-    justify-content: space-between;
-    background-color: #FFFFFF;
-    width: 100%;
-    height: 80px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px 36px 20px 348px;
-    box-sizing: border-box;
-    font-family: 'inter', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  width: 100%;
+  height: 80px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px 36px 20px 348px;
+  box-sizing: border-box;
+  font-family: "inter", sans-serif;
 }
 
 .headerJoinLogo {
-    display: none;
+  display: none;
 }
 
 .headerText {
-    display: flex;
-    align-items: center;
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 21px;
-  
+  display: flex;
+  align-items: center;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 21px;
 }
 
 .headerIcons {
-    display: flex;
-    align-items: center;
-    gap: 25px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
 }
 
 .help-icon {
-    display: inline-block;
-    width: 22px;
+  display: inline-block;
+  width: 22px;
 }
 
 .userImage {
-    height: 60px;
-    width: 60px;
-    border-radius: 100%;
-    border: 2px solid black;
-    cursor: pointer;
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+  border: 2px solid black;
+  cursor: pointer;
 }
 
 .userImage:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .logout-btn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: 36px;
-    top: 81px;
-    width: 130px;
-    height: 45px;
-    background: #2A3647;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 20px 0px 20px 20px;
-    box-sizing: border-box;
-    padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 36px;
+  top: 81px;
+  width: 130px;
+  height: 45px;
+  background: #2a3647;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px 0px 20px 20px;
+  box-sizing: border-box;
+  padding: 5px;
 }
 
 .logout-inner-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #CDCDCD;
-    width: 100%;
-    height: 100%;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #cdcdcd;
+  width: 100%;
+  height: 100%;
 }
 
 .popup-frame-logout {
-    z-index: 2;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 .rs-logout {
-    display: none;
+  display: none;
 }
 
 .d-none {
-    display: none;
+  display: none;
 }
 
 .rs-logout-active {
-    color: white !important;
+  color: white !important;
+  cursor: pointer;
+}
+
+@media (min-width: 851px) {
+  .logout-btn:hover {
     cursor: pointer;
+    background: #29abe2;
+  }
+
+  .logout-btn:hover .logout-inner-btn {
+    color: white;
+  }
 }
 
+@media (max-width: 850px) {
+  header {
+    padding: 20px 25px;
+  }
 
-@media(min-width: 851px) {
-    .logout-btn:hover {
-        cursor: pointer;
-        background: #29ABE2;
-    }
+  .headerJoinLogo {
+    display: block;
+  }
 
-    .logout-btn:hover .logout-inner-btn {
-        color: white;
-    }
-}
+  .headerText {
+    display: none;
+  }
 
-@media(max-width: 850px) {
+  .header-help {
+    display: none;
+  }
 
-    header {
-        padding: 20px 25px;
-    }
+  .rs-logout {
+    display: flex;
+    justify-content: center;
+    color: #cdcdcd;
+    width: 100%;
+  }
 
-    .headerJoinLogo {
-        display: block;
-    }
+  .rs-logout:hover {
+    color: white;
+    cursor: pointer;
+  }
 
-    .headerText {
-        display: none;
-    }
+  .logout-btn {
+    height: auto;
+    gap: 10px;
+  }
 
-    .header-help {
-        display: none;
-    }
-
-    .rs-logout {
-        display: flex;
-        justify-content: center;
-        color: #CDCDCD;
-        width: 100%;
-    }
-
-    .rs-logout:hover {
-        color: white;
-        cursor: pointer;
-    }
-
-    .logout-btn {
-        height: auto;
-        gap: 10px;
-    }
-
-    .logout-inner-btn:hover {
-        color: white;
-        cursor: pointer;
-    }
+  .logout-inner-btn:hover {
+    color: white;
+    cursor: pointer;
+  }
 }

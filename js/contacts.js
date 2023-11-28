@@ -3,7 +3,7 @@ let contactInitials;
 let newEmail = 0;
 
 
-let contacts = [ 
+let contacts = [
     /*
     {
         name: 'Sofia Lana',
@@ -25,7 +25,7 @@ let contacts = [
 
 async function InitContacts() {
     await init();
-    await initStart();
+    // await initStart();
     await loadContactsFromBackend();
     render();
     renderContactBook();
@@ -342,7 +342,7 @@ function showOverlayResponsive() {
     document.getElementById('contactInfo').classList.remove('d-none');
     document.getElementById('contactHeadlineContent').style.display = 'flex';
     document.getElementById('contactCard-main').style.display = 'flex';
-    
+
 }
 
 
@@ -381,7 +381,7 @@ function renderContactBookResponsive() {
 
 
 function genereateRandomColor() {
-    let randomColor = Math.floor(Math.random()*16777215).toString(16);
+    let randomColor = Math.floor(Math.random() * 16777215).toString(16);
     document.getElementById('contactCircleBgColor' + i).style.background = `#${randomColor} !important`;
 }
 
@@ -426,7 +426,7 @@ async function saveContactResponsive(i) {
     closeEditOverlay();
     renderContactBookResponsive();
     openBusinessCardResponsive(i);
-   // document.getElementById('moveBackBtn').classList.remove('d-none');//
+    // document.getElementById('moveBackBtn').classList.remove('d-none');//
 }
 
 
@@ -454,8 +454,8 @@ function addActiveClass3() {
  This function remove non-nueric characters, max numbers is 16 
  */
 function validateInput(input) {
-    input.value = input.value.replace(/\D/g, ''); 
+    input.value = input.value.replace(/\D/g, '');
     if (input.value.length > 16) {
-        input.value = input.value.slice(0, 16); 
+        input.value = input.value.slice(0, 16);
     }
 }
