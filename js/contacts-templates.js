@@ -15,7 +15,7 @@ function addNewContactHTML() {
                         <div class="userIconConteiner">
                             <img class="userWhiteIcon" src="./img/user-white.png">
                         </div>
-                        <form onsubmit="addNewContact(); return false;">
+                        <form id="addContactFrom" onsubmit="addNewContact(); return false;">
                             <div class="contactDetailsContainer">
                                 <div class="contactsDetailsFrame">
                                     <input id="new-name" class="style-input styleUserIcon" required type="text"
@@ -40,7 +40,7 @@ function addNewContactHTML() {
                             <div class="overlay-cancel-btn-image"></div>
                         </div>
 
-                        <button class="overlay-create-btn">
+                        <button type="submit" form="addContactFrom" class="overlay-create-btn">
                             <div class="overlay-create-btn-text">Create contact</div>
                             <img src="./img/check.png">
                         </button>
@@ -55,8 +55,8 @@ function addNewContactHTML() {
 
 function generateEditOverlay(i) {
     return /*html*/ `
-    <div class="overlay-bg" id="edit-background">
-        <div class="addContactContainer" id="overlay-container">
+    <div onclick="closeEditOverlay()" class="overlay-bg" id="edit-background">
+        <div class="addContactContainer" id="overlay-container" onclick="event.stopPropagation()">
             <div class="addContactLeftPart">
                 <img class="addContactJoinLogo" src="./img/logo.png">
                 <div class="overlayHeadline">Edit contact</div>
@@ -85,11 +85,17 @@ function generateEditOverlay(i) {
                              required type="text" oninput="validateInput(this)">
                             </div>
                         </div>
+                        <div class="manageEditContact">
+                        <div class="deletContactEdit" onclick="deletContact(${i})">Delete</div>
                         <button class="overlay-save-frame">
                             <div class="overlay-save-btn">
                                 <div class="overlay-save-btn-text">Save</div>
+                                <div class="saveEditImg"><img src="./img/check.svg" alt="Save Edited Contact"></div>
+                     
                             </div>
                         </button>
+                        </div>
+                     
                     </form>
 
 
@@ -120,7 +126,7 @@ function generateEditOverlay(i) {
 `;
 }
 
-
+//entfällt by copy
 function generateBusinessCard(i) {
     return /*html*/ `
     <div class="contactCard-main" id="contactCard-main">
@@ -152,7 +158,7 @@ function generateBusinessCard(i) {
     `;
 }
 
-
+// entfällt bei copy
 function generateHTMLforContactBook(i) {
     return /*html*/ `
     <div class="contact-book-container" id="contact-book-bg${i}" onclick="openBusinessCard(${i})">

@@ -12,8 +12,6 @@ async function InitContacts() {
     contactsAlphabetical(users);
     renderAlphabet();
 
-    // render();
-    // renderContactBook();
 
 }
 
@@ -27,52 +25,6 @@ async function loadUsers() {
 
 
 
-function render() {
-    let contactbook = document.getElementById('contactbook');
-    contactbook.innerHTML = '';
-
-    for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
-        contactbook.innerHTML += `
-        <div class="card"> 
-          <div class="initialen">
-           <img class="design-prof" src="${contact['name']}" > 
-             <h2 class="author">${contact['email']}</h2>
-         </div>
-              <img class="imgDesign" src="${contact['phone']}"><br>
-              <img class="imgDesign" src="${contact['initials']}"><br>
-        
-              </div>
-
-           
-            `
-            ;
-
-
-
-    }
-
-
-}
-
-
-
-// /**
-// * show the overlay mask, where you can creat a new contact
-// */
-// function showOverlay() {
-//     document.getElementById('overlay-background').classList.remove('d-none');
-// }
-
-
-// /**
-// * close the overlay mask, where you can create a new contact
-// */
-// function closeOverlay() {
-//     document.getElementById('overlay-background').classList.add('d-none');
-//     hideEmailMessage();
-//     clearInputAtOverlay();
-// }
 
 
 /**
@@ -219,7 +171,11 @@ function editContact(i) {
 * close the edit overlay mask
 */
 function closeEditOverlay() {
-    document.getElementById('edit-background').classList.add('d-none');
+    document.getElementById("overlay-container").classList.remove("transform-0")
+
+    setTimeout(() => {
+        document.getElementById("edit-background").remove();
+    }, 250);
 }
 
 
@@ -243,6 +199,16 @@ async function saveContact(i) {
 function addActiveClass3() {
     document.getElementById('id-3').classList.add('active');
     document.getElementById('idResponsive-3').classList.add('active');
+}
+
+/**
+ This function remove non-nueric characters, max numbers is 16 
+ */
+function validateInput(input) {
+    input.value = input.value.replace(/\D/g, '');
+    if (input.value.length > 16) {
+        input.value = input.value.slice(0, 16);
+    }
 }
 
 function contactsAlphabetical(users) {
@@ -374,7 +340,12 @@ function genertaeContactInfo(i) {
 function editContact(i) {
 
     document.getElementById("edit").innerHTML = generateEditOverlay(i);
-    document.getElementById("overlay-container").classList.add("transform-0")
+
+
+    setTimeout(() => {
+        document.getElementById("overlay-container").classList.add("transform-0")
+    }, 0);
+
     loadeUserInfo(i);
 }
 
@@ -430,11 +401,95 @@ function formatName(name) {
 }
 
 async function deletContact(i) {
+
     let id = contacts[i]["userID"];
-    contacts.splice(i, 1);
     users.splice(id, 1);
+    contacts = [];
+    for (let j = 0; j < users.length; j++) {
+        users[j]["userID"] = j;
+    }
+
+    contactsAlphabetical(users)
 
     await setItem('users', JSON.stringify(users));
     document.getElementById("contactInfoContainer").innerHTML = "";
     InitContacts();
+}
+
+/**
+* show the overlay mask, where you can creat a new contact
+*/
+function showOverlay() {
+    const newContactContainer = document.getElementById('newContactContainer');
+
+    newContactContainer.innerHTML = addNewContactHTML();
+    setTimeout(() => {
+        const newContactCard = document.getElementById('overlay-container');
+        newContactCard.classList.add('transform-0');
+    }, 0);
+}
+
+
+/**
+* close the overlay mask, where you can create a new contact
+*/
+function closeOverlay() {
+    const addContactDiv = document.getElementById('overlay-background');
+    const newContactContainer = document.getElementById('overlay-container');
+    newContactContainer.classList.remove('transform-0');
+
+    setTimeout(() => {
+        addContactDiv.remove();
+    }, 250);
+}
+
+
+async function addNewContact() {
+    let newUser = {};
+
+    let contactName = document.getElementById('new-name').value;
+    let contactEmail = document.getElementById('new-email').value;
+    let contactPhone = document.getElementById('new-phone').value;
+
+    let formattedName = formatName(contactName);
+
+    newUser = {
+        firstName: formattedName.firstName,
+        lastName: formattedName.lastName,
+        initials: formattedName.initials,
+        email: contactEmail,
+        phone: contactPhone,
+        isYou: false,
+        password: null,
+        userID: users.length,
+        userColor: setUserColor()
+    }
+
+    users.push(newUser)
+    await setItem('users', JSON.stringify(users));
+
+    closeOverlay();
+    await InitContacts();
+
+    let id = newUser.userID; // Use the userID of the new user
+    let position = findUserPosition(id);
+    openContact(position);
+}
+
+function setUserColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function findUserPosition(id) {
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i].userID === id) {
+            return i;
+        }
+    }
+
 }

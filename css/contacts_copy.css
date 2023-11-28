@@ -298,8 +298,6 @@ body {
   z-index: 10;
 }
 
-.letterDiv {
-}
 .letterDivBorder {
   background-color: #d1d1d1;
   height: 1px;
@@ -460,4 +458,33 @@ body {
   font-size: 16px;
   font-weight: 400;
   color: #007cee;
+}
+
+.manageEditContact {
+  display: flex;
+  align-items: center;
+}
+
+.deletContactEdit {
+  padding: 15px 24px;
+  border-radius: 8px;
+  border: 1px solid #2a3647;
+  color: #2a3647;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.deletContactEdit:hover {
+  cursor: pointer;
+  color: #29abe2;
+  border: 1px solid #29abe2;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.saveEditImg {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
