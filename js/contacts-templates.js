@@ -3,19 +3,17 @@ function addNewContactHTML() {
         <div class="overlay-bg" id="overlay-background" onclick="closeOverlay()">
             <div class="addContactContainer" id="overlay-container" onclick="event.stopPropagation()">
                 <div class="addContactLeftPart">
-                    <img class="addContactJoinLogo" src="./img/logo.png">
+                    <img class="addContactJoinLogo" src="./img/join-logo.svg">
                     <div class="overlayHeadline">Add contact</div>
                     <div class="textTasksAre">Tasks are better with a team!</div>
                     <div class="textTasksAre-border"></div>
                 </div>
                 <div class="addContactRightPart">
-                    <img class="closeAddContact" src="./img/cancel-icon.png" onclick="closeOverlay()">
+                    <img class="closeAddContact" src="./img/close-grey.svg" onclick="closeOverlay()">
                     <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeOverlayResponsive()">
                     <div class="userInfo">
-                        <div class="userIconConteiner">
-                            <img class="userWhiteIcon" src="./img/user-white.png">
-                        </div>
-                        <form id="addContactFrom" onsubmit="addNewContact(); return false;">
+                        <img class="userWhiteIcon" src="./img/persona.svg">
+                        <form onsubmit="addNewContact(); return false;">
                             <div class="contactDetailsContainer">
                                 <div class="contactsDetailsFrame">
                                     <input id="new-name" class="style-input styleUserIcon" required type="text"
@@ -32,20 +30,18 @@ function addNewContactHTML() {
                                 </div>
                             </div>
 
+                            <div class="overlay-btn-frame">
+                                <div class="overlay-cancel-btn" onclick="closeOverlay()">
+                                    <div class="overlay-cancel-btn-text">Cancel</div>
+                                    <div class="overlay-cancel-btn-image"></div>
+                                </div>
+                                <button type="submit" form="addContactFrom" class="overlay-create-btn">
+                                    <div class="overlay-create-btn-text">Create contact</div>
+                                    <img src="./img/check.svg">
+                                </button>
+                            </div>
+                        </form>
                     </div>
-
-                    <div class="overlay-btn-frame">
-                        <div class="overlay-cancel-btn" onclick="closeOverlay()">
-                            <div class="overlay-cancel-btn-text">Cancel</div>
-                            <div class="overlay-cancel-btn-image"></div>
-                        </div>
-
-                        <button type="submit" form="addContactFrom" class="overlay-create-btn">
-                            <div class="overlay-create-btn-text">Create contact</div>
-                            <img src="./img/check.png">
-                        </button>
-                    </div>
-                    </form>
                 </div>
             </div>
         </div>
