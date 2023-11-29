@@ -1,6 +1,6 @@
 .content {
   margin-left: 326px;
-  margin-top: 128px;
+  margin-top: 64px;
   width: calc(100% - 422px);
 }
 
@@ -79,3 +79,17 @@
   transform: scale(1.1);
 }
 
+<<<<<<< HEAD
+=======
+@media (max-width: 850px) {
+  .content {
+    margin-left: 16px;
+    margin-right: 16px;
+    width: calc(100% - 32px);
+    margin-bottom: 96px;
+  }
+  .content h1 {
+    font-size: 48px;
+  }
+}
+>>>>>>> 1c896b52f592d96f071a9d77bdde53bf17b3e3e0

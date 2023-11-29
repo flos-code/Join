@@ -32,19 +32,28 @@
     <!----Mona 
     <header w3-include-html="./assets/templates/header.html"></header>
     <section w3-include-html="./assets/templates/sidebar.html"></section> -->
-    
+
     <div w3-include-html="assets/templates/header.html"></div>
 
     <div w3-include-html="assets/templates/sidebar.html"></div>
     <section class="boardHeaderContainer">
       <div class="boardHeader">
-        <h1>Board</h1>
+        <div class="boardHeaderMobile">
+          <h1>Board</h1>
+          <button class="addTaskMobile" onclick="location.href ='task.html'">
+            <img src="img/board_add_taks.png" alt="" />
+          </button>
+        </div>
+
         <div class="boardHeaderInteract">
           <div class="inputWithImg">
             <input id="findTask" type="text" placeholder="Find Task" />
             <div class="findTaskImg" onclick="searchTask()"></div>
           </div>
-          <button onclick="addTaskOnBoard('toDoStatus'); includeHTML()">
+          <button
+            class="addTaskDesktop"
+            onclick="addTaskOnBoard('toDoStatus'); includeHTML()"
+          >
             Add task
             <img src="img/board_add_taks.png" alt="" />
           </button>
@@ -57,7 +66,13 @@
           <h2>To do</h2>
           <img
             onclick="addTaskOnBoard('toDoStatus')"
-            class="addTaskToSection"
+            class="addTaskToSection addTaskDesktop"
+            src="img/board_plus_button.svg"
+            alt="Add Task to to do"
+          />
+          <img
+            class="addTaskMobile"
+            onclick="location.href ='task.html'"
             src="img/board_plus_button.svg"
             alt="Add Task to to do"
           />
@@ -75,7 +90,13 @@
           <h2>In pogress</h2>
           <img
             onclick="addTaskOnBoard('inProgressStatus')"
-            class="addTaskToSection"
+            class="addTaskToSection addTaskDesktop"
+            src="img/board_plus_button.svg"
+            alt="Add Task to in Progress"
+          />
+          <img
+            class="addTaskMobile"
+            onclick="location.href ='task.html'"
             src="img/board_plus_button.svg"
             alt="Add Task to in Progress"
           />
@@ -93,7 +114,13 @@
           <h2>Await feedback</h2>
           <img
             onclick="addTaskOnBoard('awaitFeedbackStatus')"
-            class="addTaskToSection"
+            class="addTaskToSection addTaskDesktop"
+            src="img/board_plus_button.svg"
+            alt="Add Task to Await Feedback"
+          />
+          <img
+            class="addTaskMobile"
+            onclick="location.href ='task.html'"
             src="img/board_plus_button.svg"
             alt="Add Task to Await Feedback"
           />
@@ -120,6 +147,5 @@
     </section>
 
     <div w3-include-html="assets/templates/mobile.html"></div>
-
   </body>
 </html>

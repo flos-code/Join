@@ -9,9 +9,9 @@ async function initSummary() {
 
 async function loadTasks() {
   try {
-      tasks = JSON.parse(await getItem('tasks'));
-  } catch(e) {
-      console.error('Loading Tasks error:', e);
+    tasks = JSON.parse(await getItem('tasks'));
+  } catch (e) {
+    console.error('Loading Tasks error:', e);
   }
 }
 
@@ -40,41 +40,21 @@ function loadeCount() {
     todoCounts.inProgressStatus;
   document.getElementById("feedbackCount").innerHTML =
     todoCounts.awaitFeedbackStatus;
-
   document.getElementById("urgentCount").innerHTML = todoCounts.urgentPriority;
   document.getElementById("nextUrgentDate").innerHTML =
     todoCounts.closestDueDateForUrgent;
-
   document.getElementById("totalCount").innerHTML = tasks.length;
 }
 
 function countTodos(tasks) {
   tasks.forEach((task) => {
-    // Count todos for each status
     todoCounts[task.status]++;
-
-    // Count todos with priority "Urgent"
     if (task.prio === "Urgent") {
       todoCounts.urgentPriority++;
     }
 
-    if (
-      task.prio === "Urgent" &&
-      (!todoCounts.closestDueDateForUrgent ||
-        (new Date(task.dueDate) >= currentDate &&
-          new Date(task.dueDate) <
-            new Date(todoCounts.closestDueDateForUrgent)))
-    ) {
-      todoCounts.closestDueDateForUrgent = formatDate(task.dueDate);
-    }
-
-    if (todoCounts.urgentPriority > 0) {
-      document.getElementById("nextUrgentDateText").innerHTML =
-        "Upcoming Deadline";
-    } else {
-      document.getElementById("nextUrgentDateText").innerHTML =
-        "No Upcoming Deadline";
-    }
+    setNextUrgentDate(task, todoCounts)
+    updateDeadlineText(todoCounts.urgentPriority)
   });
 }
 
@@ -97,4 +77,26 @@ function timedGreeting() {
   }
 
   document.getElementById("timedGreeting").innerHTML = greeting;
+}
+
+function setNextUrgentDate(task, todoCounts) {
+  if (
+    task.prio === "Urgent" &&
+    (!todoCounts.closestDueDateForUrgent ||
+      (new Date(task.dueDate) >= currentDate &&
+        new Date(task.dueDate) <
+        new Date(todoCounts.closestDueDateForUrgent)))
+  ) {
+    return todoCounts.closestDueDateForUrgent = formatDate(task.dueDate);
+  }
+}
+
+function updateDeadlineText(UrgentTasksCount) {
+  if (UrgentTasksCount > 0) {
+    document.getElementById("nextUrgentDateText").innerHTML =
+      "Upcoming Deadline";
+  } else {
+    document.getElementById("nextUrgentDateText").innerHTML =
+      "No Upcoming Deadline";
+  }
 }

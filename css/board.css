@@ -10,7 +10,6 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-
 header {
   display: flex;
   justify-content: space-between;
@@ -130,13 +129,12 @@ button:hover {
   display: flex;
   flex-grow: 1;
   margin-left: 294px;
-  width: 1208px;
 }
 
 .sectionDragArea {
   display: flex;
   flex-direction: column;
-  margin-right: 26px;
+  margin-right: 16px;
 }
 
 .headerDragArea {
@@ -639,20 +637,20 @@ button:hover {
   top: 0;
   left: 0;
 
- width: 100%;
- height: 100%;
- display: flex;
- justify-content: center;
- align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .taskAdded {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 20px;
-  background-color: #2A3647;
+  background-color: #2a3647;
   border-radius: 20px;
   height: 74px;
   width: 326px;
@@ -662,4 +660,246 @@ button:hover {
   width: 30px;
   height: 30px;
   margin-left: 40px;
+}
+
+.addTaskMobile {
+  display: none;
+}
+
+.boardHeaderMobile {
+  display: flex;
+}
+
+@media (max-width: 1399.98px) {
+  .boardHeaderContainer {
+    margin-left: 198px;
+  }
+
+  .boardHeader {
+    width: 856px;
+  }
+
+  .boradContent {
+    margin-left: 262px;
+  }
+
+  .headerDragArea {
+    width: 200px;
+  }
+
+  .headerDragArea h2 {
+    font-size: 20px;
+  }
+
+  .todo {
+    width: 206px;
+  }
+
+  .toDoSubtasksProgress {
+    width: 100px;
+  }
+
+  .toDoSubtasksCount {
+    text-align: center;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .boradContent {
+    flex-direction: column;
+  }
+
+  .todo {
+    height: 240px;
+    flex: 0 0 280px;
+
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+  }
+
+  .draArea {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+    max-height: none;
+    overflow-y: unset;
+    flex: none;
+    margin-bottom: 16px;
+
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+  }
+
+  .noTask {
+    width: 280px;
+    height: 64px;
+  }
+
+  .inputWithImg {
+    width: 240px;
+  }
+
+  #findTask {
+    width: 160px;
+  }
+
+  .toDoSubtasksProgress {
+    width: 160px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .boardHeader h1 {
+    font-size: 48px;
+  }
+
+  .inputWithImg {
+    margin-right: 16px;
+    width: 200px;
+  }
+
+  #findTask {
+    width: 120px;
+  }
+
+  .boardHeaderInteract button {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 850px) {
+  .boardHeaderContainer {
+    margin-left: 32px;
+    margin-right: 32px;
+    width: calc(100% - 32px);
+  }
+
+  .boardHeader {
+    margin-left: 0;
+    width: calc(100% - 32px);
+  }
+
+  .boardHeader {
+    flex-direction: column;
+  }
+  .boardHeader h1 {
+    font-size: 40px;
+  }
+
+  .boradContent {
+    margin-left: 32px;
+    margin-bottom: 96px;
+  }
+
+  .draArea {
+    width: calc(100% - 32px);
+  }
+
+  .addTaskDesktop {
+    display: none;
+  }
+
+  .addTaskMobile {
+    display: flex;
+  }
+
+  .sectionDragArea {
+    margin-right: 0;
+  }
+
+  .boardHeaderMobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+
+  .boardHeaderMobile button {
+    background-color: #2a3647;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .boardHeaderMobile button:hover {
+    background-color: #29abe2;
+  }
+
+  .inputWithImg {
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  #findTask {
+    width: 90%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .toDoOpen {
+    z-index: 10;
+    border-radius: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .boardHeaderContainer {
+    margin-left: 12px;
+    margin-right: 12px;
+    width: calc(100% - 24px);
+  }
+
+  .boardHeaderInteract button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .boardHeaderInteract img {
+    width: 24px;
+    height: 24px;
+  }
+
+  #findTask {
+    font-size: 16px;
+    height: 24px;
+  }
+
+  .toDoOpenTitle {
+    font-size: 48px;
+    inline-size: calc(100% - 48px);
+    overflow-wrap: break-word;
+  }
+
+  .boradContent {
+    margin-left: 16px;
+  }
+
+  .todo {
+    height: 240px;
+    flex: 0 0 260px;
+  }
+  .toDoSubtasksProgress {
+    width: 120px;
+  }
+
+  .draArea {
+    width: calc(100% - 16px);
+  }
+
+  .editPrioMobile {
+    flex-direction: column;
+  }
 }
