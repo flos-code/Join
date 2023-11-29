@@ -3,15 +3,10 @@ let contactInitials;
 let newEmail = 0;
 
 
-<<<<<<< HEAD
-
-let contacts = [ 
-    
+  
    
-=======
-let contacts = [
+let contacts =  []
     /*
->>>>>>> e72a9bb31d9257f7c31ef73f28a3c03cc99956f5
     {
         name: 'sonja',
         email: 't.wolf@gmail.com',
@@ -56,8 +51,6 @@ async function InitContacts() {
         openBusinessCard(0);
 }
 
-<<<<<<< HEAD
-=======
 
 /*
 function render() {
@@ -131,7 +124,6 @@ async function loadContacts() {
 // }
 
 
->>>>>>> e72a9bb31d9257f7c31ef73f28a3c03cc99956f5
 /**
 * show the overlay mask, where you can creat a new contact
 */
