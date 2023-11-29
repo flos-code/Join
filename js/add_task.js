@@ -523,7 +523,7 @@ function assignDropdownHTML(i) {
 
 function assignDropdownBtnHTML() {
     return /*html*/`
-        <button class="main-button main-button--assign" type="button">Add new Contact
+        <button class="main-button main-button--assign" type="button" onclick="showAddNewContact()">Add new Contact
             <svg class="assign-person-icon"><use href="assets/img/icons.svg#person-icon"></use></svg>
         </button>
     `;
@@ -587,9 +587,85 @@ function subtaskEditDefaultHTML(index) {
     `;
 }
 
+
 function modifyPrioString () {
     let prio = getPrioButton();
     let modifiedPrio = prio.slice(0, -4);
     modifiedPrio = modifiedPrio.charAt(0).toUpperCase() + modifiedPrio.slice(1);
     return modifiedPrio;
+}
+
+
+function showAddNewContact() {
+    const newContactContainer = document.getElementById('new-contact-container');
+
+    newContactContainer.innerHTML = addNewContactHTML();
+    document.body.style = 'overflow: hidden';
+    setTimeout(() => {
+        const newContactCard = document.getElementById('overlay-container');
+        newContactCard.classList.add('transform-0');
+    }, 0);
+}
+
+
+function closeAddNewContact() {
+    const addContactDiv = document.getElementById('overlay-background');
+    const newContactContainer = document.getElementById('overlay-container');
+    newContactContainer.classList.remove('transform-0');
+
+    setTimeout(() => {
+        addContactDiv.remove();
+        document.body.style = 'overflow: unset';
+    }, 250);
+}
+
+
+function addNewContactHTML() {
+    return /*html*/`
+        <div class="add-contact-overlay" id="overlay-background" onclick="closeAddNewContact()">
+            <div class="addContactContainer" id="overlay-container" onclick="event.stopPropagation()">
+                <div class="addContactLeftPart">
+                    <img class="addContactJoinLogo" src="./img/join-logo.svg">
+                    <div class="overlayHeadline">Add contact</div>
+                    <div class="textTasksAre">Tasks are better with a team!</div>
+                    <div class="textTasksAre-border"></div>
+                </div>
+                <div class="addContactRightPart">
+                    <img class="closeAddContact" src="./img/close-grey.svg" onclick="closeAddNewContact()">
+                    <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeOverlayResponsive()">
+                    <div class="userInfo">
+                        <img class="userWhiteIcon" src="./img/persona.svg">
+                        <form onsubmit="addNewContact(); return false;">
+                            <div class="contactDetailsContainer">
+                                <div class="contactsDetailsFrame">
+                                    <input id="new-name" class="style-input styleUserIcon" required type="text"
+                                        placeholder="Name">
+                                </div>
+                                <div class="contactsDetailsFrame">
+                                    <input id="new-email" class="style-input styleUserLetter" required type="email"
+                                        placeholder="Email">
+                                    <div class="red-text" id="double-email"></div>
+                                </div>
+                                <div class="contactsDetailsFrame">
+                                    <input id="new-phone" class="style-input input-icon-phone" placeholder="Phone"
+                                        required type="text" oninput="validateInput(this)">
+                                </div>
+                            </div>
+
+                            <div class="overlay-btn-frame">
+                                <div class="overlay-cancel-btn" onclick="closeAddNewContact()">
+                                    <div class="overlay-cancel-btn-text">Cancel</div>
+                                    <div class="overlay-cancel-btn-image"></div>
+                                </div>
+                                <button class="overlay-create-btn">
+                                    <div class="overlay-create-btn-text">Create contact</div>
+                                    <img src="./img/check.svg">
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
 }

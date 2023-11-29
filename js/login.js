@@ -1,8 +1,86 @@
 let users = [];
 
 
-function guestLogin() {
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadUsers();
+    loadLoginData();
+})
+
+
+async function loadUsers() {
+    users = JSON.parse(await getItem('users'));
+}
+
+
+async function guestLogin() {
+    for (const user of users) {
+        user.isYou = false;
+    }
+    await setItem('users', JSON.stringify(users));
     window.open('summary.html', '_self');
+}
+
+
+async function login() {
+    const emailLogin = document.getElementById('email-login');
+    const passwordLogin = document.getElementById('password-login');
+    
+    // überprüfe ob die Eingaben im users Array vorhanden sind und gebe das Object zurück.
+    const user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
+    if (user) {
+        await setUserToTrue(user);
+        rememberMe();
+        resetLoginForm();
+        window.open('summary.html', '_self');
+    } else {
+        loginError();
+    }
+}
+
+
+// loggedInUser to be set to true while all other users are set to false
+async function setUserToTrue(loggedInUser) {
+    for (const user of users) {
+        user.isYou = false;
+    }
+    loggedInUser.isYou = true;
+    await setItem('users', JSON.stringify(users));
+}
+
+
+function loginError() {
+    const inputsContainer = document.getElementById('login-inputs');
+    const emailLogin = document.getElementById('email-login');
+    const passwordLogin = document.getElementById('password-login');
+    const loginError = document.createElement('div');
+
+    loginError.textContent = 'Incorrect E-Mail or password';
+    loginError.className = 'login-error-message';
+    loginError.id = 'login-error-message';
+    
+    if (!document.getElementById('login-error-message')) {
+        inputsContainer.appendChild(loginError);
+        emailLogin.classList.add('outline-red');
+        passwordLogin.classList.add('outline-red');
+    }
+}
+
+
+function resetLoginForm() {
+    document.getElementById('email-login').value = '';
+    document.getElementById('password-login').value = '';
+    removeLoginError();
+}
+
+
+function removeLoginError() {
+    const loginError = document.getElementById('login-error-message');
+
+    if (loginError) {
+        loginError.remove();
+        document.getElementById('email-login').classList.remove('outline-red');
+        document.getElementById('password-login').classList.remove('outline-red');
+    }
 }
 
 
@@ -13,25 +91,36 @@ async function signUp() {
     const checkedIcon = document.getElementById('checked');
 
     if (passwordSignup.value === passwordConfirm.value && checkedIcon) {
-        users.push({
-            firstName: setName('first'),
-            lastName: setName('last'),
-            initials: setInitials(),
-            userColor: setUserColor(),
-            email: emailSignup.value,
-            phone: null,
-            password: passwordSignup.value,
-            isYou: true
-        });
-    
-        console.log(users);
-        resetForm();
-        // successSignUp();
-    } else if (passwordSignup.value !== passwordConfirm.value) {
+        await addUserToArray(emailSignup, passwordSignup);
+        resetSignupForm();
+        successSignUp();
+    } else if (passwordSignup.value !== passwordConfirm.value && !checkedIcon){
         passwordInequal();
-    } else if (!checkedIcon) {
         errorCheckboxSignup();
+    } else if (passwordSignup.value !== passwordConfirm.value && checkedIcon) {
+        passwordInequal();
+        removeCheckboxError();
+    } else if (passwordSignup.value === passwordConfirm.value && !checkedIcon) {
+        errorCheckboxSignup();
+        removePasswordError();
     }
+}
+
+
+async function addUserToArray(emailSignup, passwordSignup) {
+    users.push({
+        firstName: setName('first'),
+        lastName: setName('last'),
+        initials: setInitials(),
+        userColor: setUserColor(),
+        email: emailSignup.value,
+        phone: null,
+        password: passwordSignup.value,
+        isYou: false,
+        userID: users.length
+    });
+
+    await setItem('users', JSON.stringify(users));
 }
 
 
@@ -68,7 +157,7 @@ function errorCheckboxSignup() {
 }
 
 
-function resetForm() {
+function resetSignupForm() {
     document.getElementById('name-register').value = '';
     document.getElementById('email-register').value = '';
     document.getElementById('password-register').value = '';
@@ -94,10 +183,10 @@ function removePasswordError() {
 
 
 function removeCheckboxError() {
-    const checkedIcon = document.getElementById('checked');
+    const errorCheckbox = document.getElementById('register-checkbox-error');
 
-    if (checkedIcon) {
-        document.getElementById('register-checkbox-error').remove();
+    if (errorCheckbox) {
+        errorCheckbox.remove();
     }
 }
 
@@ -110,7 +199,7 @@ async function successSignUp() {
     await new Promise(resolve => setTimeout(() => {
         renderLogin();
         resolve();
-    }, 1000));
+    }, 1500));
 }
 
 
@@ -121,9 +210,9 @@ function setName(names) {
     if (nameTrim.includes(' ')) {
         const nameArray = nameTrim.split(' ');
         if (names === 'first') {
-            return nameArray[0].charAt(0).toUpperCase();
+            return nameArray[0].charAt(0).toUpperCase() + nameArray[0].slice(1);
         } else if (names === 'last') {
-            return nameArray[1].charAt(0).toUpperCase();
+            return nameArray[1].charAt(0).toUpperCase() + nameArray[1].slice(1);
         }
     } else {
         if (names === 'first') {
@@ -217,6 +306,45 @@ function toggleCheckIcon() {
     } else if (checkedIcon) {
         checkedIcon.src = 'img/login/unchecked.svg';
         checkedIcon.id = 'unchecked';
+        unrememberMe();
+    }
+}
+
+
+function rememberMe() {
+    const checkedIcon = document.getElementById('checked');
+    const email = document.getElementById('email-login');
+    const password = document.getElementById('password-login');
+
+    if (checkedIcon) {
+        if (email.value && password.value) {
+            localStorage.setItem('email', email.value);
+            localStorage.setItem('password', password.value);
+        }
+    }
+}
+
+
+function loadLoginData() {
+    const email = document.getElementById('email-login');
+    const password = document.getElementById('password-login');
+    const emailSaved = localStorage.getItem('email');
+    const passwordSaved = localStorage.getItem('password');
+
+    if (emailSaved && passwordSaved) {
+        email.value = emailSaved;
+        password.value = passwordSaved;
+    }
+}
+
+
+function unrememberMe() {
+    const emailSaved = localStorage.getItem('email');
+    const passwordSaved = localStorage.getItem('password');
+
+    if (emailSaved && passwordSaved) {
+        localStorage.removeItem('email');
+        localStorage.removeItem('password');
     }
 }
 
@@ -278,7 +406,7 @@ function registerHTML() {
                 <div id="register-policy-container">
                     <div class="register-policy">
                         <img class="checkbox-icon" src="img/login/unchecked.svg" alt="Checkbox" id="unchecked" onclick="toggleCheckIcon()">
-                        <span class="register-policy-text">I accept the <a href="../privacy_policy.html" class="register-policy-text text-blue">Privacy Policy</a></span>
+                        <span class="register-policy-text">I accept the <a href="../privacy_policy_out.html" class="register-policy-text text-blue">Privacy Policy</a></span>
                     </div>
                 </div>
                 <div class="register-button-container">
@@ -300,6 +428,7 @@ function loginHTML() {
         <div class="login-card">
             <h1 class="login-heading">Log in</h1>
             <form class="login-form" onsubmit="login(); return false">
+            <div class="login-inputs" id="login-inputs">
                 <div class="login-input-container">
                 <div class="login-input-wrapper">
                     <input class="login-email-input" type="email" name="email-login" id="email-login" placeholder="Email" required
@@ -314,13 +443,14 @@ function loginHTML() {
                     <img class="lock-icon" id="lock-icon-login" src="img/login/lock.svg" alt="Password Icon">
                 </div>
                 </div>
+            </div>
                 <div class="login-remember">
                     <img class="checkbox-icon" src="img/login/unchecked.svg" alt="Checkbox" id="unchecked" onclick="toggleCheckIcon()">
                     <span class="login-remember-text">Remember Me</span>
                 </div>
                 <div class="login-button-container">
                     <button type="submit" class="main-button">Log in</button>
-                    <button type="button" class="main-button main-button-white">Guest Log in</button>
+                    <button type="button" class="main-button main-button-white" onclick="guestLogin()">Guest Log in</button>
                 </div>
             </form>
         </div>

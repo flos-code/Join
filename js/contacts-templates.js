@@ -1,7 +1,58 @@
+function addNewContactHTML() {
+    return /*html*/`
+        <div class="overlay-bg" id="overlay-background" onclick="closeOverlay()">
+            <div class="addContactContainer" id="overlay-container" onclick="event.stopPropagation()">
+                <div class="addContactLeftPart">
+                    <img class="addContactJoinLogo" src="./img/join-logo.svg">
+                    <div class="overlayHeadline">Add contact</div>
+                    <div class="textTasksAre">Tasks are better with a team!</div>
+                    <div class="textTasksAre-border"></div>
+                </div>
+                <div class="addContactRightPart">
+                    <img class="closeAddContact" src="./img/close-grey.svg" onclick="closeOverlay()">
+                    <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeOverlayResponsive()">
+                    <div class="userInfo">
+                        <img class="userWhiteIcon" src="./img/persona.svg">
+                        <form onsubmit="addNewContact(); return false;">
+                            <div class="contactDetailsContainer">
+                                <div class="contactsDetailsFrame">
+                                    <input id="new-name" class="style-input styleUserIcon" required type="text"
+                                        placeholder="Name">
+                                </div>
+                                <div class="contactsDetailsFrame">
+                                    <input id="new-email" class="style-input styleUserLetter" required type="email"
+                                        placeholder="Email">
+                                    <div class="red-text" id="double-email"></div>
+                                </div>
+                                <div class="contactsDetailsFrame">
+                                    <input id="new-phone" class="style-input input-icon-phone" placeholder="Phone"
+                                        required type="text" oninput="validateInput(this)">
+                                </div>
+                            </div>
+
+                            <div class="overlay-btn-frame">
+                                <div class="overlay-cancel-btn" onclick="closeOverlay()">
+                                    <div class="overlay-cancel-btn-text">Cancel</div>
+                                    <div class="overlay-cancel-btn-image"></div>
+                                </div>
+                                <button type="submit" form="addContactFrom" class="overlay-create-btn">
+                                    <div class="overlay-create-btn-text">Create contact</div>
+                                    <img src="./img/check.svg">
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+
 function generateEditOverlay(i) {
     return /*html*/ `
-    <div class="overlay-bg" id="edit-background">
-        <div class="addContactContainer" id="overlay-container">
+    <div onclick="closeEditOverlay()" class="overlay-bg" id="edit-background">
+        <div class="addContactContainer" id="overlay-container" onclick="event.stopPropagation()">
             <div class="addContactLeftPart">
                 <img class="addContactJoinLogo" src="./img/logo.png">
                 <div class="overlayHeadline">Edit contact</div>
@@ -12,7 +63,7 @@ function generateEditOverlay(i) {
                 <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeEditOverlayResponsive()">
                 <div class="userInfo">
                     <div class="overlay-user-initials-container">
-                        <div class="overlay-user-initials">${contacts[i]['initials']}</div>
+                        <div style="background-color: ${contacts[i]["userColor"]};" class="overlay-user-initials">${contacts[i]['initials']}</div>
                     </div>
 
                     <form class="save-contact-form" onsubmit="saveContact(${i}); return false;">
@@ -30,11 +81,17 @@ function generateEditOverlay(i) {
                              required type="text" oninput="validateInput(this)">
                             </div>
                         </div>
+                        <div class="manageEditContact">
+                        <div class="deletContactEdit" onclick="deletContact(${i})">Delete</div>
                         <button class="overlay-save-frame">
                             <div class="overlay-save-btn">
                                 <div class="overlay-save-btn-text">Save</div>
+                                <div class="saveEditImg"><img src="./img/check.svg" alt="Save Edited Contact"></div>
+                     
                             </div>
                         </button>
+                        </div>
+                     
                     </form>
 
 
@@ -65,7 +122,7 @@ function generateEditOverlay(i) {
 `;
 }
 
-
+//entfällt by copy
 function generateBusinessCard(i) {
     return /*html*/ `
     <div class="contactCard-main" id="contactCard-main">
@@ -97,7 +154,7 @@ function generateBusinessCard(i) {
     `;
 }
 
-
+// entfällt bei copy
 function generateHTMLforContactBook(i) {
     return /*html*/ `
     <div class="contact-book-container" id="contact-book-bg${i}" onclick="openBusinessCard(${i})">

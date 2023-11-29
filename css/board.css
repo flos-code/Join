@@ -285,7 +285,7 @@ button:hover {
 /* Open a ToDo */
 
 #toDoOpenBg {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
@@ -294,6 +294,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
 .toDoOpen {
@@ -308,6 +309,7 @@ button:hover {
   gap: 24px;
   font-size: 20px;
   font-weight: 400;
+  overflow-y: auto;
 
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
@@ -601,7 +603,7 @@ button:hover {
 /* Add Task on Board */
 
 #addTaskOpenBg {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
@@ -613,8 +615,12 @@ button:hover {
 }
 
 .addTaskOpen {
-  width: 1116px;
-  height: 870px;
+  /* width: 1116px;
+  height: 870px; */
+
+  width: 75vw;
+  height: 85vh;
+
   background-color: white;
   border-radius: 30px;
   padding: 48px 40px;
@@ -625,6 +631,7 @@ button:hover {
 
   transition: transform 0.2s ease-in-out;
   transform: translateX(300%);
+  overflow-y: auto;
 }
 
 .addTaskOpenHead {

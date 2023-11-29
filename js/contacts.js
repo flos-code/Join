@@ -3,10 +3,15 @@ let contactInitials;
 let newEmail = 0;
 
 
+<<<<<<< HEAD
 
 let contacts = [ 
     
    
+=======
+let contacts = [
+    /*
+>>>>>>> e72a9bb31d9257f7c31ef73f28a3c03cc99956f5
     {
         name: 'sonja',
         email: 't.wolf@gmail.com',
@@ -44,18 +49,100 @@ loadContactsFromBackend();
 
 async function InitContacts() {
     await init();
-    await initStart();
+    // await initStart();
     await loadContactsFromBackend();
     renderContactBook();
     if (contacts > [])
         openBusinessCard(0);
 }
 
+<<<<<<< HEAD
+=======
+
+/*
+function render() {
+    let contactbook = document.getElementById('contactbook');
+    contactbook.innerHTML = '';
+
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+        contactbook.innerHTML += `
+        <div class="card"> 
+          <div class="initialen">
+           <img class="design-prof" src="${contact['name']}" > 
+             <h2 class="author">${contact['email']}</h2>
+         </div>
+              <img class="imgDesign" src="${contact['phone']}"><br>
+              <img class="imgDesign" src="${contact['initials']}"><br>
+        
+              </div>
+
+           
+            `
+            ;
+
+
+       
+        }
+
+
+    }
+
+
+function save() {
+    let contactsASText = JSON.stringify(contacts);
+
+    localStorage.setItem('contactsASText', contactsASText);
+}
+
+function load() {
+    let contactsASText = localStorage.getItem('contactsASText');
+
+    if (contactsASText) {
+        contacts = JSON.parse(contactsASText);
+
+    }
+}
+
+
+async function loadContacts() {
+    try {
+        contacts = JSON.parse(await getItem('contacts'));
+    } catch(e) {
+        console.error('Loading Contactserror: ', e);
+    }
+} */
+
+// /**
+// * show the overlay mask, where you can creat a new contact
+// */
+// function showOverlay() {
+//     document.getElementById('overlay-background').classList.remove('d-none');
+// }
+
+
+// /**
+// * close the overlay mask, where you can create a new contact
+// */
+// function closeOverlay() {
+//     document.getElementById('overlay-background').classList.add('d-none');
+//     hideEmailMessage();
+//     clearInputAtOverlay();
+// }
+
+
+>>>>>>> e72a9bb31d9257f7c31ef73f28a3c03cc99956f5
 /**
 * show the overlay mask, where you can creat a new contact
 */
 function showOverlay() {
-    document.getElementById('overlay-background').classList.remove('d-none');
+    const newContactContainer = document.getElementById('newContactContainer');
+
+    newContactContainer.innerHTML = addNewContactHTML();
+    setTimeout(() => {
+        const newContactCard = document.getElementById('overlay-container');
+        newContactCard.classList.add('transform-0');
+    }, 0);
 }
 
 
@@ -63,11 +150,14 @@ function showOverlay() {
 * close the overlay mask, where you can create a new contact
 */
 function closeOverlay() {
-    document.getElementById('overlay-background').classList.add('d-none');
-    hideEmailMessage();
-    clearInputAtOverlay();
-}
+    const addContactDiv = document.getElementById('overlay-background');
+    const newContactContainer = document.getElementById('overlay-container');
+    newContactContainer.classList.remove('transform-0');
 
+    setTimeout(() => {
+        addContactDiv.remove();
+    }, 250);
+}
 
 
 /**
@@ -278,7 +368,7 @@ function showOverlayResponsive() {
     document.getElementById('contactInfo').classList.remove('d-none');
     document.getElementById('contactHeadlineContent').style.display = 'flex';
     document.getElementById('contactCard-main').style.display = 'flex';
-    
+
 }
 
 
@@ -317,7 +407,7 @@ function renderContactBookResponsive() {
 
 
 function genereateRandomColor() {
-    let randomColor = Math.floor(Math.random()*16777215).toString(16);
+    let randomColor = Math.floor(Math.random() * 16777215).toString(16);
     document.getElementById('contactCircleBgColor' + i).style.background = `#${randomColor} !important`;
 }
 
@@ -362,7 +452,7 @@ async function saveContactResponsive(i) {
     closeEditOverlay();
     renderContactBookResponsive();
     openBusinessCardResponsive(i);
-   // document.getElementById('moveBackBtn').classList.remove('d-none');//
+    // document.getElementById('moveBackBtn').classList.remove('d-none');//
 }
 
 
@@ -390,8 +480,8 @@ function addActiveClass3() {
  This function remove non-nueric characters, max numbers is 16 
  */
 function validateInput(input) {
-    input.value = input.value.replace(/\D/g, ''); 
+    input.value = input.value.replace(/\D/g, '');
     if (input.value.length > 16) {
-        input.value = input.value.slice(0, 16); 
+        input.value = input.value.slice(0, 16);
     }
 }

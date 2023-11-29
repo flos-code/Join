@@ -15,8 +15,8 @@
 }
 
 .navLogo {
-    padding-top: 20px !important;
-    height: 100px !important;
+    margin-top: 50px;
+    height: 100px;
 }
 
 .navMenu {
@@ -25,6 +25,7 @@
     width: 100%;
     height: 40%;
     gap: 15px;
+    padding-top: 20px;
 }
 
 .navLink {
