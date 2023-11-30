@@ -431,7 +431,8 @@ input:focus {
 }
 
 .register-checkbox-error,
-.register-password-error {
+.register-password-error,
+.register-email-error {
     text-align: center;
     font-size: 1rem;
     color: red;

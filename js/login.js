@@ -90,7 +90,13 @@ async function signUp() {
     const passwordConfirm = document.getElementById('password-confirm');
     const checkedIcon = document.getElementById('checked');
 
-    if (passwordSignup.value === passwordConfirm.value && checkedIcon) {
+    if (checkEmailExists(emailSignup.value)) {
+        showEmailError();
+    } else {
+        removeEmailError();
+    }
+
+    if (!checkEmailExists(emailSignup.value) && passwordSignup.value === passwordConfirm.value && checkedIcon) {
         await addUserToArray(emailSignup, passwordSignup);
         resetSignupForm();
         successSignUp();
@@ -103,6 +109,46 @@ async function signUp() {
     } else if (passwordSignup.value === passwordConfirm.value && !checkedIcon) {
         errorCheckboxSignup();
         removePasswordError();
+    } else if (passwordSignup.value === passwordConfirm.value && checkedIcon) {
+        removeCheckboxError();
+        removePasswordError();
+    }
+}
+
+
+function checkEmailExists(email) {
+    for (const user of users) {
+        if (user.email === email) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+function showEmailError() {
+    const emailSignup = document.getElementById('email-register');
+    const inputsContainer = document.getElementById('register-inputs');
+
+    const errorEmail = document.createElement('div');
+    errorEmail.className = 'register-email-error';
+    errorEmail.id = 'register-email-error';
+    errorEmail.textContent = 'This email address is already being used. Please choose another one.';
+
+    if (!document.getElementById('register-email-error')) {
+        emailSignup.classList.add('outline-red');
+        inputsContainer.appendChild(errorEmail);
+    }
+}
+
+
+function removeEmailError() {
+    const errorEmail = document.getElementById('register-email-error');
+    const emailSignup = document.getElementById('email-register');
+
+    if (errorEmail) {
+        emailSignup.classList.remove('outline-red');
+        errorEmail.remove();
     }
 }
 
