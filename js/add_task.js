@@ -6,6 +6,9 @@ let assignedUsers = [];
 let assignInput, assignDropdown;
 
 
+/**
+ * initialize important functions after body loaded
+ */
 async function init() {
     await includeHTML();
     await loadTasks();
@@ -15,6 +18,9 @@ async function init() {
 }
 
 
+/**
+ * fetch all tasks from server to tasks variable
+ */
 async function loadTasks() {
     try {
         tasks = JSON.parse(await getItem('tasks'));
@@ -24,6 +30,9 @@ async function loadTasks() {
 }
 
 
+/**
+ * fetch all users from server to users variable
+ */
 async function loadUsers() {
     try {
         users = JSON.parse(await getItem('users'));
@@ -33,6 +42,9 @@ async function loadUsers() {
 }
 
 
+/**
+ * push all input values to variable, then send POST request to server
+ */
 async function addTask() {
     showLoader();
     const title = document.getElementById('title');
@@ -58,6 +70,9 @@ async function addTask() {
 }
 
 
+/**
+ * loader animation during loading of addTask() process
+ */
 function showLoader() {
     const loader = document.getElementById('loader');
     const overlay = document.getElementById('loader-overlay');
@@ -66,6 +81,9 @@ function showLoader() {
 }
 
 
+/**
+ * remove loader animation after POST request for all values
+ */
 function removeLoader() {
     const loader = document.getElementById('loader');
     const overlay = document.getElementById('loader-overlay');
@@ -74,6 +92,9 @@ function removeLoader() {
 }
 
 
+/**
+ * show success message for submitting the form
+ */
 function success() {
     const successElement = document.getElementById('success');
     successElement.classList.remove('d-none');
@@ -83,6 +104,9 @@ function success() {
 }
 
 
+/**
+ * reset all input fields and set whole form to default
+ */
 function resetForm() {
     const title = document.getElementById('title');
     const description = document.getElementById('description');
