@@ -1,0 +1,113 @@
+@media (min-width: 992px) {
+    .mobile-only {
+        display: none;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .login-logo {
+        left: 4rem;
+        top: 3rem;
+        animation-name: logo-animation991;
+    }
+
+    .login-signup {
+        right: 4rem;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    .login-card-container {
+        padding-top: 145px;
+    }
+
+    .login-signup-mobile {
+        position: static;
+        justify-content: center;
+        padding-top: 3rem;
+        width: 100%;
+    }
+}
+
+@media (max-width: 767.98px) {
+    body {
+        min-height: 800px;
+    }
+
+    .login-logo {
+        left: 2rem;
+        top: 2rem;
+        width: 80px;
+        height: 80px;
+        animation-name: logo-animation767;
+    }
+
+    .container {
+        height: calc(100% - 83.5px);
+    }
+
+    .footer-container {
+        padding-top: 2.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .login-heading,
+    .register-heading {
+        font-size: 3rem;
+    }
+
+    .login-input-wrapper,
+    .register-input-wrapper {
+        width: 100%;
+    }
+
+    .login-remember {
+        justify-content: start;
+        padding-left: 1rem;
+    }
+
+    .login-button-container {
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 2rem;
+        gap: 1.5rem;
+    }
+
+    .register-button-container {
+        padding-bottom: 2rem;
+    }
+
+    .main-button {
+        font-size: 1rem;
+        max-width: 10rem;
+        width: 100%;
+    }
+
+    .main-button-signup {
+        width: unset;
+    }
+
+    .login-signup-text {
+        font-size: 1rem;
+    }
+
+    .bg-animation {
+        animation-name: bg-animation-blue;
+        animation-fill-mode: backwards;
+        animation-timing-function: ease-in-out;
+        animation-duration: 1s;
+        animation-delay: 0.75s;
+    }
+}
+
+@media (max-width: 400px) {
+    .arrow-container {
+        left: 1.5rem;
+    }
+}
