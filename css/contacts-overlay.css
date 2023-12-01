@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 10;
   overflow: hidden;
 }
 
@@ -139,55 +139,54 @@
   align-items: flex-start;
   gap: 8px;
   width: 422px;
-  height: 71px;
 }
 
 .style-input {
-    font-family: inherit;
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    padding: 13px 21px;
-    border: 0.075rem solid #D1D1D1;
-    border-radius: 0.5rem;
-    font-size: 1.25rem;
-    gap: 10px;
-    width: 100%;
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  padding: 13px 21px;
+  border: 0.075rem solid #d1d1d1;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  gap: 10px;
+  width: 100%;
 }
 
 .style-input::placeholder {
-    color: #D1D1D1;
-    display: flex;
-    position: absolute;
+  color: #d1d1d1;
+  display: flex;
+  position: absolute;
 }
 
 .style-input:focus {
-    outline: none;
-    border-color: #29ABE2 !important;
+  outline: none;
+  border-color: #29abe2 !important;
 }
 
 .styleUserIcon {
-    background: url(../img/login/person.svg);
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: 95% 50%;
+  background: url(../img/login/person.svg);
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 95% 50%;
 }
 
 .styleUserLetter {
-    background: url(../img/login/mail.svg);
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: 95% 50%;
+  background: url(../img/login/mail.svg);
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 95% 50%;
 }
 
 .input-icon-phone {
-    background: url(../img/call.svg);
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: 95% 50%;
+  background: url(../img/call.svg);
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 95% 50%;
 }
 
 .overlay-btn-frame {
@@ -203,21 +202,21 @@
 }
 
 .overlay-cancel-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 18px 10px;
-    gap: 10px;
-    width: 136px;
-    height: 50px;
-    border: 1px solid #2a3647;
-    border-radius: 10px;
-    cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 10px;
+  gap: 10px;
+  width: 136px;
+  height: 50px;
+  border: 1px solid #2a3647;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .overlay-cancel-btn:hover {
-    border-color: #29ABE2;
-    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
+  border-color: #29abe2;
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
 }
 
 .overlay-cancel-btn:hover .overlay-cancel-btn-text {
@@ -225,15 +224,15 @@
 }
 
 .overlay-cancel-btn-image {
-    background-image: url(../img/close-grey.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 24px;
-    height: 24px;
+  background-image: url(../img/close-grey.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
 }
 
 .overlay-cancel-btn:hover .overlay-cancel-btn-image {
-    background-image: url(../img/cancel-blue.svg);
+  background-image: url(../img/cancel-blue.svg);
 }
 
 .overlay-cancel-btn-text {

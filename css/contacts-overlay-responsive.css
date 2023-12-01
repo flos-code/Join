@@ -1,223 +1,216 @@
-@media(max-width: 1160px) {
-    .addContactContainer {
-        height: 450px;
-        width: 800px;
-    }
+@media (max-width: 1160px) {
+  .addContactContainer {
+    height: 450px;
+    width: 800px;
+  }
 
-    .addContactLeftPart {
-        height: inherit;
-        width: 300px;
-        padding: 65px 20px;
-    }
+  .addContactLeftPart {
+    height: inherit;
+    width: 300px;
+    padding: 65px 20px;
+  }
 
-    .overlayHeadline {
-        width: inherit;
-        font-size: 40px;
-        height: auto;
-    }
+  .overlayHeadline {
+    width: inherit;
+    font-size: 40px;
+    height: auto;
+  }
 
-    .addContactJoinLogo {
-        width: 50px;
-        height: 60px;
-    }
+  .addContactJoinLogo {
+    width: 50px;
+    height: 60px;
+  }
 
-    .addContactRightPart {
-        padding: 10px;
-    }
+  .addContactRightPart {
+    padding: 10px;
+  }
 
-    .overlay-user-initials {
-        width: 90px;
-        height: 90px;
-        font-size: 30px;
-        margin-top: -13%;
-    }
+  .overlay-user-initials {
+    width: 90px;
+    height: 90px;
+    font-size: 30px;
+    margin-top: -13%;
+  }
 
-    .closeAddContact {
-        top: -40px;
-        right: 15px;
-    }
+  .closeAddContact {
+    top: -40px;
+    right: 15px;
+  }
 
-    .contactDetailsContainer {
-        width: 370px;
-        height: 250px;
-        gap: 25px;
-        justify-content: center;
-    }
+  .contactDetailsContainer {
+    width: 370px;
+    height: 250px;
+    gap: 25px;
+    justify-content: center;
+  }
 
-    .contactsDetailsFrame {
-        width: 350px;
-    }
+  .contactsDetailsFrame {
+    width: 350px;
+  }
 
-    .style-input {
-        width: 350px;
-        padding: 10px 10px;
-    }
+  .style-input {
+    width: 350px;
+    padding: 10px 10px;
+  }
 
-    .styleUserIcon {
-        background-position-x: 315px;
-    }
+  .styleUserIcon {
+    background-position-x: 315px;
+  }
 
-    .input-icon-phone {
-        background-position-x: 315px;
-    }
+  .input-icon-phone {
+    background-position-x: 315px;
+  }
 
-    .styleUserLetter {
-        background-position-x: 315px;
-    }
+  .styleUserLetter {
+    background-position-x: 315px;
+  }
 
-    .textTasksAre {
-        font-size: 20px;
-    }
+  .textTasksAre {
+    font-size: 20px;
+  }
 
-    .userIconConteiner {
-        width: 90px;
-        height: 90px;
-    }
+  .userIconConteiner {
+    width: 90px;
+    height: 90px;
+  }
 
-    .overlay-btn-frame {
-        margin-right: -35px;
-        width: 100%;
-    }
+  .overlay-btn-frame {
+    margin-right: -35px;
+    width: 100%;
+  }
 
-    .overlay-save-frame {
-        width: 85%;
-    }
-
-    .overlay-cancel-btn {
-        display: none;
-    }
-   
+  .overlay-save-frame {
+    width: 85%;
+  }
 }
 
+@media (max-width: 850px) {
+  .addContactContainer {
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    height: 85%;
+    position: absolute;
+    top: 10px;
+  }
 
-@media(max-width: 850px) {
-    .addContactContainer {
-        flex-direction: column;
-        align-items: center;
-        width: 90%;
-        height: 85%;
-        position: absolute;
-        top: 10px;
-    }
+  .addContactLeftPart {
+    height: 40%;
+  }
 
-    .addContactLeftPart {
-        height: 40%;
-    }
+  .addContactRightPart {
+    height: 60%;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 30px;
+  }
 
-    .addContactRightPart {
-        height: 60%;
-        border-top-right-radius: 0;
-        border-bottom-left-radius: 30px;
-    }
+  .addContactJoinLogo {
+    display: none;
+  }
 
-    .addContactJoinLogo {
-        display: none;
-    }
+  .textTasksAre {
+    width: 275px;
+  }
 
-    .textTasksAre {
-        width: 275px
-    }
+  .userInfo {
+    flex-direction: column;
+  }
 
-    .userInfo {
-        flex-direction: column;
-    }
+  .userIconConteiner {
+    position: absolute;
+    top: 32%;
+  }
 
-    .userIconConteiner {
-        position: absolute;
-        top: 32%;
-    }
+  .closeAddContact {
+    display: none;
+  }
 
-    .closeAddContact {
-        display: none;
-    }
+  .closeAddContact-rs {
+    display: block;
+    position: absolute;
+    top: 25px;
+    padding-right: 5px;
+  }
 
-    .closeAddContact-rs {
-        display: block;
-        position: absolute;
-        top: 25px;
-        padding-right: 5px;
-    }
+  .contactsDetailsFrame {
+    align-items: center;
+    width: auto;
+  }
 
-    .contactsDetailsFrame {
-        align-items: center;
-        width: auto;
-    }
+  .contactDetailsContainer {
+    width: inherit;
+    gap: 16px;
+    height: unset;
+  }
 
-    .contactDetailsContainer {
-        width: inherit;
-        height: 200px;
-    }
+  .overlay-btn-frame {
+    margin-right: 0;
+  }
 
-    .overlay-btn-frame {
-        margin-right: 0;
-    }
+  .overlayHeadline {
+    width: 250px;
+  }
 
-    .overlayHeadline {
-        width: 250px;
-    }
+  .overlay-save-frame {
+    width: 100%;
+  }
 
-    .overlay-save-frame {
-        width: 100%;
-    }
-
-    .overlay-user-initials {
-        position: absolute;
-        top: 32%;
-        left: 41%;
-        margin-top: 0;
-    }
+  .overlay-user-initials {
+    position: absolute;
+    top: 32%;
+    left: 41%;
+    margin-top: 0;
+  }
 }
 
+@media (max-width: 400px) {
+  .addContactLeftPart {
+    width: 270px;
+    padding-right: 0;
+    padding-left: 10px;
+  }
 
-@media(max-width: 400px) {
-    .addContactLeftPart {
-        width: 270px;
-        padding-right: 0;
-        padding-left: 10px;
-    }
+  .style-input {
+    width: 240px;
+    font-size: 16px;
+  }
 
-    .style-input {
-        width: 240px;
-        font-size: 16px;
-    }
+  .styleUserLetter {
+    background-position-x: 210px;
+  }
 
-    .styleUserLetter {
-        background-position-x: 210px;
-    }
+  .input-icon-phone {
+    background-position-x: 210px;
+  }
 
-    .input-icon-phone {
-        background-position-x: 210px;
-    }
+  .styleUserIcon {
+    background-position-x: 210px;
+  }
 
-    .styleUserIcon {
-        background-position-x: 210px;
-    }
+  .contactsDetailsFrame {
+    gap: 0;
+  }
 
-    .contactsDetailsFrame {
-        gap: 0;
-    }
+  .textTasksAre {
+    font-size: 16px;
+    width: 260px;
+  }
 
-    .textTasksAre {
-        font-size: 16px;
-        width: 260px;
-    }
+  .userIconConteiner {
+    height: 80px;
+    width: 80px;
+  }
 
-    .userIconConteiner {
-        height: 80px;
-        width: 80px;
-    }
+  .userWhiteIcon {
+    width: 30px;
+    height: auto;
+  }
 
-    .userWhiteIcon {
-        width: 30px;
-        height: auto;
-    }
+  .overlayHeadline {
+    font-size: 30px;
+  }
 
-    .overlayHeadline{
-        font-size: 30px;
-    }
-
-    .overlay-user-initials {
-        left: 35%;
-    }
-    
+  .overlay-user-initials {
+    left: 35%;
+  }
 }

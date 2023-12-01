@@ -10,10 +10,10 @@ function addNewContactHTML() {
                 </div>
                 <div class="addContactRightPart">
                     <img class="closeAddContact" src="./img/close-grey.svg" onclick="closeOverlay()">
-                    <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeOverlayResponsive()">
+                    <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeOverlay()">
                     <div class="userInfo">
                         <img class="userWhiteIcon" src="./img/persona.svg">
-                        <form onsubmit="addNewContact(); return false;">
+                        <form id="addContactFrom" onsubmit="addNewContact(); return false;">
                             <div class="contactDetailsContainer">
                                 <div class="contactsDetailsFrame">
                                     <input id="new-name" class="style-input styleUserIcon" required type="text"
@@ -60,7 +60,7 @@ function generateEditOverlay(i) {
             </div>
             <div class="addContactRightPart">
                 <img class="closeAddContact" src="./img/cancel-icon.png" onclick="closeEditOverlay()">
-                <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeEditOverlayResponsive()">
+                <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeEditOverlay()">
                 <div class="userInfo">
                     <div class="overlay-user-initials-container">
                         <div style="background-color: ${contacts[i]["userColor"]};" class="overlay-user-initials">${contacts[i]['initials']}</div>

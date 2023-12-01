@@ -20,7 +20,7 @@ body {
 
   align-items: center;
   gap: 20px;
-  width: 550px;
+
   margin-left: calc(285px + 30vw);
   margin-top: 64px;
   z-index: -1;
@@ -487,4 +487,105 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 1199.98px) {
+  .contactNameInfo {
+    font-size: 36px;
+  }
+
+  .addContactBtn {
+    font-size: 18px;
+  }
+
+  .contactName {
+    font-size: 16px;
+  }
+
+  .contactText {
+    margin-left: 16px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #contactInfoContainer {
+    margin-left: calc(269px + 30vw);
+  }
+  .contactInfoTop {
+    gap: 32px;
+  }
+
+  .headlineContacts {
+    font-size: 26px;
+  }
+
+  .contactHeadlineContent {
+    margin-left: calc(269px + 30vw);
+  }
+
+  .contactInitialsInfo {
+    height: 80px;
+    width: 80px;
+    font-size: 36px;
+  }
+
+  .contactNameInfo {
+    font-size: 24px;
+  }
+
+  .addContactBtn {
+    font-size: 16px;
+  }
+
+  .addContactBtn img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .contactDiv {
+    padding: 12px 16px;
+  }
+
+  .contactInitials {
+    height: 32px;
+    width: 32px;
+    font-size: 10px;
+  }
+
+  #contact-book {
+    width: 90%;
+  }
+}
+
+@media (max-width: 850px) {
+  .contactOverview {
+    left: 0;
+    width: 35vw;
+  }
+
+  .contactHeadlineContent {
+    margin-left: calc(32px + 35vw);
+  }
+
+  #contactInfoContainer {
+    margin-left: calc(32px + 35vw);
+  }
+
+  .userWhiteIcon {
+    margin-top: -96px;
+  }
+
+  .contactsDetailsFrame {
+    gap: 4px;
+  }
+
+  .contactsDetailsFrame {
+    height: unset;
+  }
+}
+
+@media (max-width: 767.98px) {
+}
+
+@media (max-width: 575.98px) {
 }

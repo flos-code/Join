@@ -55,116 +55,11 @@ function closeOverlay() {
 }
 
 
-/**
-* get the value from the diffrent inputfields and create the initials
-*/
-async function addNewContact() {
-    let contactName = document.getElementById('new-name').value;
-    let contactEmail = document.getElementById('new-email').value;
-    let contactPhone = document.getElementById('new-phone').value;
-    let contactInitials = contactName.match(/(\b\S)?/g).join("").toUpperCase();
-    checkForDuplicate(contactName, contactEmail, contactPhone, contactInitials);
-}
-
-/**bis hier */
-/**
-* push contact details to the frontend Array "Contacts"
-*/
-async function pushContacts(contactName, contactEmail, contactPhone, contactInitials) {
-    let contact = {
-        'name': contactName,
-        'email': contactEmail,
-        'phone': contactPhone,
-        'initials': contactInitials,
-    }
-    contacts.push(contact);
-    pushContactsToBackend();
-}
-
-
-/**
-* check if the new contact already exists by using the email of the contact
-*/
-function checkForDuplicate(contactName, contactEmail, contactPhone, contactInitials) {
-    newEmail = 0;
-    for (let i = 0; i < contacts.length; i++) {
-        let existingMail = contacts[i]['email'];
-        if (existingMail == contactEmail) { // check for existing users / email
-            newEmail += 1;
-        } else {
-            newEmail += 0;
-        }
-        if (newEmail == 1) {
-            showEmailMessage();
-        }
-    }
-    if (newEmail == 0) {
-        pushContactsToArrays(contactName, contactEmail, contactPhone, contactInitials);
-    }
-}
-
-
-/**
-* start different functions with the result of pushing contacts to arrays
-*/
-function pushContactsToArrays(contactName, contactEmail, contactPhone, contactInitials) {
-    pushContacts(contactName, contactEmail, contactPhone, contactInitials);
-    closeOverlay();
-    renderContactBook();
-    clearInputAtOverlay();
-    openBusinessCard(contacts.length - 1);
-    openBusinessCardResponsive(contacts.length - 1);
-}
-
-
-/**
-* show a text messsage if the contact already exists
-*/
-function showEmailMessage() {
-    document.getElementById('double-email').innerHTML = 'This contact already exists!';
-}
-
-
-/**
-* close the text messsage
-*/
-function hideEmailMessage() {
-    document.getElementById('double-email').innerHTML = '';
-}
 
 
 
 
 
-/**
-* clear all values at inputfields
-*/
-function clearInputAtOverlay() {
-    document.getElementById('new-name').value = '';
-    document.getElementById('new-email').value = '';
-    document.getElementById('new-phone').value = '';
-}
-
-
-/**
-* render and generate HTML Code for the business card
-*/
-function openBusinessCard(i) {
-    let card = document.getElementById('contactCard');
-    card.innerHTML = generateBusinessCard(i);
-}
-
-
-/**
-* open the contact overlay as edit mode with the current contact details
-*/
-function editContact(i) {
-    let edit = document.getElementById('edit');
-    edit.innerHTML = generateEditOverlay(i);
-    document.getElementById('edit-name').value = contacts[i]['name'];
-    document.getElementById('edit-email').value = contacts[i]['email'];
-    document.getElementById('edit-phone').value = contacts[i]['phone'];
-}
 
 
 /**
