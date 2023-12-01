@@ -1,167 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join - Add Task</title>
-    <link rel="shortcut icon" href="./img/favicon/join-favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/inter.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/sidebar.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/task.css">
-    <link rel="stylesheet" href="css/task_responsive.css">
-    <link rel="stylesheet" href="css/contacts-overlay.css">
-    <link rel="stylesheet" href="css/contacts-overlay-responsive.css">
-</head>
+    <link
+      rel="shortcut icon"
+      href="./img/favicon/join-favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="css/inter.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/sidebar.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/task.css" />
+    <link rel="stylesheet" href="css/task_responsive.css" />
+    <link rel="stylesheet" href="css/contacts-overlay.css" />
+    <link rel="stylesheet" href="css/contacts-overlay-responsive.css" />
+  </head>
 
-<body onload="init(), addActiveClass2()">
+  <body onload="init(),initHead(), addActiveClass2()">
     <!----Mona 
     <header w3-include-html="./assets/templates/header.html"></header>
     <section w3-include-html="./assets/templates/sidebar.html"></section> -->
-    
+
     <div w3-include-html="assets/templates/header.html"></div>
 
     <div w3-include-html="assets/templates/sidebar.html"></div>
 
     <section class="main">
-        <div class="main-container">
-            <h1 class="task-heading-h1">Add Task</h1>
-            <div class="task-form-container">
-                <form class="task-form" onsubmit="addTask(); return false" autocomplete="off">
-                    <div class="task-form-subcontainer">
-                        <div class="task-input-container">
-                            <label class="task-form-label" for="title">
-                                Title<svg class="task-form-star" viewBox="0 0 16 16">
-                                    <use href="assets/img/icons.svg#star-icon"></use>
-                                </svg>
-                            </label>
-                            <input class="task-form-input" type="text" name="title" id="title"
-                                placeholder="Enter a title" minlength="2" required>
-                            <label class="task-form-label" for="description">Description</label>
-                            <div class="task-form-text-wrapper">
-                                <textarea class="task-form-text" name="text" id="description"
-                                    placeholder="Enter a Description"></textarea>
-                                <svg class="task-form-resize-icon">
-                                    <use href="assets/img/icons.svg#resize-icon"></use>
-                                </svg>
-                            </div>
-
-                            <label class="task-form-label" for="assign">Assigned to</label>
-                            <div class="task-dropdown-container">
-                                <span id="arrow-assign" class="task-arrow-dropdown">
-                                    <svg viewBox="0 0 8 5">
-                                        <use href="assets/img/icons.svg#arrow-icon"></use>
-                                    </svg>
-                                </span>
-                                <input class="task-assign" id="assign" type="text" name="assign"
-                                    placeholder="Select contacts to assign">
-                                <div id="assign-content" class="assign-content d-none">
-                                    <div class="assign-overlay" id="assign-overlay" onclick="closeAssignDropdown()"></div>
-                                    <div class="assign-dropdown-menu" id="assign-dropdown-menu"></div>
-                                    <div class="assign-button-container" id="assign-button-container"></div>
-                                </div>
-                                <div id="initials-content"></div>
-                            </div>
-                        </div>
-                        <div class="task-input-container">
-                            <label class="task-form-label" for="date">
-                                Due date<svg class="task-form-star" viewBox="0 0 16 16">
-                                    <use href="assets/img/icons.svg#star-icon"></use>
-                                </svg>
-                            </label>
-                            <input class="task-form-date" type="date" name="date" id="date" max="2025-12-31" required>
-                            <div class="task-form-label">Prio</div>
-                            <div class="task-form-prio">
-                                <div class="task-form-btn" id="urgent-btn" onclick="selectPrioButton('urgent-btn')">
-                                    Urgent
-                                    <svg class="task-form-urgent-icon" viewBox="0 0 21 16">
-                                        <use href="assets/img/icons.svg#urgentprio-icon"></use>
-                                    </svg>
-                                </div>
-                                <div class="task-form-btn" id="medium-btn" onclick="selectPrioButton('medium-btn')">
-                                    Medium
-                                    <svg class="task-form-medium-icon" viewBox="0 0 21 8">
-                                        <use href="assets/img/icons.svg#mediumprio-icon"></use>
-                                    </svg>
-                                </div>
-                                <div class="task-form-btn" id="low-btn" onclick="selectPrioButton('low-btn')">
-                                    Low
-                                    <svg class="task-form-low-icon" viewBox="0 0 21 16">
-                                        <use href="assets/img/icons.svg#lowprio-icon"></use>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="task-form-label">
-                                Category<svg class="task-form-star" viewBox="0 0 16 16">
-                                    <use href="assets/img/icons.svg#star-icon"></use>
-                                </svg>
-                            </div>
-                            <div class="task-dropdown-container">
-                                <span id="arrow-category" class="task-arrow-dropdown"
-                                    onclick="toggleCategoryDropdown()">
-                                    <svg viewBox="0 0 8 5">
-                                        <use href="assets/img/icons.svg#arrow-icon"></use>
-                                    </svg>
-                                </span>
-                                <input class="task-category" id="category" placeholder="Select task category"
-                                    type="text" onkeydown="return false;" required onclick="toggleCategoryDropdown()">
-                                <div id="category-content"></div>
-                            </div>
-                            <label class="task-form-label" for="subtasks">Subtasks</label>
-                            <div class="task-form-subtasks">
-                                <input class="task-form-input m-b05" type="text" name="subtasks" id="subtasks"
-                                    placeholder="Add new subtask">
-                                <div onclick="addSubtask()">
-                                    <svg class="task-form-add-icon" id="task-add-icon" viewBox="0 0 15 14">
-                                        <use href="assets/img/icons.svg#add-icon"></use>
-                                    </svg>
-                                </div>
-                                <div id="subtasks-container"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="task-submit-container">
-                        <div class="task-required-text">
-                            <svg class="task-form-star" viewBox="0 0 16 16">
-                                <use href="assets/img/icons.svg#star-icon"></use>
-                            </svg>This field is required
-                        </div>
-                        <div class="task-submit-buttons">
-                            <button class="task-clear-button" type="reset" onclick="resetForm()">Clear
-                                <svg class="task-clear-icon">
-                                    <use href="assets/img/icons.svg#x-icon"></use>
-                                </svg>
-                            </button>
-                            <button class="main-button" type="submit" id="create-task">Create Task
-                                <svg class="task-create-icon">
-                                    <use href="assets/img/icons.svg#check-icon"></use>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <div class="loader-overlay d-none" id="loader-overlay"></div>
-                <div id="loader"></div>
-                <div class="success d-none" id="success">
-                <div class="success-container">
-                    <span class="success-message">Task added to board</span>
-                    <img class="board-icon" src="img/board-icon.svg" alt="Board icon">
+      <div class="main-container">
+        <h1 class="task-heading-h1">Add Task</h1>
+        <div class="task-form-container">
+          <form
+            class="task-form"
+            onsubmit="addTask(); return false"
+            autocomplete="off"
+          >
+            <div class="task-form-subcontainer">
+              <div class="task-input-container">
+                <label class="task-form-label" for="title">
+                  Title<svg class="task-form-star" viewBox="0 0 16 16">
+                    <use href="assets/img/icons.svg#star-icon"></use>
+                  </svg>
+                </label>
+                <input
+                  class="task-form-input"
+                  type="text"
+                  name="title"
+                  id="title"
+                  placeholder="Enter a title"
+                  minlength="2"
+                  required
+                />
+                <label class="task-form-label" for="description"
+                  >Description</label
+                >
+                <div class="task-form-text-wrapper">
+                  <textarea
+                    class="task-form-text"
+                    name="text"
+                    id="description"
+                    placeholder="Enter a Description"
+                  ></textarea>
+                  <svg class="task-form-resize-icon">
+                    <use href="assets/img/icons.svg#resize-icon"></use>
+                  </svg>
                 </div>
+
+                <label class="task-form-label" for="assign">Assigned to</label>
+                <div class="task-dropdown-container">
+                  <span id="arrow-assign" class="task-arrow-dropdown">
+                    <svg viewBox="0 0 8 5">
+                      <use href="assets/img/icons.svg#arrow-icon"></use>
+                    </svg>
+                  </span>
+                  <input
+                    class="task-assign"
+                    id="assign"
+                    type="text"
+                    name="assign"
+                    placeholder="Select contacts to assign"
+                  />
+                  <div id="assign-content" class="assign-content d-none">
+                    <div
+                      class="assign-overlay"
+                      id="assign-overlay"
+                      onclick="closeAssignDropdown()"
+                    ></div>
+                    <div
+                      class="assign-dropdown-menu"
+                      id="assign-dropdown-menu"
+                    ></div>
+                    <div
+                      class="assign-button-container"
+                      id="assign-button-container"
+                    ></div>
+                  </div>
+                  <div id="initials-content"></div>
+                </div>
+              </div>
+              <div class="task-input-container">
+                <label class="task-form-label" for="date">
+                  Due date<svg class="task-form-star" viewBox="0 0 16 16">
+                    <use href="assets/img/icons.svg#star-icon"></use>
+                  </svg>
+                </label>
+                <input
+                  class="task-form-date"
+                  type="date"
+                  name="date"
+                  id="date"
+                  max="2025-12-31"
+                  required
+                />
+                <div class="task-form-label">Prio</div>
+                <div class="task-form-prio">
+                  <div
+                    class="task-form-btn"
+                    id="urgent-btn"
+                    onclick="selectPrioButton('urgent-btn')"
+                  >
+                    Urgent
+                    <svg class="task-form-urgent-icon" viewBox="0 0 21 16">
+                      <use href="assets/img/icons.svg#urgentprio-icon"></use>
+                    </svg>
+                  </div>
+                  <div
+                    class="task-form-btn"
+                    id="medium-btn"
+                    onclick="selectPrioButton('medium-btn')"
+                  >
+                    Medium
+                    <svg class="task-form-medium-icon" viewBox="0 0 21 8">
+                      <use href="assets/img/icons.svg#mediumprio-icon"></use>
+                    </svg>
+                  </div>
+                  <div
+                    class="task-form-btn"
+                    id="low-btn"
+                    onclick="selectPrioButton('low-btn')"
+                  >
+                    Low
+                    <svg class="task-form-low-icon" viewBox="0 0 21 16">
+                      <use href="assets/img/icons.svg#lowprio-icon"></use>
+                    </svg>
+                  </div>
+                </div>
+                <div class="task-form-label">
+                  Category<svg class="task-form-star" viewBox="0 0 16 16">
+                    <use href="assets/img/icons.svg#star-icon"></use>
+                  </svg>
+                </div>
+                <div class="task-dropdown-container">
+                  <span
+                    id="arrow-category"
+                    class="task-arrow-dropdown"
+                    onclick="toggleCategoryDropdown()"
+                  >
+                    <svg viewBox="0 0 8 5">
+                      <use href="assets/img/icons.svg#arrow-icon"></use>
+                    </svg>
+                  </span>
+                  <input
+                    class="task-category"
+                    id="category"
+                    placeholder="Select task category"
+                    type="text"
+                    onkeydown="return false;"
+                    required
+                    onclick="toggleCategoryDropdown()"
+                  />
+                  <div id="category-content"></div>
+                </div>
+                <label class="task-form-label" for="subtasks">Subtasks</label>
+                <div class="task-form-subtasks">
+                  <input
+                    class="task-form-input m-b05"
+                    type="text"
+                    name="subtasks"
+                    id="subtasks"
+                    placeholder="Add new subtask"
+                  />
+                  <div onclick="addSubtask()">
+                    <svg
+                      class="task-form-add-icon"
+                      id="task-add-icon"
+                      viewBox="0 0 15 14"
+                    >
+                      <use href="assets/img/icons.svg#add-icon"></use>
+                    </svg>
+                  </div>
+                  <div id="subtasks-container"></div>
+                </div>
+              </div>
             </div>
+            <div class="task-submit-container">
+              <div class="task-required-text">
+                <svg class="task-form-star" viewBox="0 0 16 16">
+                  <use href="assets/img/icons.svg#star-icon"></use></svg
+                >This field is required
+              </div>
+              <div class="task-submit-buttons">
+                <button
+                  class="task-clear-button"
+                  type="reset"
+                  onclick="resetForm()"
+                >
+                  Clear
+                  <svg class="task-clear-icon">
+                    <use href="assets/img/icons.svg#x-icon"></use>
+                  </svg>
+                </button>
+                <button class="main-button" type="submit" id="create-task">
+                  Create Task
+                  <svg class="task-create-icon">
+                    <use href="assets/img/icons.svg#check-icon"></use>
+                  </svg>
+                </button>
+              </div>
             </div>
+          </form>
+          <div class="loader-overlay d-none" id="loader-overlay"></div>
+          <div id="loader"></div>
+          <div class="success d-none" id="success">
+            <div class="success-container">
+              <span class="success-message">Task added to board</span>
+              <img
+                class="board-icon"
+                src="img/board-icon.svg"
+                alt="Board icon"
+              />
+            </div>
+          </div>
         </div>
-        <div id="new-contact-container"></div>
+      </div>
+      <div id="new-contact-container"></div>
     </section>
     <div w3-include-html="assets/templates/mobile.html"></div>
-
 
     <script src="js/script.js"></script>
     <script src="js/add_task.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/header.js"></script>
-</body>
-
+  </body>
 </html>

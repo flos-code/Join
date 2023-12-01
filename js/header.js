@@ -1,3 +1,17 @@
+users = [];
+
+async function initHead() {
+    await loadUsers();
+    userInitials();
+}
+
+async function loadUsers() {
+    try {
+        users = JSON.parse(await getItem('users'));
+    } catch (e) {
+        console.error('Loading Users error: ', e);
+    }
+}
 
 /**
 * generate and show logout button
@@ -42,8 +56,8 @@ function doNotClose(event) {
 */
 async function logout() {
     //await backend.setItem('activeUser', JSON.stringify(activeUser.length = 0));
-   // let activeUserJson = JSON.stringify(activeUser);
-   // localStorage.setItem('activeUser', activeUserJson);
+    // let activeUserJson = JSON.stringify(activeUser);
+    // localStorage.setItem('activeUser', activeUserJson);
     window.open("index.html", "_self");
 }
 
@@ -137,5 +151,20 @@ function privacyMenuActive() {
         if (document.getElementById('idResponsive-5').innerHTML == document.getElementById('privacy-active').innerHTML) {
             document.getElementById('idResponsive-5').classList.add('rs-logout-active');
         }
+    }
+}
+
+function userInitials() {
+    for (let i = 0; i < users.length; i++) {
+        let user = users[i];
+        if (user["isYou"]) {
+            document.getElementById("userInitials").innerHTML = `${user["initials"]}`;
+
+        }
+        else {
+            document.getElementById("userInitials").innerHTML = "G";
+
+        }
+
     }
 }
