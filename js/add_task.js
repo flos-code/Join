@@ -255,7 +255,11 @@ function renderInitials() {
 function renderInitialsHTML(selectedUser) {
     const selectedUserArrName = selectedUser.split(' ');
     for (const user of users) {
-        if (user.firstName === selectedUserArrName[0]) {
+        if (user.firstName === selectedUserArrName[0] && user.initials.length == 1) {
+            return `
+                <span class="selected-initials" style="background: ${user.userColor}">${selectedUserArrName[0].charAt(0)}</span>
+            `;
+        } else if (user.firstName === selectedUserArrName[0] && user.initials.length == 2) {
             return `
                 <span class="selected-initials" style="background: ${user.userColor}">${selectedUserArrName[0].charAt(0)}${selectedUserArrName[1].charAt(0)}</span>
             `;
