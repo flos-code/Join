@@ -79,8 +79,6 @@
   transform: scale(1.1);
 }
 
-<<<<<<< HEAD
-=======
 @media (max-width: 850px) {
   .content {
     margin-left: 16px;
@@ -92,4 +90,3 @@
     font-size: 48px;
   }
 }
->>>>>>> 1c896b52f592d96f071a9d77bdde53bf17b3e3e0
