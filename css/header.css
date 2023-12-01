@@ -52,6 +52,11 @@ header {
   background-color: #e2e6ec;
 }
 
+#header-logout {
+  position: relative;
+  z-index: 99;
+}
+
 .logout-btn {
   display: flex;
   flex-direction: column;
