@@ -294,7 +294,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: 101;
 }
 
 .toDoOpen {
@@ -612,6 +612,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 101;
 }
 
 .addTaskOpen {
@@ -786,6 +787,7 @@ button:hover {
 
   .boardHeader {
     margin-left: 0;
+    margin-top: 112px;
     width: calc(100% - 32px);
   }
 

@@ -2,126 +2,29 @@ let contactInitials;
 
 let newEmail = 0;
 
-
-  
-   
-let contacts =  []
-    /*
-    {
-        name: 'sonja',
-        email: 't.wolf@gmail.com',
-        phone: '+49 1111 111 11 9',
-        initials: 'SW',
-    },
-   
-    {
-        name: 'Tatjana',
-        email: 't.wolf@gmail.com',
-        phone: '+49 1111 111 11 9',
-        initials: 'TW',
-        
-    },
-    {
-        name: 'ANA WOLF',
-        email: 't.wolf@gmail.com',
-        phone: '+49 1111 111 11 9',
-        initials: 'AW',
-        
-    },
-    {
-        name: 'ANDRE WOLF',
-        email: 't.wolf@gmail.com',
-        phone: '+49 1111 111 11 9',
-        initials: 'TW',
-        
-    },
-
-];
-
-loadContactsFromBackend();
-
+users = [];
+let contacts = [];
 
 
 async function InitContacts() {
     await init();
-    // await initStart();
-    await loadContactsFromBackend();
-    renderContactBook();
-    if (contacts > [])
-        openBusinessCard(0);
+    await loadUsers();
+    contactsAlphabetical(users);
+    renderAlphabet();
+
+
 }
 
-
-/*
-function render() {
-    let contactbook = document.getElementById('contactbook');
-    contactbook.innerHTML = '';
-
-    for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
-        contactbook.innerHTML += `
-        <div class="card"> 
-          <div class="initialen">
-           <img class="design-prof" src="${contact['name']}" > 
-             <h2 class="author">${contact['email']}</h2>
-         </div>
-              <img class="imgDesign" src="${contact['phone']}"><br>
-              <img class="imgDesign" src="${contact['initials']}"><br>
-        
-              </div>
-
-           
-            `
-            ;
-
-
-       
-        }
-
-
-    }
-
-
-function save() {
-    let contactsASText = JSON.stringify(contacts);
-
-    localStorage.setItem('contactsASText', contactsASText);
-}
-
-function load() {
-    let contactsASText = localStorage.getItem('contactsASText');
-
-    if (contactsASText) {
-        contacts = JSON.parse(contactsASText);
-
-    }
-}
-
-
-async function loadContacts() {
+async function loadUsers() {
     try {
-        contacts = JSON.parse(await getItem('contacts'));
-    } catch(e) {
-        console.error('Loading Contactserror: ', e);
+        users = JSON.parse(await getItem('users'));
+    } catch (e) {
+        console.error('Loading Users error: ', e);
     }
-} */
-
-// /**
-// * show the overlay mask, where you can creat a new contact
-// */
-// function showOverlay() {
-//     document.getElementById('overlay-background').classList.remove('d-none');
-// }
+}
 
 
-// /**
-// * close the overlay mask, where you can create a new contact
-// */
-// function closeOverlay() {
-//     document.getElementById('overlay-background').classList.add('d-none');
-//     hideEmailMessage();
-//     clearInputAtOverlay();
-// }
+
 
 
 /**
@@ -152,134 +55,22 @@ function closeOverlay() {
 }
 
 
-/**
-* get the value from the diffrent inputfields and create the initials
-*/
-async function addNewContact() {
-    let contactName = document.getElementById('new-name').value;
-    let contactEmail = document.getElementById('new-email').value;
-    let contactPhone = document.getElementById('new-phone').value;
-    let contactInitials = contactName.match(/(\b\S)?/g).join("").toUpperCase();
-    checkForDuplicate(contactName, contactEmail, contactPhone, contactInitials);
-}
-
-/**bis hier */
-/**
-* push contact details to the frontend Array "Contacts"
-*/
-async function pushContacts(contactName, contactEmail, contactPhone, contactInitials) {
-    let contact = {
-        'name': contactName,
-        'email': contactEmail,
-        'phone': contactPhone,
-        'initials': contactInitials,
-    }
-    contacts.push(contact);
-    pushContactsToBackend();
-}
 
 
-/**
-* check if the new contact already exists by using the email of the contact
-*/
-function checkForDuplicate(contactName, contactEmail, contactPhone, contactInitials) {
-    newEmail = 0;
-    for (let i = 0; i < contacts.length; i++) {
-        let existingMail = contacts[i]['email'];
-        if (existingMail == contactEmail) { // check for existing users / email
-            newEmail += 1;
-        } else {
-            newEmail += 0;
-        }
-        if (newEmail == 1) {
-            showEmailMessage();
-        }
-    }
-    if (newEmail == 0) {
-        pushContactsToArrays(contactName, contactEmail, contactPhone, contactInitials);
-    }
-}
 
 
-/**
-* start different functions with the result of pushing contacts to arrays
-*/
-function pushContactsToArrays(contactName, contactEmail, contactPhone, contactInitials) {
-    pushContacts(contactName, contactEmail, contactPhone, contactInitials);
-    closeOverlay();
-    renderContactBook();
-    clearInputAtOverlay();
-    openBusinessCard(contacts.length - 1);
-    openBusinessCardResponsive(contacts.length - 1);
-}
 
-
-/**
-* show a text messsage if the contact already exists
-*/
-function showEmailMessage() {
-    document.getElementById('double-email').innerHTML = 'This contact already exists!';
-}
-
-
-/**
-* close the text messsage
-*/
-function hideEmailMessage() {
-    document.getElementById('double-email').innerHTML = '';
-}
-
-
-/**
-* render and generate HTML Code for the contact book
-*/
-function renderContactBook() {
-    let container = document.getElementById('contact-book');
-    container.innerHTML = '';
-    for (let index = 0; index < contacts.length; index++) {
-        container.innerHTML += generateHTMLforContactBook(index);
-    }
-    renderContactBookResponsive();
-    addActiveClass3();
-}
-
-
-/**
-* clear all values at inputfields
-*/
-function clearInputAtOverlay() {
-    document.getElementById('new-name').value = '';
-    document.getElementById('new-email').value = '';
-    document.getElementById('new-phone').value = '';
-}
-
-
-/**
-* render and generate HTML Code for the business card
-*/
-function openBusinessCard(i) {
-    let card = document.getElementById('contactCard');
-    card.innerHTML = generateBusinessCard(i);
-}
-
-
-/**
-* open the contact overlay as edit mode with the current contact details
-*/
-function editContact(i) {
-    let edit = document.getElementById('edit');
-    edit.innerHTML = generateEditOverlay(i);
-    document.getElementById('edit-name').value = contacts[i]['name'];
-    document.getElementById('edit-email').value = contacts[i]['email'];
-    document.getElementById('edit-phone').value = contacts[i]['phone'];
-}
 
 
 /**
 * close the edit overlay mask
 */
 function closeEditOverlay() {
-    document.getElementById('edit-background').classList.add('d-none');
+    document.getElementById("overlay-container").classList.remove("transform-0")
+
+    setTimeout(() => {
+        document.getElementById("edit-background").remove();
+    }, 250);
 }
 
 
@@ -297,169 +88,6 @@ async function saveContact(i) {
     openBusinessCard(i);
 }
 
-
-/**
-* save the updated contact details to the frontend array contacts
-*/
-function updateContatcs(i, contactName, contactEmail, contactPhone, contactInitials) {
-    contacts[i]['name'] = contactName
-    contacts[i]['email'] = contactEmail
-    contacts[i]['phone'] = contactPhone
-    contacts[i]['initials'] = contactInitials
-    pushContactsToBackend();
-
-}
-
-
-/**
-* save the contacts Array to the backend and use the user name as key
-*/
-function pushContactsToBackend() {
-    let key = activeUser[0];
-    backend.setItem(key, JSON.stringify(contacts));
-}
-
-
-/**
-* load the contacts array for the user from backend Server
-*/
-function loadContactsFromBackend() {
-    let key = activeUser[0];
-    contacts = JSON.parse(backend.getItem(key)) || [];
-}
-
-
-
-/*
-async function getItem(key) {
-    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json());
-} */
-
-
-/**
-* delete the actual contact in front- and backend
-*/
-function deleteContact(i) {
-    contacts.splice(i, 1);
-    renderContactBook();
-    renderContactBookResponsive();
-    pushContactsToBackend();
-    document.getElementById('contactCard-main').style.display = 'none';
-}
-
-//Responsive js//
-
-/**
-* show the overlay mask for creating new contacts
-*/
-function showOverlayResponsive() {
-    showOverlay();
-    document.getElementById('contact-book-rs').style.display = 'none';
-    document.getElementById('addContactBtn-rs').classList.add('d-none');
-    document.getElementById('contactInfo').classList.remove('d-none');
-    document.getElementById('contactHeadlineContent').style.display = 'flex';
-    document.getElementById('contactCard-main').style.display = 'flex';
-
-}
-
-
-/**
-* close the overlay mask for creating new contacts
-*/
-function closeOverlayResponsive() {
-    closeOverlay();
-    backToContacts();
-}
-
-
-/**
-* send you back to the contactbook
-*/
-function backToContacts() {
-    document.getElementById('contact-book-rs').style.display = 'flex';
-    document.getElementById('addContactBtn-rs').classList.remove('d-none');
-    document.getElementById('moveBackBtn').classList.add('d-none');
-    document.getElementById('contactInfo').classList.add('d-none');
-    document.getElementById('contactHeadlineContent').style.display = 'none';
-    document.getElementById('contactCard-main').style.display = 'none';
-}
-
-
-/**
-* render and generate HTML Code for the contactbook in responsive mode
-*/
-function renderContactBookResponsive() {
-    let container = document.getElementById('contact-book-rs');
-    container.innerHTML = '';
-    for (let index = 0; index < contacts.length; index++) {
-        container.innerHTML += generateHTMLforContactBookResponsive(index);
-    }
-}
-
-
-function genereateRandomColor() {
-    let randomColor = Math.floor(Math.random() * 16777215).toString(16);
-    document.getElementById('contactCircleBgColor' + i).style.background = `#${randomColor} !important`;
-}
-
-/**
-* render and generate HTML Code for the businesscard in responsive mode
-*/
-function openBusinessCardResponsive(i) {
-    openBusinessCard(i);
-    document.getElementById('contact-book-rs').style.display = 'none';
-    document.getElementById('addContactBtn-rs').classList.add('d-none');
-    document.getElementById('contactInfo').classList.remove('d-none');
-    document.getElementById('contactHeadlineContent').style.display = 'flex';
-    document.getElementById('contactCard-main').style.display = 'flex';
-
-}
-
-/**
-* add back button
-*/
-function addBackButton() {
-    document.getElementById('moveBackBtn').classList.remove('d-none')
-}
-
-
-/**
-* close edit overlay mask for updating contacts
-*/
-function closeEditOverlayResponsive() {
-    closeEditOverlay();
-}
-
-
-/**
-* update the contacts in responsive mode
-*/
-async function saveContactResponsive(i) {
-    let contactName = document.getElementById('edit-name-rs').value;
-    let contactEmail = document.getElementById('edit-email-rs').value;
-    let contactPhone = document.getElementById('edit-phone-rs').value;
-    let contactInitials = contactName.match(/(\b\S)?/g).join("").toUpperCase();
-    await updateContatcs(i, contactName, contactEmail, contactPhone, contactInitials);
-    closeEditOverlay();
-    renderContactBookResponsive();
-    openBusinessCardResponsive(i);
-    // document.getElementById('moveBackBtn').classList.remove('d-none');//
-}
-
-
-/**
-* open edit overlay mask for updating contacts
-*/
-function editContactResponsive(i) {
-    let edit = document.getElementById('edit');
-    edit.innerHTML = generateEditOverlay(i);
-    document.getElementById('edit-name-rs').value = contacts[i]['name'];
-    document.getElementById('edit-email-rs').value = contacts[i]['email'];
-    document.getElementById('edit-phone-rs').value = contacts[i]['phone'];
-}
-
-
 /**
 * Show active site on the navigation bar -> Contacts
 */
@@ -476,4 +104,287 @@ function validateInput(input) {
     if (input.value.length > 16) {
         input.value = input.value.slice(0, 16);
     }
+}
+
+function contactsAlphabetical(users) {
+    contacts = users.slice().sort((a, b) => {
+        // First, compare by firstName
+        let firstNameComparison = a.firstName.localeCompare(b.firstName);
+
+        // If firstName is the same, then compare by lastName
+        return firstNameComparison !== 0 ? firstNameComparison : a.lastName.localeCompare(b.lastName);
+    });
+
+    return contacts;
+}
+
+function renderAlphabet() {
+    let contactbook = document.getElementById('contact-book');
+    contactbook.innerHTML = '';
+
+    // Create an object to store div elements for each starting letter
+    let letterDivs = {};
+
+    for (let i = 0; i < contacts.length; i++) {
+        let contact = contacts[i];
+        let firstLetter = contact.firstName.charAt(0).toUpperCase();
+
+        // Check if a div for the letter already exists
+        if (!letterDivs[firstLetter]) {
+            // If it doesn't exist, create a new div
+            let letterDiv = document.createElement('div');
+            letterDiv.classList.add("letterDiv");
+            letterDiv.id = `letter-${firstLetter}`;
+            letterDiv.innerHTML = `<h2>${firstLetter}</h2>
+            <div class="letterDivBorder"></div>`;
+            contactbook.appendChild(letterDiv);
+
+            // Store the reference to the div in the object
+            letterDivs[firstLetter] = letterDiv;
+
+        }
+
+        // // Now, you can append information about the contact to the corresponding div
+        let contactDiv = document.createElement('div');
+        contactDiv.id = `contact-${i}`;
+        contactDiv.classList.add("contactDiv");
+        contactDiv.onclick = function () { openContact(i) };
+        contactDiv.innerHTML = /*html*/`
+        <div class="contactInitials" style="background-color: ${contact.userColor};">
+            ${contact.initials}
+        </div>
+        <div class="contactText">
+        <span id="contactName-${i}" class="contactName">${contact.firstName} ${contact.lastName}</span>
+        <span class="contactMail">${contact.email}</span>
+        </div>
+        `;
+
+        letterDivs[firstLetter].appendChild(contactDiv);
+    }
+}
+
+function openContact(i) {
+    let contactInfoDiv = document.getElementById("contactInfoContainer");
+    contactInfoDiv.innerHTML = "";
+    for (let j = 0; j < contacts.length; j++) {
+        let contactDiv = document.getElementById(`contact-${j}`);
+        let contactName = document.getElementById(`contactName-${j}`);
+        contactDiv.style = "background-color: ;"
+        contactName.style = "color: ;"
+
+    }
+
+    let contactDiv = document.getElementById(`contact-${i}`);
+    let contactName = document.getElementById(`contactName-${i}`);
+    contactDiv.style = "background-color: #2A3647;"
+    contactName.style = "color: white;"
+    contactInfoDiv.innerHTML += genertaeContactInfo(i);
+
+
+}
+
+function genertaeContactInfo(i) {
+    let contact = contacts[i];
+    return /*html*/`
+<div class="contactInfoContainer">
+
+  <div class="contactInfoTop">
+    <div
+      class="contactInitialsInfo"
+      style="background-color: ${contact.userColor};">
+      ${contact.initials}
+    </div>
+    <div class="contactTextInfo">
+      <span class="contactNameInfo"
+        >${contact.firstName} ${contact.lastName}</span
+      >
+      <div class="manageContact">
+      <div class="editContact" onclick="editContact(${i})">
+        <img class="editContactImg" src="./img/editToDo.svg" alt="Edit Contact">
+          Edit
+        </div>
+        <div class="deletContact" onclick="deletContact(${i})">
+        <img class="deletContactImg" src="./img/deleteToDo.svg" alt="Delet Contact">
+          Delete
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contactInfoHeadline">Contacts Informationen</div>
+
+  <div>
+    <div class="contactInfoBottom">
+      <div class="contactInfoSublHead">Email</div>
+      <div class="contactInfoMail">${contact.email}</div>
+    </div>
+    <div class="contactInfoBottom">
+      <div class="contactInfoSublHead">Phone</div>
+      <div>${contact.phone}</div>
+    </div>
+  </div>
+
+</div>
+<div id="edit"></div>
+
+  
+    `
+}
+
+
+function editContact(i) {
+
+    document.getElementById("edit").innerHTML = generateEditOverlay(i);
+
+
+    setTimeout(() => {
+        document.getElementById("overlay-container").classList.add("transform-0")
+    }, 0);
+
+    loadeUserInfo(i);
+}
+
+
+function loadeUserInfo(i) {
+    let name = contacts[i]["firstName"] + " " + contacts[i]["lastName"];
+    document.getElementById("edit-name").value = name;
+    document.getElementById("edit-email").value = contacts[i]["email"];
+    document.getElementById("edit-phone").value = contacts[i]["phone"];
+}
+
+async function saveContact(i) {
+    let contact = contacts[i];
+    let id = contact["userID"];
+
+    let contactName = document.getElementById('edit-name').value;
+    let contactEmail = document.getElementById('edit-email').value;
+    let contactPhone = document.getElementById('edit-phone').value;
+
+    let formattedName = formatName(contactName);
+
+    contact["firstName"] = formattedName.firstName;
+    contact["lastName"] = formattedName.lastName;
+    contact["initials"] = formattedName.initials;
+    contact["email"] = contactEmail;
+    contact["phone"] = contactPhone;
+
+
+    users[id]["firstName"] = formattedName.firstName;
+    users[id]["lastName"] = formattedName.lastName;
+    users[id]["initials"] = formattedName.initials;
+    users[id]["email"] = contactEmail;
+    users[id]["phone"] = contactPhone;
+    await setItem('users', JSON.stringify(users));
+
+    document.getElementById("edit").innerHTML = "";
+    InitContacts();
+    openContact(i);
+}
+
+function formatName(name) {
+    let words = name.split(' ');
+    let capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    let firstName = capitalizedWords[0];
+    let lastName = capitalizedWords.slice(1).join(' ');
+    let initials = words.map(word => word.charAt(0).toUpperCase()).join('');
+
+    return {
+        firstName: firstName,
+        lastName: lastName,
+        initials: initials
+    };
+}
+
+async function deletContact(i) {
+
+    let id = contacts[i]["userID"];
+    users.splice(id, 1);
+    contacts = [];
+    for (let j = 0; j < users.length; j++) {
+        users[j]["userID"] = j;
+    }
+
+    contactsAlphabetical(users)
+
+    await setItem('users', JSON.stringify(users));
+    document.getElementById("contactInfoContainer").innerHTML = "";
+    InitContacts();
+}
+
+/**
+* show the overlay mask, where you can creat a new contact
+*/
+function showOverlay() {
+    const newContactContainer = document.getElementById('newContactContainer');
+
+    newContactContainer.innerHTML = addNewContactHTML();
+    setTimeout(() => {
+        const newContactCard = document.getElementById('overlay-container');
+        newContactCard.classList.add('transform-0');
+    }, 0);
+}
+
+
+/**
+* close the overlay mask, where you can create a new contact
+*/
+function closeOverlay() {
+    const addContactDiv = document.getElementById('overlay-background');
+    const newContactContainer = document.getElementById('overlay-container');
+    newContactContainer.classList.remove('transform-0');
+
+    setTimeout(() => {
+        addContactDiv.remove();
+    }, 250);
+}
+
+
+async function addNewContact() {
+    let newUser = {};
+
+    let contactName = document.getElementById('new-name').value;
+    let contactEmail = document.getElementById('new-email').value;
+    let contactPhone = document.getElementById('new-phone').value;
+
+    let formattedName = formatName(contactName);
+
+    newUser = {
+        firstName: formattedName.firstName,
+        lastName: formattedName.lastName,
+        initials: formattedName.initials,
+        email: contactEmail,
+        phone: contactPhone,
+        isYou: false,
+        password: null,
+        userID: users.length,
+        userColor: setUserColor()
+    }
+
+    users.push(newUser)
+    await setItem('users', JSON.stringify(users));
+
+    closeOverlay();
+    await InitContacts();
+
+    let id = newUser.userID; // Use the userID of the new user
+    let position = findUserPosition(id);
+    openContact(position);
+}
+
+function setUserColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function findUserPosition(id) {
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i].userID === id) {
+            return i;
+        }
+    }
+
 }

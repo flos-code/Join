@@ -294,6 +294,11 @@
     width: calc(100% - 64px);
     align-items: center;
     margin-bottom: 112px;
+    margin-top: 0;
+  }
+
+  .summaryHead {
+    margin-top: 112px;
   }
 }
 
@@ -328,7 +333,7 @@
   }
 
   .summaryContent {
-    margin-top: 16px;
+    margin-top: 0;
     margin-bottom: 0;
     margin-left: 4vw;
     width: 92vw;
