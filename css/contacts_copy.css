@@ -558,6 +558,7 @@ body {
 }
 
 @media (max-width: 850px) {
+  
   .contactOverview {
     left: 0;
     width: 35vw;
