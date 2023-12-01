@@ -93,7 +93,7 @@ function removeLoader() {
 
 
 /**
- * show success message for submitting the form
+ * show success message for submitting the form, then forward to summary
  */
 function success() {
     const successElement = document.getElementById('success');
@@ -125,6 +125,9 @@ function resetForm() {
 }
 
 
+/**
+ * empty selectedUsers array and remove highlighting of selected user in dropdown menu
+ */
 function resetSelectedUsers() {
     selectedUsers = [];
     const usersDiv = document.querySelectorAll('.assign-contact')
@@ -142,6 +145,9 @@ function resetSelectedUsers() {
 }
 
 
+/**
+ * unselect selected prio buttons
+ */
 function resetPrioButton() {
     const lowButton = document.getElementById('low-btn');
     const mediumButton = document.getElementById('medium-btn');
@@ -158,7 +164,11 @@ function resetPrioButton() {
 }
 
 
+/**
+ * remove existing subtasks and set global variable to 0
+ */
 function resetSubtasks() {
+    subtaskIndex = 0;
     const subtasksItems = document.querySelectorAll('.subtask-item');
     for (const subtaskItem of subtasksItems) {
         subtaskItem.remove();
@@ -166,6 +176,9 @@ function resetSubtasks() {
 }
 
 
+/**
+ * set category input value to default
+ */
 function resetCategory() {
     const categoryInputField = document.getElementById('category');
     categoryInputField.value = 'Select task category';
@@ -173,6 +186,9 @@ function resetCategory() {
 }
 
 
+/**
+ * initialize dropdown menu of assign field after users are fetched
+ */
 function initAssignOnclick() {
     assignInput = document.getElementById('assign');
     assignDropdown = document.getElementById('assign-content');
@@ -183,6 +199,9 @@ function initAssignOnclick() {
 }
 
 
+/**
+ * toggle between open and closed dropdown menu of assign field
+ */
 function toggleAssignDropdown() {
     const assignContactItem = document.querySelector('.assign-contact');
     const arrow = 'assign';
@@ -200,6 +219,9 @@ function toggleAssignDropdown() {
 }
 
 
+/**
+ * render dropdown menu for assign field 
+ */
 function openAssignDropdown() {
     const assignDropdownMenu = document.getElementById('assign-dropdown-menu');
     const assignBtnContainer = document.getElementById('assign-button-container');
@@ -222,6 +244,9 @@ function openAssignDropdown() {
 }
 
 
+/**
+ * hide dropdown menu for assign field, reset input value and render the initials of selected users
+ */
 function closeAssignDropdown() {
     const arrow = 'assign';
     assignInput.blur();
@@ -233,18 +258,24 @@ function closeAssignDropdown() {
 }
 
 
+/**
+ * set input value of assign field to default
+ */
 function resetInputValue() {
     assignInput.placeholder = 'Select contacts to assign';
 }
 
 
+/**
+ * render the initials of the selected users beneath the assign field
+ */
 function renderInitials() {
     let initialsContent = document.getElementById('initials-content');
     let initialsContainer = '<div class="initials-container" id="initials-container">';
-    if (selectedUsers.length > 0) {
-        for (let i = 0; i < selectedUsers.length; i++) {
-            const selectedUser = selectedUsers[i];
-            initialsContainer += renderInitialsHTML(selectedUser);
+    if (assignedUsers.length > 0) {
+        for (let i = 0; i < assignedUsers.length; i++) {
+            const assignedUser = assignedUsers[i];
+            initialsContainer += renderInitialsHTML(assignedUser);
         }
         initialsContainer += '</div>';
         initialsContent.innerHTML += initialsContainer;
@@ -252,22 +283,26 @@ function renderInitials() {
 }
 
 
-function renderInitialsHTML(selectedUser) {
-    const selectedUserArrName = selectedUser.split(' ');
+/**
+ * checks for equality of first and last name and returns the html for the rendering of the selected user
+ * 
+ * @param {string} assignedUser - stands for object of the user
+ * @returns returns the html with the right information of the user object
+ */
+function renderInitialsHTML(assignedUser) {
     for (const user of users) {
-        if (user.firstName === selectedUserArrName[0] && user.initials.length == 1) {
+        if (user.firstName === assignedUser.firstName && user.lastName === assignedUser.lastName) {
             return `
-                <span class="selected-initials" style="background: ${user.userColor}">${selectedUserArrName[0].charAt(0)}</span>
-            `;
-        } else if (user.firstName === selectedUserArrName[0] && user.initials.length == 2) {
-            return `
-                <span class="selected-initials" style="background: ${user.userColor}">${selectedUserArrName[0].charAt(0)}${selectedUserArrName[1].charAt(0)}</span>
+                <span class="selected-initials" style="background: ${user.userColor}">${assignedUser.initials}</span>
             `;
         }
     }
 }
 
 
+/**
+ * remove existing initials
+ */
 function removeInitials() {
     const initialsContainer = document.querySelector('.initials-container');
     if (initialsContainer) {
@@ -276,11 +311,17 @@ function removeInitials() {
 }
 
 
+/**
+ * initialize the search function only after assign dropdown menu is rendered
+ */
 function initSearchUser() {
     assignInput.addEventListener('input', searchUser);
 }
 
 
+/**
+ * search functionality for certain users to render according to input
+ */
 function searchUser() {
     const inputValue = assignInput.value.toLowerCase();
     const assignContacts = document.getElementById('assign-contacts');
@@ -299,6 +340,10 @@ function searchUser() {
 }
 
 
+/**
+ * checking if the searched user was before selected to render the selection
+ * @param {number} i - index to get the correct user in the users array
+ */
 function handleSelectedUsers(i) {
     const userNameRendered = document.querySelector(`.assign-contact-name${i}`);
     const iconContainer = document.getElementById(`assign-icon-container${i}`);
@@ -313,6 +358,10 @@ function handleSelectedUsers(i) {
 }
 
 
+/**
+ * rotate arrow icon when dropdown menu is opened
+ * @param {string} arrow - stands for either assign or category
+ */
 function rotateArrow(arrow) {
     const arrowAssign = document.getElementById('arrow-assign');
     const arrowCategory = document.getElementById('arrow-category');
@@ -325,6 +374,10 @@ function rotateArrow(arrow) {
 }
 
 
+/**
+ * set arrow icon to default when dropdown menu is closed
+ * @param {string} arrow - stands for either assign or category
+ */
 function defaultArrow(arrow) {
     const arrowAssign = document.getElementById('arrow-assign');
     const arrowCategory = document.getElementById('arrow-category');
@@ -337,6 +390,10 @@ function defaultArrow(arrow) {
 }
 
 
+/**
+ * select user on click if not selected before, otherwise remove selection
+ * @param {number} i - index of the clicked element
+ */
 function selectContact(i) {
     const contact = document.getElementById(`assign-contact${i}`);
     const iconContainer = document.getElementById(`assign-icon-container${i}`);
@@ -357,6 +414,10 @@ function selectContact(i) {
 }
 
 
+/**
+ * save name and the object of selected user in global variables
+ * @param {number} i - index of the clicked element
+ */
 function pushUser(i) {
     const userName = document.querySelector(`.assign-contact-name${i}`).innerText;
     const userObj = users[i];
@@ -369,6 +430,10 @@ function pushUser(i) {
 }
 
 
+/**
+ * remove the name and the object from global variables of the now unselected user
+ * @param {number} i - index of the clicked element
+ */
 function removeUser(i) {
     const userName = document.querySelector(`.assign-contact-name${i}`).innerText;
     const indexOfUserName = selectedUsers.indexOf(userName);
@@ -383,6 +448,9 @@ function removeUser(i) {
 }
 
 
+/**
+ * toggle between open and closed category dropdown menu 
+ */
 function toggleCategoryDropdown() {
     const categoryContainer = document.getElementById('category-content');
     const arrow = 'category';
@@ -396,6 +464,9 @@ function toggleCategoryDropdown() {
 }
 
 
+/**
+ * close category dropdown menu by emptying its content
+ */
 function closeCategoryDropdown() {
     const categoryInputField = document.getElementById('category');
     const categoryContainer = document.getElementById('category-content');
@@ -406,6 +477,10 @@ function closeCategoryDropdown() {
 }
 
 
+/**
+ * setting the input value to the selected dropdown item and closing the menu
+ * @param {index} i - index of the selected category item
+ */
 function selectCategoryItem(i) {
     const selectedItem = document.getElementById(`category-item${i}`).innerText;
     const categoryField = document.getElementById('category');
@@ -415,6 +490,10 @@ function selectCategoryItem(i) {
 }
 
 
+/**
+ * select the clicked button and unselect other buttons if any
+ * @param {string} buttonID - id of the selected button is passed
+ */
 function selectPrioButton(buttonID) {
     const selectedButton = document.getElementById(buttonID);
     const lowButton = document.getElementById('low-btn');
@@ -435,6 +514,9 @@ function selectPrioButton(buttonID) {
 }
 
 
+/**
+ * the min date attribute for the date input is set after body onload
+ */
 function setMinDate() {
     const dateField = document.getElementById('date');
     const date = new Date();
@@ -443,6 +525,9 @@ function setMinDate() {
 }
 
 
+/**
+ * add the value of input field as a subtask beneath input field
+ */
 function addSubtask() {
     const subtasksContainer = document.getElementById('subtasks-container');
     const subtaskField = document.getElementById('subtasks');
@@ -455,6 +540,10 @@ function addSubtask() {
 }
 
 
+/**
+ * edit the text content of the added subtask and render new icons
+ * @param {number} index - index of the clicked subtask is passed
+ */
 function editSubtask(index) {
     const subtaskSpan = document.getElementById(`subtask-input${index}`);
 
@@ -466,6 +555,10 @@ function editSubtask(index) {
 }
 
 
+/**
+ * save the change of the content of the subtask and render the default icons
+ * @param {number} index - index of the clicked subtask is passed
+ */
 function stopEditingSubtask(index) {
     const subtaskSpan = document.getElementById(`subtask-input${index}`);
     
@@ -476,12 +569,20 @@ function stopEditingSubtask(index) {
 }
 
 
+/**
+ * remove the created subtask
+ * @param {number} index - index of the clicked subtask is passed
+ */
 function deleteSubtask(index) {
     const subtaskItem = document.getElementById(`subtask-item${index}`);
     subtaskItem.remove();
 }
 
 
+/**
+ * check if any button is selected if so return the button id otherwise return null
+ * @returns - either the selected button id or null
+ */
 function getPrioButton() {
     const urgentButton = document.getElementById('urgent-btn');
     const mediumButton = document.getElementById('medium-btn');
@@ -499,6 +600,10 @@ function getPrioButton() {
 }
 
 
+/**
+ * returns either an array with all the selected users of assigned field or null
+ * @returns - either an array or null
+ */
 function getSelectedUsers() {
     if (assignedUsers.length) {
         return assignedUsers;
@@ -508,14 +613,15 @@ function getSelectedUsers() {
 }
 
 
+/**
+ * returns array containing objects with the subtasks if any subtasks exists otherwise null
+ * @returns - either an array or null
+ */
 function getSubtasks() {
     const subtaskInputList = document.querySelectorAll('.subtask-input');
     const subtasks = [];
 
     for (let i = 0; i < subtaskInputList.length; i++) {
-        // const subtaskInput = subtaskInputList[i];
-        // subtasks.push(subtaskInput.innerText);
-
         let newSubtask = {
             taskDescription: subtaskInputList[i].innerText,
             isDone: false,
@@ -530,92 +636,10 @@ function getSubtasks() {
 }
 
 
-function assignDropdownHTML(i) {
-    const userFirstName = users[i]['firstName'];
-    const userLastName = users[i]['lastName'];
-    const userInitials = users[i]['initials'];
-    const userColor = users[i]['userColor'];
-    return /*html*/ `
-        <div class="assign-contact" id="assign-contact${i}" onclick="selectContact(${i})">
-            <div class="assign-contact-info">
-                <div class="assign-initials" style="background-color: ${userColor}">${userInitials}</div>
-                <span class="assign-contact-name${i}">${userFirstName} ${userLastName}<span>
-            </div>
-            <div id="assign-icon-container${i}">
-                <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
-            </div>
-        </div>
-    `;
-}
-
-
-function assignDropdownBtnHTML() {
-    return /*html*/`
-        <button class="main-button main-button--assign" type="button" onclick="showAddNewContact()">Add new Contact
-            <svg class="assign-person-icon"><use href="assets/img/icons.svg#person-icon"></use></svg>
-        </button>
-    `;
-}
-
-
-function categoryDropdownHTML() {
-    return /*html*/`
-        <div class="category-overlay" id="assign-overlay" onclick="closeCategoryDropdown()"></div>
-        <div class="category-dropdown-menu">
-            <div class="category-item" id="category-item0" onclick="selectCategoryItem(0)">Technical Task</div>
-            <div class="category-item" id="category-item1" onclick="selectCategoryItem(1)">User Story</div>
-        </div>
-    `;
-}
-
-
-function subtaskHTML(subtaskField, index) {
-    return /*html*/`
-        <div class="subtask-item" id="subtask-item${index}">
-            <div class="subtask-info">
-                <span>&#x2022</span>
-                <span class="subtask-input" id="subtask-input${index}">${subtaskField}</span>
-            </div>
-            <div class="subtask-icon-container" id="subtask-icons${index}">
-                <div onclick="editSubtask(${index})">
-                    <svg class="subtask-edit-icon"><use href="assets/img/icons.svg#edit-icon"></use></svg>
-                </div>
-                <span class="subtask-separator"></span>
-                <div onclick="deleteSubtask(${index})">
-                    <svg class="subtask-delete-icon"><use href="assets/img/icons.svg#delete-icon"></use></svg>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-
-function subtaskEditHTML(index) {
-    return /*html*/`
-        <div onclick="deleteSubtask(${index})">
-            <svg class="subtask-delete-icon"><use href="assets/img/icons.svg#delete-icon"></use></svg>
-        </div>
-        <span class="subtask-separator"></span>
-        <div onclick="stopEditingSubtask(${index})">
-            <svg class="subtask-accept-icon"><use href="assets/img/icons.svg#check-icon-blue"></use></svg>
-        </div>
-    `;
-}
-
-
-function subtaskEditDefaultHTML(index) {
-    return /*html*/`
-       <div onclick="editSubtask(${index})">
-            <svg class="subtask-edit-icon"><use href="assets/img/icons.svg#edit-icon"></use></svg>
-        </div>
-        <span class="subtask-separator"></span>
-        <div onclick="deleteSubtask(${index})">
-            <svg class="subtask-delete-icon"><use href="assets/img/icons.svg#delete-icon"></use></svg>
-        </div>
-    `;
-}
-
-
+/**
+ * returns the priority description of selected button deleting '-btn'
+ * @returns - string with name of selected button
+ */
 function modifyPrioString () {
     let prio = getPrioButton();
     let modifiedPrio = prio.slice(0, -4);
@@ -624,6 +648,9 @@ function modifyPrioString () {
 }
 
 
+/**
+ * render the add new contact card with slide in animation
+ */
 function showAddNewContact() {
     const newContactContainer = document.getElementById('new-contact-container');
 
@@ -636,6 +663,9 @@ function showAddNewContact() {
 }
 
 
+/**
+ * remove the add new contact card with slide out animation
+ */
 function closeAddNewContact() {
     const addContactDiv = document.getElementById('overlay-background');
     const newContactContainer = document.getElementById('overlay-container');
@@ -645,55 +675,4 @@ function closeAddNewContact() {
         addContactDiv.remove();
         document.body.style = 'overflow: unset';
     }, 250);
-}
-
-
-function addNewContactHTML() {
-    return /*html*/`
-        <div class="add-contact-overlay" id="overlay-background" onclick="closeAddNewContact()">
-            <div class="addContactContainer" id="overlay-container" onclick="event.stopPropagation()">
-                <div class="addContactLeftPart">
-                    <img class="addContactJoinLogo" src="./img/join-logo.svg">
-                    <div class="overlayHeadline">Add contact</div>
-                    <div class="textTasksAre">Tasks are better with a team!</div>
-                    <div class="textTasksAre-border"></div>
-                </div>
-                <div class="addContactRightPart">
-                    <img class="closeAddContact" src="./img/close-grey.svg" onclick="closeAddNewContact()">
-                    <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeOverlayResponsive()">
-                    <div class="userInfo">
-                        <img class="userWhiteIcon" src="./img/persona.svg">
-                        <form onsubmit="addNewContact(); return false;">
-                            <div class="contactDetailsContainer">
-                                <div class="contactsDetailsFrame">
-                                    <input id="new-name" class="style-input styleUserIcon" required type="text"
-                                        placeholder="Name">
-                                </div>
-                                <div class="contactsDetailsFrame">
-                                    <input id="new-email" class="style-input styleUserLetter" required type="email"
-                                        placeholder="Email">
-                                    <div class="red-text" id="double-email"></div>
-                                </div>
-                                <div class="contactsDetailsFrame">
-                                    <input id="new-phone" class="style-input input-icon-phone" placeholder="Phone"
-                                        required type="text" oninput="validateInput(this)">
-                                </div>
-                            </div>
-
-                            <div class="overlay-btn-frame">
-                                <div class="overlay-cancel-btn" onclick="closeAddNewContact()">
-                                    <div class="overlay-cancel-btn-text">Cancel</div>
-                                    <div class="overlay-cancel-btn-image"></div>
-                                </div>
-                                <button class="overlay-create-btn">
-                                    <div class="overlay-create-btn-text">Create contact</div>
-                                    <img src="./img/check.svg">
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
 }
