@@ -117,7 +117,7 @@ function subtaskEditDefaultHTML(index) {
  * returns the html for the add new contact card
  * @returns - string with html
  */
- function addNewContactHTML() {
+function addNewContactHTML() {
     return /*html*/`
         <div class="add-contact-overlay" id="overlay-background" onclick="closeAddNewContact()">
             <div class="addContactContainer" id="overlay-container" onclick="event.stopPropagation()">
@@ -129,10 +129,10 @@ function subtaskEditDefaultHTML(index) {
                 </div>
                 <div class="addContactRightPart">
                     <img class="closeAddContact" src="./img/close-grey.svg" onclick="closeAddNewContact()">
-                    <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeOverlayResponsive()">
+                    <img class="closeAddContact-rs" src="./img/cancel-white.svg" onclick="closeAddNewContact()">
                     <div class="userInfo">
                         <img class="userWhiteIcon" src="./img/persona.svg">
-                        <form onsubmit="addNewContact(); return false;">
+                        <form id="addContactFrom" onsubmit="addNewContactTask(); return false;">
                             <div class="contactDetailsContainer">
                                 <div class="contactsDetailsFrame">
                                     <input id="new-name" class="style-input styleUserIcon" required type="text"
@@ -154,7 +154,7 @@ function subtaskEditDefaultHTML(index) {
                                     <div class="overlay-cancel-btn-text">Cancel</div>
                                     <div class="overlay-cancel-btn-image"></div>
                                 </div>
-                                <button class="overlay-create-btn">
+                                <button type="submit" form="addContactFrom" class="overlay-create-btn">
                                     <div class="overlay-create-btn-text">Create contact</div>
                                     <img src="./img/check.svg">
                                 </button>

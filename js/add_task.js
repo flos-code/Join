@@ -384,3 +384,61 @@ function closeAddNewContact() {
         document.body.style = 'overflow: unset';
     }, 250);
 }
+
+
+/**
+ * save the new user, close the dropdown and the add new contact card
+ */
+async function addNewContactTask() {
+    await setNewUser();
+    handleAssignDropdown();
+    closeAddNewContact();
+}
+
+
+/**
+ * saving the values of the new contact inputs in the users array and sending POST request
+ */
+async function setNewUser() {
+    let contactName = document.getElementById('new-name').value;
+    let contactEmail = document.getElementById('new-email').value;
+    let contactPhone = document.getElementById('new-phone').value;
+
+    let formattedName = formatName(contactName);
+
+    let newUser = {
+        firstName: formattedName.firstName,
+        lastName: formattedName.lastName,
+        initials: formattedName.initials,
+        email: contactEmail,
+        phone: contactPhone,
+        isYou: false,
+        password: null,
+        userID: users.length,
+        userColor: setUserColor()
+    }
+
+    users.push(newUser)
+    await setItem('users', JSON.stringify(users));
+}
+
+
+/**
+ * handling the assign dropdown menu after new user has been created
+ */
+function handleAssignDropdown() {
+    removeAssignDropdown();
+    closeAssignDropdown();
+}
+
+
+/**
+ * removing the html elements inside the dropdown menu for toggleAssignDropdown()
+ */
+function removeAssignDropdown() {
+    const assignUsers = document.getElementById('assign-contacts');
+    const assignNewContactBtn = document.getElementById('assign-button-container');
+
+    assignUsers.remove();
+    assignNewContactBtn.innerHTML = '';
+}
