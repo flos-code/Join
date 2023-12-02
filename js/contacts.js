@@ -24,44 +24,6 @@ async function loadUsers() {
 }
 
 
-
-
-
-/**
-* show the overlay mask, where you can creat a new contact
-*/
-function showOverlay() {
-    const newContactContainer = document.getElementById('newContactContainer');
-
-    newContactContainer.innerHTML = addNewContactHTML();
-    setTimeout(() => {
-        const newContactCard = document.getElementById('overlay-container');
-        newContactCard.classList.add('transform-0');
-    }, 0);
-}
-
-
-/**
-* close the overlay mask, where you can create a new contact
-*/
-function closeOverlay() {
-    const addContactDiv = document.getElementById('overlay-background');
-    const newContactContainer = document.getElementById('overlay-container');
-    newContactContainer.classList.remove('transform-0');
-
-    setTimeout(() => {
-        addContactDiv.remove();
-    }, 250);
-}
-
-
-
-
-
-
-
-
-
 /**
 * close the edit overlay mask
 */
@@ -328,14 +290,15 @@ function showOverlay() {
 /**
 * close the overlay mask, where you can create a new contact
 */
-function closeOverlay() {
+async function closeOverlay() {
     const addContactDiv = document.getElementById('overlay-background');
     const newContactContainer = document.getElementById('overlay-container');
     newContactContainer.classList.remove('transform-0');
 
-    setTimeout(() => {
+    await new Promise(resolve => setTimeout(() => {
         addContactDiv.remove();
-    }, 250);
+        resolve();
+    }, 250));
 }
 
 
@@ -363,12 +326,30 @@ async function addNewContact() {
     users.push(newUser)
     await setItem('users', JSON.stringify(users));
 
-    closeOverlay();
+    await closeOverlay();
+    await successContact();
     await InitContacts();
 
     let id = newUser.userID; // Use the userID of the new user
     let position = findUserPosition(id);
     openContact(position);
+}
+
+/**
+ * show success message after creation of new contact with promise for settimeout
+ */
+ async function successContact() {
+    const successContainer = document.getElementById('success-contact');
+    const successMessage = document.getElementById('success-contact-animation');
+
+    successContainer.classList.add('visible');
+    successMessage.classList.add('translate-0');
+    
+    await new Promise(resolve => setTimeout(() => {
+        successMessage.classList.remove('translate-0');
+        successContainer.classList.remove('visible');
+        resolve();
+    }, 1500));
 }
 
 function setUserColor() {

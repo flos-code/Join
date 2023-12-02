@@ -66,7 +66,7 @@ async function addTask() {
     await setItem('tasks', JSON.stringify(tasks));
     resetForm();
     removeLoader();
-    success();
+    successTask();
 }
 
 
@@ -95,8 +95,8 @@ function removeLoader() {
 /**
  * show success message for submitting the form, then forward to summary
  */
-function success() {
-    const successElement = document.getElementById('success');
+function successTask() {
+    const successElement = document.getElementById('success-task');
     successElement.classList.remove('d-none');
     setTimeout(() => {
         window.open('board.html', '_self');
@@ -374,15 +374,16 @@ function showAddNewContact() {
 /**
  * remove the add new contact card with slide out animation
  */
-function closeAddNewContact() {
+async function closeAddNewContact() {
     const addContactDiv = document.getElementById('overlay-background');
     const newContactContainer = document.getElementById('overlay-container');
     newContactContainer.classList.remove('transform-0');
 
-    setTimeout(() => {
+    await new Promise(resolve => setTimeout(() => {
         addContactDiv.remove();
         document.body.style = 'overflow: unset';
-    }, 250);
+        resolve();
+    }, 250));
 }
 
 
@@ -392,7 +393,8 @@ function closeAddNewContact() {
 async function addNewContactTask() {
     await setNewUser();
     handleAssignDropdown();
-    closeAddNewContact();
+    await closeAddNewContact();
+    await successContactTask();
 }
 
 
@@ -420,6 +422,24 @@ async function setNewUser() {
 
     users.push(newUser)
     await setItem('users', JSON.stringify(users));
+}
+
+
+/**
+ * show success message after creation of new contact with promise for settimeout
+ */
+async function successContactTask() {
+    const successContainer = document.getElementById('success-contact');
+    const successMessage = document.getElementById('success-contact-animation');
+
+    successContainer.classList.add('visible');
+    successMessage.classList.add('translate-100');
+    
+    await new Promise(resolve => setTimeout(() => {
+        successMessage.classList.remove('translate-100');
+        successContainer.classList.remove('visible');
+        resolve();
+    }, 1500));
 }
 
 
