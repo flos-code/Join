@@ -1,17 +1,26 @@
 let users = [];
 
 
+/**
+ * add event listener for dom content loaded event to initialize functions
+ */
 document.addEventListener('DOMContentLoaded', async () => {
     await loadUsers();
     loadLoginData();
 })
 
 
+/**
+ * fetch users array
+ */
 async function loadUsers() {
     users = JSON.parse(await getItem('users'));
 }
 
 
+/**
+ * set all users inside the user object to false if guest login, then forward to summary
+ */
 async function guestLogin() {
     for (const user of users) {
         user.isYou = false;
@@ -21,11 +30,13 @@ async function guestLogin() {
 }
 
 
+/**
+ * login after check if email and password exist in the user object of users array otherwise show error
+ */
 async function login() {
     const emailLogin = document.getElementById('email-login');
     const passwordLogin = document.getElementById('password-login');
     
-    // überprüfe ob die Eingaben im users Array vorhanden sind und gebe das Object zurück.
     const user = users.find(user => user.email === emailLogin.value && user.password === passwordLogin.value);
     if (user) {
         await setUserToTrue(user);
@@ -37,8 +48,10 @@ async function login() {
     }
 }
 
-
-// loggedInUser to be set to true while all other users are set to false
+/**
+ * loggedInUser to be set to true while all others users are set to false then update users
+ * @param {object} loggedInUser - stands for the logged in user
+ */
 async function setUserToTrue(loggedInUser) {
     for (const user of users) {
         user.isYou = false;
@@ -48,24 +61,9 @@ async function setUserToTrue(loggedInUser) {
 }
 
 
-function loginError() {
-    const inputsContainer = document.getElementById('login-inputs');
-    const emailLogin = document.getElementById('email-login');
-    const passwordLogin = document.getElementById('password-login');
-    const loginError = document.createElement('div');
-
-    loginError.textContent = 'Incorrect E-Mail or password';
-    loginError.className = 'login-error-message';
-    loginError.id = 'login-error-message';
-    
-    if (!document.getElementById('login-error-message')) {
-        inputsContainer.appendChild(loginError);
-        emailLogin.classList.add('outline-red');
-        passwordLogin.classList.add('outline-red');
-    }
-}
-
-
+/**
+ * empty login input fields and remove login error
+ */
 function resetLoginForm() {
     document.getElementById('email-login').value = '';
     document.getElementById('password-login').value = '';
@@ -73,17 +71,9 @@ function resetLoginForm() {
 }
 
 
-function removeLoginError() {
-    const loginError = document.getElementById('login-error-message');
-
-    if (loginError) {
-        loginError.remove();
-        document.getElementById('email-login').classList.remove('outline-red');
-        document.getElementById('password-login').classList.remove('outline-red');
-    }
-}
-
-
+/**
+ * check all sign up fields for validity and show error messages if invalid
+ */
 async function signUp() {
     const emailSignup = document.getElementById('email-register');
     const passwordSignup = document.getElementById('password-register');
@@ -116,6 +106,11 @@ async function signUp() {
 }
 
 
+/**
+ * check if the email input value is already existent in dataset
+ * @param {string} email - stands for the email input value
+ * @returns - true/false
+ */
 function checkEmailExists(email) {
     for (const user of users) {
         if (user.email === email) {
@@ -126,33 +121,11 @@ function checkEmailExists(email) {
 }
 
 
-function showEmailError() {
-    const emailSignup = document.getElementById('email-register');
-    const inputsContainer = document.getElementById('register-inputs');
-
-    const errorEmail = document.createElement('div');
-    errorEmail.className = 'register-email-error';
-    errorEmail.id = 'register-email-error';
-    errorEmail.textContent = 'This email address is already being used. Please choose another one.';
-
-    if (!document.getElementById('register-email-error')) {
-        emailSignup.classList.add('outline-red');
-        inputsContainer.appendChild(errorEmail);
-    }
-}
-
-
-function removeEmailError() {
-    const errorEmail = document.getElementById('register-email-error');
-    const emailSignup = document.getElementById('email-register');
-
-    if (errorEmail) {
-        emailSignup.classList.remove('outline-red');
-        errorEmail.remove();
-    }
-}
-
-
+/**
+ * adding user data to array and then send post request
+ * @param {element} emailSignup - stands for email input element
+ * @param {element} passwordSignup - stands for password input element
+ */
 async function addUserToArray(emailSignup, passwordSignup) {
     users.push({
         firstName: setName('first'),
@@ -170,39 +143,9 @@ async function addUserToArray(emailSignup, passwordSignup) {
 }
 
 
-function passwordInequal() {
-    const passwordSignup = document.getElementById('password-register');
-    const passwordConfirm = document.getElementById('password-confirm');
-    const inputsContainer = document.getElementById('register-inputs');
-
-    passwordSignup.classList.add('outline-red')
-    passwordConfirm.classList.add('outline-red')
-
-    const errorPassword = document.createElement('div');
-    errorPassword.className = 'register-password-error';
-    errorPassword.id = 'register-password-error';
-    errorPassword.textContent = 'Please make sure your passwords match';
-
-    if (!document.getElementById('register-password-error')) {
-        inputsContainer.appendChild(errorPassword);
-    }
-}
-
-
-function errorCheckboxSignup() {
-    const privacyPolicy = document.getElementById('register-policy-container');
-
-    const errorCheckboxText = document.createElement('div');
-    errorCheckboxText.className = 'register-checkbox-error';
-    errorCheckboxText.id = 'register-checkbox-error';
-    errorCheckboxText.textContent = 'Please confirm that you have read and understood the Privacy Policy';
-
-    if(!document.getElementById('register-checkbox-error')) {
-        privacyPolicy.appendChild(errorCheckboxText);
-    }
-}
-
-
+/**
+ * empty all input fields and remove existing error messages
+ */
 function resetSignupForm() {
     document.getElementById('name-register').value = '';
     document.getElementById('email-register').value = '';
@@ -215,28 +158,9 @@ function resetSignupForm() {
 }
 
 
-function removePasswordError() {
-    const errorPassword = document.getElementById('register-password-error');
-    const passwordSignup = document.getElementById('password-register');
-    const passwordConfirm = document.getElementById('password-confirm');
-
-    if (errorPassword) {
-        errorPassword.remove();
-        passwordSignup.classList.remove('outline-red')
-        passwordConfirm.classList.remove('outline-red')
-    }
-}
-
-
-function removeCheckboxError() {
-    const errorCheckbox = document.getElementById('register-checkbox-error');
-
-    if (errorCheckbox) {
-        errorCheckbox.remove();
-    }
-}
-
-
+/**
+ * show success Message after signing up successfully
+ */
 async function successSignUp() {
     const successMessage = document.getElementById('signup-success-message');
     const successOverlay = document.getElementById('signup-success-overlay');
@@ -249,27 +173,36 @@ async function successSignUp() {
 }
 
 
-function setName(names) {
+/**
+ * get name input value and split to first and last name, else return only first name
+ * @param {string} name - stands for either 'first' or 'last'
+ * @returns - string with either first and last name, first name or null
+ */
+function setName(name) {
     const nameSignup = document.getElementById('name-register');
     const nameTrim = nameSignup.value.trim();
 
     if (nameTrim.includes(' ')) {
         const nameArray = nameTrim.split(' ');
-        if (names === 'first') {
+        if (name === 'first') {
             return nameArray[0].charAt(0).toUpperCase() + nameArray[0].slice(1);
-        } else if (names === 'last') {
+        } else if (name === 'last') {
             return nameArray[1].charAt(0).toUpperCase() + nameArray[1].slice(1);
         }
     } else {
-        if (names === 'first') {
+        if (name === 'first') {
             return nameTrim.charAt(0).toUpperCase() + nameTrim.slice(1);
-        } else if (names === 'last') {
+        } else if (name === 'last') {
             return null;
         }
     }
 }
 
 
+/**
+ * check if 2 names are typed in and set initials otherwise return first 2 characters if only 1 name
+ * @returns - string with initials of first and last name or first 2 characters
+ */
 function setInitials() {
     const nameSignup = document.getElementById('name-register');
     const nameTrim = nameSignup.value.trim();
@@ -279,13 +212,16 @@ function setInitials() {
         const initials = nameArray[0].charAt(0) + nameArray[1].charAt(0);
         return initials.toUpperCase();
     } else {
-        // if there is only 1 name return the first 2 characters
         const initialsFirstName = nameTrim.charAt(0) + nameTrim.charAt(1);
         return initialsFirstName.toUpperCase();
     }
 }
 
 
+/**
+ * generate random color hex code for signed up user
+ * @returns - string of color hex code
+ */
 function setUserColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -296,6 +232,10 @@ function setUserColor() {
 }
 
 
+/**
+ * replace the lock icon with visibility off icon for password field and add event listener for blur event
+ * @param {string} section - stands for the current section in html
+ */
 function replaceLockIcon(section) {
     const lockIcon = document.getElementById(`lock-icon-${section}`);
 
@@ -311,6 +251,10 @@ function replaceLockIcon(section) {
 }
 
 
+/**
+ * toggle between visibility off / on icon and make password visible
+ * @param {string} section - stands for current section in html
+ */
 function togglePasswordVisibility(section) {
     const passwordField = document.getElementById(`password-${section}`);
     const visibilityIcon = document.getElementById(`visibility-icon-${section}`);
@@ -325,6 +269,10 @@ function togglePasswordVisibility(section) {
 }
 
 
+/**
+ * when input field looses focus, blur event fires and the input gets to it default state
+ * @param {string} section - stands for current section in html
+ */
 function checkPassword(section) {
     const visibilityIcon = document.getElementById(`visibility-icon-${section}`);
     const passwordField = document.getElementById(`password-${section}`);
@@ -342,6 +290,9 @@ function checkPassword(section) {
 }
 
 
+/**
+ * toggle between checked and unchecked checkbox icon
+ */
 function toggleCheckIcon() {
     const uncheckedIcon = document.getElementById('unchecked');
     const checkedIcon = document.getElementById('checked');
@@ -357,6 +308,9 @@ function toggleCheckIcon() {
 }
 
 
+/**
+ * log in data will be remembered for the next session if opt in
+ */
 function rememberMe() {
     const checkedIcon = document.getElementById('checked');
     const email = document.getElementById('email-login');
@@ -371,6 +325,9 @@ function rememberMe() {
 }
 
 
+/**
+ * if user checked remember me his log in data will be inserted onload
+ */
 function loadLoginData() {
     const email = document.getElementById('email-login');
     const password = document.getElementById('password-login');
@@ -384,6 +341,9 @@ function loadLoginData() {
 }
 
 
+/**
+ * delete users log in data from local storage
+ */
 function unrememberMe() {
     const emailSaved = localStorage.getItem('email');
     const passwordSaved = localStorage.getItem('password');
@@ -395,6 +355,9 @@ function unrememberMe() {
 }
 
 
+/**
+ * render the html for the sign up
+ */
 function renderRegister() {
     const container = document.getElementById('container');
     const loginSignup = document.getElementById('login-signup');
@@ -403,116 +366,12 @@ function renderRegister() {
 }
 
 
+/**
+ * render the html for the login
+ */
 function renderLogin() {
     const container = document.getElementById('container');
     const loginSignup = document.getElementById('login-signup');
     loginSignup.classList.remove('d-none');
     container.innerHTML = loginHTML();
-}
-
-
-function registerHTML() {
-    return /*html*/`
-        <div class="register-card-container">
-            <div class="register-card">
-                <div class="arrow-container">
-                    <img class="arrow-icon" src="img/login/arrow-left.svg" alt="arrow left" onclick="renderLogin()">
-                </div>
-                <h1 class="register-heading">Sign Up</h1>
-                <form class="register-form" onsubmit="signUp(); return false">
-                    <div id="register-inputs">
-                        <div class="register-input-container">
-                            <div class="register-input-wrapper">
-                                <input class="register-name-input" type="text" name="name" id="name-register" placeholder="Name" required
-                                minlength="2" autocomplete="off">
-                                <img class="person-icon" src="img/login/person.svg" alt="Person Icon">
-                            </div>
-                        </div>
-                        <div class="register-input-container">
-                            <div class="register-input-wrapper">
-                                <input class="register-email-input" type="email" name="email" id="email-register" placeholder="Email" required
-                                autocomplete="off">
-                                <img class="email-icon" src="img/login/mail.svg" alt="Email Icon">
-                            </div>
-                        </div>
-                        <div class="register-input-container">
-                            <div class="register-input-wrapper" id="pw-wrapper">
-                                <input class="register-pw-input" type="password" name="password-register" id="password-register" placeholder="Password"
-                                minlength="8" required autocomplete="new-password" onclick="replaceLockIcon('register')">
-                                <img class="lock-icon" id="lock-icon-register" src="img/login/lock.svg" alt="Password Icon">
-                            </div>
-                        </div>
-                        <div class="register-input-container">
-                            <div class="register-input-wrapper" id="pw-wrapper">
-                                <input class="register-pw-input" type="password" name="password-confirm" id="password-confirm" placeholder="Confirm Password"
-                                minlength="8" required autocomplete="new-password" onclick="replaceLockIcon('confirm')">
-                                <img class="lock-icon" id="lock-icon-confirm" src="img/login/lock.svg" alt="Password Icon">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="register-policy-container">
-                        <div class="register-policy">
-                            <img class="checkbox-icon" src="img/login/unchecked.svg" alt="Checkbox" id="unchecked" onclick="toggleCheckIcon()">
-                            <span class="register-policy-text">I accept the <a href="../privacy_policy_out.html" class="register-policy-text text-blue">Privacy Policy</a></span>
-                        </div>
-                    </div>
-                    <div class="register-button-container">
-                        <button type="submit" class="main-button">Sign Up</button>
-                    </div>
-                </form>
-            </div>
-            <div class="signup-success-overlay" id="signup-success-overlay">
-                <div class="signup-success">
-                    <div class="signup-success-message" id="signup-success-message">You Signed Up successfully</div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-
-function loginHTML() {
-    return /*html*/ `
-        <div class="login-card-container">
-            <div class="login-card">
-                <h1 class="login-heading">Log in</h1>
-                <form class="login-form" onsubmit="login(); return false">
-                    <div class="login-inputs" id="login-inputs">
-                    <div class="login-input-container">
-                        <div class="login-input-wrapper">
-                        <input class="login-email-input" type="email" name="email-login" id="email-login" placeholder="Email"
-                            required autocomplete="on" />
-                        <img class="email-icon" src="img/login/mail.svg" alt="Email Icon" />
-                        </div>
-                    </div>
-                    <div class="login-input-container">
-                        <div class="login-input-wrapper" id="pw-wrapper">
-                        <input class="login-pw-input" type="password" name="password-login" id="password-login"
-                            placeholder="Password" required autocomplete="current-password"
-                            onclick="replaceLockIcon('login')" />
-                        <img class="lock-icon" id="lock-icon-login" src="img/login/lock.svg" alt="Password Icon" />
-                        </div>
-                    </div>
-                    </div>
-                    <div class="login-remember">
-                    <img class="checkbox-icon" src="img/login/unchecked.svg" alt="Checkbox" id="unchecked"
-                        onclick="toggleCheckIcon()" />
-                    <span class="login-remember-text">Remember Me</span>
-                    </div>
-                    <div class="login-button-container">
-                    <button type="submit" class="main-button">Log in</button>
-                    <button type="button" class="main-button main-button-white" onclick="guestLogin()">
-                        Guest Log in
-                    </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="login-signup login-signup-mobile" id="login-signup">
-            <span class="login-signup-text">Not a Join user?</span>
-            <button class="main-button main-button-signup" onclick="renderRegister()">
-            Sign up
-            </button>
-        </div>
-    `;
 }

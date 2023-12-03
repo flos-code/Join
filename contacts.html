@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contacts</title>
-    <link rel="shortcut icon" href="./img/favicon/join-favicon.png" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="./img/favicon/join-favicon.png"
+      type="image/x-icon"
+    />
 
     <link rel="stylesheet" href="./css/inter.css" />
-    <link rel="stylesheet" href="./css/sidebar.css">
-    <link rel="stylesheet" href="./css/contacts.css">
-    <link rel="stylesheet" href="./css/contacts-overlay.css">
-    <link rel="stylesheet" href="./css/contacts-overlay-responsive.css">
-    <link rel="stylesheet" href="./css/contacts-responsive.css">
-    <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/task.css">
-
+    <link rel="stylesheet" href="./css/sidebar.css" />
+    <link rel="stylesheet" href="./css/contacts.css" />
+    <link rel="stylesheet" href="./css/contacts-overlay.css" />
+    <link rel="stylesheet" href="./css/contacts-overlay-responsive.css" />
+    <link rel="stylesheet" href="./css/contacts-responsive.css" />
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/task.css" />
 
     <script src="js/header.js"></script>
     <script src="js/script.js"></script>
@@ -24,50 +26,38 @@
     <script src="js/contacts-templates.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/users.js"></script>
+  </head>
 
-    <head>
+  <body onload="InitContacts(), includeHTML(), initHead()">
+    <div w3-include-html="assets/templates/header.html"></div>
 
+    <div w3-include-html="assets/templates/sidebar.html"></div>
 
-    <body onload="InitContacts(); includeHTML();render()">
-
-        <div w3-include-html="assets/templates/header.html"></div>
-
-        <div w3-include-html="assets/templates/sidebar.html"></div>
-
-        <div id="contactInfo" class="kanban-title d-none">Kanban Project Managment Tool</div>
-        <div class="moveBackBtn d-none" id="moveBackBtn" onclick="backToContacts()">
-            <img src="./img/arrrow-left.png">
-        </div>
-        <div class="contactHeadlineContent" id="contactHeadlineContent">
-            <div class="headlineContacts">Contacts</div>
-            <div class="borderStyle"></div>
-            <div class="textBetter">Better with a team</div>
-        </div>
-        <div class="addContactBtn" onclick="showOverlay()">
-            <div class="addContactBtn-text">New contact</div>
-            <img class="addContactImg" src="./img/new-contact.png">
-        </div>
-
-        <div class="addContactBtn-rs" id="addContactBtn-rs" onclick="showOverlayResponsive()">
-            <div class="addContactBtn-text">New contact</div>
-            <img class="addContactImg" src="./img//new-contact.png">
-        </div>
-
-        <!--Add Contact-->
-        <div id="newContactContainer"></div>
-        
-        <!--- JS -->
-        <div class="contact-book-main" id="contact-book">
-
-        </div>
-        <div class="contact-book-main-rs" id="contact-book-rs"></div>
-
-        <div id="contactCard"></div>
-
-        <div id="edit"></div>
-
-        <div w3-include-html="assets/templates/mobile.html"></div>
-
-    </body>
-
+    <div id="contactInfo" class="kanban-title d-none">
+      Kanban Project Managment Tool
+    </div>
+    <div class="moveBackBtn d-none" id="moveBackBtn" onclick="backToContacts()">
+      <img src="./img/arrrow-left.png" />
+    </div>
+    <div class="contactHeadlineContent" id="contactHeadlineContent">
+      <div class="headlineContacts">Contacts</div>
+      <div class="borderStyle"></div>
+      <div class="textBetter">Better with a team</div>
+    </div>
+    <section class="contactOverview">
+      <button class="addContactBtn" onclick="showOverlay()">
+        Add new contact
+        <img src="./img/person_add.svg" alt="Add Contact" />
+      </button>
+      <div id="contact-book"></div>
+    </section>
+    <div id="contactInfoContainer"></div>
+    <div id="newContactContainer"></div>
+    <div class="contact-success" id="success-contact">
+      <div class="contact-success-container" id="success-contact-animation">
+        <span class="success-message">Contact successfully created</span>
+      </div>
+    </div>
+    <div w3-include-html="assets/templates/mobile.html"></div>
+  </body>
 </html>
