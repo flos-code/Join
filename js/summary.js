@@ -77,11 +77,11 @@ function loadeCount() {
   document.getElementById("totalCount").innerHTML = tasks.length;
 }
 
- /**
- * If the urgency from the task is 'urgent', let all urgent-elements shown.
- * Find 'Urgent' in the array Tasks and filter all entries with 'low' and medium away.
- * The aim is that only entries with the urgency 'urgent' are displayed.
- */
+/**
+* If the urgency from the task is 'urgent', let all urgent-elements shown.
+* Find 'Urgent' in the array Tasks and filter all entries with 'low' and medium away.
+* The aim is that only entries with the urgency 'urgent' are displayed.
+*/
 function countTodos(tasks) {
   tasks.forEach((task) => {
     todoCounts[task.status]++;
@@ -151,6 +151,9 @@ function updateDeadlineText(UrgentTasksCount) {
   }
 }
 
+/**
+ * shows a popup to greet the user in mobile view
+ */
 document.addEventListener("DOMContentLoaded", function () {
   let mobileGreetDiv = document.getElementById("mobileGreet");
   let mainContent = document.getElementById("summaryContent");
