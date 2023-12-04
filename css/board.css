@@ -206,7 +206,7 @@ button:hover {
 }
 .toDoSubtasksProgress {
   height: 8px;
-  width: 128px;
+  width: 100px;
   border-radius: 4px;
   background-color: #f4f4f4;
 }

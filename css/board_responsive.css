@@ -23,10 +23,6 @@
     width: 206px;
   }
 
-  .toDoSubtasksProgress {
-    width: 100px;
-  }
-
   .toDoSubtasksCount {
     text-align: center;
   }
@@ -71,10 +67,6 @@
   }
 
   #findTask {
-    width: 160px;
-  }
-
-  .toDoSubtasksProgress {
     width: 160px;
   }
 }
@@ -219,9 +211,6 @@
   .todo {
     height: 240px;
     flex: 0 0 260px;
-  }
-  .toDoSubtasksProgress {
-    width: 120px;
   }
 
   .draArea {
