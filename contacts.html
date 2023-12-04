@@ -44,14 +44,24 @@
       <div class="borderStyle"></div>
       <div class="textBetter">Better with a team!</div>
     </div>
-    <section class="contactOverview">
-      <button class="addContactBtn" onclick="showOverlay()">
-        Add new contact
+    <section id="contactOverview" class="contactOverview">
+      <button
+        class="addContactBtn"
+        onclick="showOverlay(), event.stopPropagation()"
+      >
+        <span class="addContactText">Add new contact</span>
         <img src="./img/person_add.svg" alt="Add Contact" />
       </button>
       <div id="contact-book"></div>
     </section>
     <div id="contactInfoContainer"></div>
+    <img
+      id="backArrow"
+      class="backArrow"
+      onclick="closeMobileContactInfo()"
+      src="./img/backArrow.svg"
+      alt="Back Arow"
+    />
     <div id="newContactContainer"></div>
     <div class="contact-success" id="success-contact">
       <div class="contact-success-container" id="success-contact-animation">

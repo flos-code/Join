@@ -163,6 +163,45 @@
   }
 }
 
+@media (max-width: 767.98px) {
+  .overlay-bg {
+    position: fixed;
+  }
+
+  .addContactContainer {
+    overflow-y: auto;
+    position: fixed;
+  }
+
+  .addContactLeftPart {
+    height: unset;
+  }
+
+  .addContactRightPart {
+    height: unset;
+  }
+
+  .overlay-btn-frame {
+    margin-bottom: 32px;
+  }
+
+  .userWhiteIcon {
+    height: 80px;
+    width: 80px;
+  }
+
+  .overlay-user-initials {
+    margin-top: 32px;
+
+    height: 80px;
+    width: 80px;
+  }
+
+  .userInfo {
+    margin-top: 32px;
+  }
+}
+
 @media (max-width: 400px) {
   .addContactLeftPart {
     width: 270px;

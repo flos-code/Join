@@ -146,6 +146,12 @@ function renderAlphabet() {
  */
 function openContact(i) {
     let contactInfoDiv = document.getElementById("contactInfoContainer");
+    document.getElementById("contactOverview").classList.add("d-noneMobile");
+    document.getElementById("contactInfoContainer").classList.add("d-flex");
+    document.getElementById("contactHeadlineContent").classList.add("d-flex");
+    document.getElementById("backArrow").classList.add("d-flex");
+
+
     contactInfoDiv.innerHTML = "";
     for (let j = 0; j < contacts.length; j++) {
         let contactDiv = document.getElementById(`contact-${j}`);
@@ -306,6 +312,8 @@ async function deletContact(i) {
 
     await setItem('users', JSON.stringify(users));
     document.getElementById("contactInfoContainer").innerHTML = "";
+    closeMobileContactInfo();
+
     InitContacts();
 }
 
@@ -376,13 +384,13 @@ async function addNewContact() {
 /**
  * show success message after creation of new contact with promise for settimeout
  */
- async function successContact() {
+async function successContact() {
     const successContainer = document.getElementById('success-contact');
     const successMessage = document.getElementById('success-contact-animation');
 
     successContainer.classList.add('visible');
     successMessage.classList.add('translate-0');
-    
+
     await new Promise(resolve => setTimeout(() => {
         successMessage.classList.remove('translate-0');
         successContainer.classList.remove('visible');
@@ -413,4 +421,12 @@ function findUserPosition(id) {
         }
     }
 
+}
+
+
+function closeMobileContactInfo() {
+    document.getElementById("contactOverview").classList.remove("d-noneMobile");
+    document.getElementById("contactInfoContainer").classList.remove("d-flex");
+    document.getElementById("contactHeadlineContent").classList.remove("d-flex");
+    document.getElementById("backArrow").classList.remove("d-flex");
 }

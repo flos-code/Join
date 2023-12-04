@@ -256,8 +256,9 @@ body {
 }
 
 .d-none {
-  display: none;
+  display: none !important;
 }
+
 .backContactsButton {
   background: #2a3647;
   border: none;
@@ -504,12 +505,12 @@ body {
 }
 
 .contact-success-container {
-  background-color: #2A3647;
+  background-color: #2a3647;
   border-radius: 0.5rem;
   padding: 1rem 2.5rem;
   opacity: 0;
   transform: translateY(800%);
-  transition: all .25s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
 .translate-0 {
@@ -525,6 +526,23 @@ body {
   color: white;
   font-size: 1.25rem;
   text-align: center;
+}
+
+.backArrow {
+  width: 37px;
+  height: 37px;
+  position: fixed;
+  left: 80vw;
+  top: 25vh;
+  border-radius: 50%;
+  transition: all 150;
+  display: none;
+}
+
+.backArrow:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+  transform: scale(1.1);
 }
 
 @media (max-width: 1199.98px) {
@@ -599,7 +617,6 @@ body {
   .contactOverview {
     left: 0;
     width: 35vw;
- 
   }
 
   .contactHeadlineContent {
@@ -629,9 +646,69 @@ body {
   .contactInfoContainer {
     margin-top: 112px;
   }
+
+  .headlineContacts {
+    margin-top: 148px;
+  }
+
+  .borderStyle {
+    margin-top: 148px;
+  }
+
+  .textBetter {
+    margin-top: 148px;
+  }
+
+  .contactInfoContainer {
+    margin-top: 32px;
+  }
 }
 
 @media (max-width: 767.98px) {
+  .contactOverview {
+    width: 100vw;
+  }
+
+  .addContactText {
+    display: none;
+  }
+
+  .addContactBtn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    position: fixed;
+    right: 10vw;
+    bottom: 20vh;
+    z-index: 100;
+  }
+
+  #contact-book {
+    margin-top: 32px;
+    margin-bottom: 96px;
+  }
+
+  #contactInfoContainer {
+    margin-left: 16px;
+    display: none;
+  }
+
+  #contactHeadlineContent {
+    margin-left: 16px;
+    display: none;
+  }
+
+  .d-noneMobile {
+    display: none !important;
+  }
+
+  .d-flex {
+    display: flex !important;
+  }
+
+  .addContactLeftPart {
+    height: 50%;
+  }
 }
 
 @media (max-width: 575.98px) {
