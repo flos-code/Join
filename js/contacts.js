@@ -5,7 +5,9 @@ let newEmail = 0;
 users = [];
 let contacts = [];
 
-
+/**
+ * This Function initializes and loads user contacts asynchronously and renders them in alphabetical order
+ */
 async function InitContacts() {
     await init();
     await loadUsers();
@@ -15,6 +17,9 @@ async function InitContacts() {
 
 }
 
+/**
+ * This Function loads all users
+ */
 async function loadUsers() {
     try {
         users = JSON.parse(await getItem('users'));
@@ -68,6 +73,10 @@ function validateInput(input) {
     }
 }
 
+/**
+ This function sorts the users alphabetically.First, compare by firstName and 
+ If firstName is the same, then compare by lastName
+ */
 function contactsAlphabetical(users) {
     contacts = users.slice().sort((a, b) => {
         // First, compare by firstName
@@ -80,6 +89,12 @@ function contactsAlphabetical(users) {
     return contacts;
 }
 
+/**
+ * Create an object to store div elements for each starting letter
+ * Check if a div for the letter already exists
+ * If it doesn't exist, create a new div
+ * Store the reference to the div in the object
+ */
 function renderAlphabet() {
     let contactbook = document.getElementById('contact-book');
     contactbook.innerHTML = '';
@@ -125,6 +140,9 @@ function renderAlphabet() {
     }
 }
 
+/**
+ * open the contact details
+ */
 function openContact(i) {
     let contactInfoDiv = document.getElementById("contactInfoContainer");
     contactInfoDiv.innerHTML = "";
@@ -145,6 +163,9 @@ function openContact(i) {
 
 }
 
+/**
+ * This function generates the contact Informationen
+ */
 function genertaeContactInfo(i) {
     let contact = contacts[i];
     return /*html*/`
@@ -193,7 +214,9 @@ function genertaeContactInfo(i) {
     `
 }
 
-
+/**
+ * edit the contact details
+ */
 function editContact(i) {
 
     document.getElementById("edit").innerHTML = generateEditOverlay(i);
@@ -206,7 +229,9 @@ function editContact(i) {
     loadeUserInfo(i);
 }
 
-
+/**
+ * This function loads User's names, email and phone
+ */
 function loadeUserInfo(i) {
     let name = contacts[i]["firstName"] + " " + contacts[i]["lastName"];
     document.getElementById("edit-name").value = name;
@@ -214,6 +239,9 @@ function loadeUserInfo(i) {
     document.getElementById("edit-phone").value = contacts[i]["phone"];
 }
 
+/**
+ * This function saves the contact
+ */
 async function saveContact(i) {
     let contact = contacts[i];
     let id = contact["userID"];
@@ -243,6 +271,10 @@ async function saveContact(i) {
     openContact(i);
 }
 
+/**
+ * This function formats a given name by capitalizing the first letter 
+ * of each word and splitting the words into first name, last name and initials.
+ */
 function formatName(name) {
     let words = name.split(' ');
     let capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
@@ -257,6 +289,9 @@ function formatName(name) {
     };
 }
 
+/**
+ * This function deletes the contact
+ */
 async function deletContact(i) {
 
     let id = contacts[i]["userID"];
@@ -301,7 +336,9 @@ async function closeOverlay() {
     }, 250));
 }
 
-
+/**
+ * add new Contact and push all users
+ */
 async function addNewContact() {
     let newUser = {};
 
@@ -352,6 +389,9 @@ async function addNewContact() {
     }, 1500));
 }
 
+/**
+ * set a User's Color
+ */
 function setUserColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
