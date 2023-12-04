@@ -99,46 +99,48 @@ function contactsAlphabetical(users) {
 function renderAlphabet() {
     let contactbook = document.getElementById('contact-book');
     contactbook.innerHTML = '';
-
-    // Create an object to store div elements for each starting letter
     let letterDivs = {};
 
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
         let firstLetter = contact.firstName.charAt(0).toUpperCase();
-
-        // Check if a div for the letter already exists
         if (!letterDivs[firstLetter]) {
-            // If it doesn't exist, create a new div
             let letterDiv = document.createElement('div');
             letterDiv.classList.add("letterDiv");
             letterDiv.id = `letter-${firstLetter}`;
             letterDiv.innerHTML = `<h2>${firstLetter}</h2>
             <div class="letterDivBorder"></div>`;
             contactbook.appendChild(letterDiv);
-
-            // Store the reference to the div in the object
             letterDivs[firstLetter] = letterDiv;
-
         }
-
-        // // Now, you can append information about the contact to the corresponding div
-        let contactDiv = document.createElement('div');
-        contactDiv.id = `contact-${i}`;
-        contactDiv.classList.add("contactDiv");
-        contactDiv.onclick = function () { openContact(i) };
-        contactDiv.innerHTML = /*html*/`
-        <div class="contactInitials" style="background-color: ${contact.userColor};">
-            ${contact.initials}
-        </div>
-        <div class="contactText">
-        <span id="contactName-${i}" class="contactName">${contact.firstName} ${contact.lastName}</span>
-        <span class="contactMail">${contact.email}</span>
-        </div>
-        `;
-
-        letterDivs[firstLetter].appendChild(contactDiv);
+        renderContactDiv(i, contact, firstLetter, letterDivs);
     }
+}
+
+/**
+ * create ahtml for the selected contact in the matching letterdiv
+ * 
+ * @param {number} i - number of current Contact
+ * @param {object} contact - current contact 
+ * @param {string} firstLetter - fist letter from the contacts first name
+ * @param {html} letterDivs - div to display the contacts with the macthing first letter in
+ */
+function renderContactDiv(i, contact, firstLetter, letterDivs) {
+    let contactDiv = document.createElement('div');
+    contactDiv.id = `contact-${i}`;
+    contactDiv.classList.add("contactDiv");
+    contactDiv.onclick = function () { openContact(i) };
+    contactDiv.innerHTML = /*html*/`
+    <div class="contactInitials" style="background-color: ${contact.userColor};">
+        ${contact.initials}
+    </div>
+    <div class="contactText">
+    <span id="contactName-${i}" class="contactName">${contact.firstName} ${contact.lastName}</span>
+    <span class="contactMail">${contact.email}</span>
+    </div>
+    `;
+
+    letterDivs[firstLetter].appendChild(contactDiv);
 }
 
 /**
@@ -146,12 +148,7 @@ function renderAlphabet() {
  */
 function openContact(i) {
     let contactInfoDiv = document.getElementById("contactInfoContainer");
-    document.getElementById("contactOverview").classList.add("d-noneMobile");
-    document.getElementById("contactInfoContainer").classList.add("d-flex");
-    document.getElementById("contactHeadlineContent").classList.add("d-flex");
-    document.getElementById("backArrow").classList.add("d-flex");
-
-
+    openContatcMobile();
     contactInfoDiv.innerHTML = "";
     for (let j = 0; j < contacts.length; j++) {
         let contactDiv = document.getElementById(`contact-${j}`);
@@ -160,75 +157,30 @@ function openContact(i) {
         contactName.style = "color: ;"
 
     }
-
     let contactDiv = document.getElementById(`contact-${i}`);
     let contactName = document.getElementById(`contactName-${i}`);
     contactDiv.style = "background-color: #2A3647;"
     contactName.style = "color: white;"
     contactInfoDiv.innerHTML += genertaeContactInfo(i);
-
-
 }
 
 /**
- * This function generates the contact Informationen
+ * hides html elemtns for the mobile view of the contact page
  */
-function genertaeContactInfo(i) {
-    let contact = contacts[i];
-    return /*html*/`
-<div class="contactInfoContainer">
-
-  <div class="contactInfoTop">
-    <div
-      class="contactInitialsInfo"
-      style="background-color: ${contact.userColor};">
-      ${contact.initials}
-    </div>
-    <div class="contactTextInfo">
-      <span class="contactNameInfo"
-        >${contact.firstName} ${contact.lastName}</span
-      >
-      <div class="manageContact">
-      <div class="editContact" onclick="editContact(${i})">
-        <img class="editContactImg" src="./img/editToDo.svg" alt="Edit Contact">
-          Edit
-        </div>
-        <div class="deletContact" onclick="deletContact(${i})">
-        <img class="deletContactImg" src="./img/deleteToDo.svg" alt="Delet Contact">
-          Delete
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="contactInfoHeadline">Contacts Informationen</div>
-
-  <div>
-    <div class="contactInfoBottom">
-      <div class="contactInfoSublHead">Email</div>
-      <div class="contactInfoMail">${contact.email}</div>
-    </div>
-    <div class="contactInfoBottom">
-      <div class="contactInfoSublHead">Phone</div>
-      <div>${contact.phone}</div>
-    </div>
-  </div>
-
-</div>
-<div id="edit"></div>
-
-  
-    `
+function openContatcMobile() {
+    document.getElementById("contactOverview").classList.add("d-noneMobile");
+    document.getElementById("contactInfoContainer").classList.add("d-flex");
+    document.getElementById("contactHeadlineContent").classList.add("d-flex");
+    document.getElementById("backArrow").classList.add("d-flex");
 }
+
+
 
 /**
  * open the contact overlay as edit mode with the current contact details
  */
 function editContact(i) {
-
     document.getElementById("edit").innerHTML = generateEditOverlay(i);
-
-
     setTimeout(() => {
         document.getElementById("overlay-container").classList.add("transform-0")
     }, 0);
@@ -252,11 +204,9 @@ function loadeUserInfo(i) {
 async function saveContact(i) {
     let contact = contacts[i];
     let id = contact["userID"];
-
     let contactName = document.getElementById('edit-name').value;
     let contactEmail = document.getElementById('edit-email').value;
     let contactPhone = document.getElementById('edit-phone').value;
-
     let formattedName = formatName(contactName);
 
     contact["firstName"] = formattedName.firstName;
@@ -264,7 +214,6 @@ async function saveContact(i) {
     contact["initials"] = formattedName.initials;
     contact["email"] = contactEmail;
     contact["phone"] = contactPhone;
-
 
     users[id]["firstName"] = formattedName.firstName;
     users[id]["lastName"] = formattedName.lastName;
@@ -276,7 +225,9 @@ async function saveContact(i) {
     document.getElementById("edit").innerHTML = "";
     InitContacts();
     openContact(i);
+    initHead();
 }
+
 
 /**
  * This function formats a given name by capitalizing the first letter 
@@ -300,21 +251,18 @@ function formatName(name) {
  * delete the actual contact in front- and backend
  */
 async function deletContact(i) {
-
     let id = contacts[i]["userID"];
     users.splice(id, 1);
     contacts = [];
     for (let j = 0; j < users.length; j++) {
         users[j]["userID"] = j;
     }
-
     contactsAlphabetical(users)
-
     await setItem('users', JSON.stringify(users));
     document.getElementById("contactInfoContainer").innerHTML = "";
     closeMobileContactInfo();
-
     InitContacts();
+    initHead();
 }
 
 /**
@@ -350,13 +298,10 @@ async function closeOverlay() {
 */
 async function addNewContact() {
     let newUser = {};
-
     let contactName = document.getElementById('new-name').value;
     let contactEmail = document.getElementById('new-email').value;
     let contactPhone = document.getElementById('new-phone').value;
-
     let formattedName = formatName(contactName);
-
     newUser = {
         firstName: formattedName.firstName,
         lastName: formattedName.lastName,
@@ -368,7 +313,16 @@ async function addNewContact() {
         userID: users.length,
         userColor: setUserColor()
     }
+    await updateContactPage(newUser);
+    openAndInitContact(newUser.userID)
+}
 
+/**
+ * updates the cintact page and the user array with the new user
+ * 
+ * @param {object} newUser - object with all the infos about the new user
+ */
+async function updateContactPage(newUser) {
     users.push(newUser)
     await setItem('users', JSON.stringify(users));
 
@@ -376,10 +330,20 @@ async function addNewContact() {
     await successContact();
     await InitContacts();
 
-    let id = newUser.userID; // Use the userID of the new user
-    let position = findUserPosition(id);
-    openContact(position);
 }
+
+/**
+ * open the contact info page of the new created user
+ * 
+ * @param {number} userID - id from the new created user
+ */
+async function openAndInitContact(userID) {
+    let position = findUserPosition(userID);
+    openContact(position);
+    await InitContacts();
+}
+
+
 
 /**
  * show success message after creation of new contact with promise for settimeout
@@ -423,7 +387,9 @@ function findUserPosition(id) {
 
 }
 
-
+/**
+ * closes the contact info in mobil view
+ */
 function closeMobileContactInfo() {
     document.getElementById("contactOverview").classList.remove("d-noneMobile");
     document.getElementById("contactInfoContainer").classList.remove("d-flex");

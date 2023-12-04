@@ -1,4 +1,10 @@
 // ############## CONTACTS TEMPLATES ################# //
+
+/**
+ * return html for adding a new contact
+ * 
+ * @returns string with the html
+ */
 function addNewContactHTML() {
     return /*html*/`
         <div class="overlay-bg" id="overlay-background" onclick="closeOverlay()">
@@ -49,7 +55,12 @@ function addNewContactHTML() {
     `;
 }
 
-
+/**
+ * return the edit overlay for the selected contact
+ * 
+ * @param {number} i - number of selected cintact to edit
+ * @returns string with the html
+ */
 function generateEditOverlay(i) {
     return /*html*/ `
     <div onclick="closeEditOverlay()" class="overlay-bg" id="edit-background">
@@ -123,60 +134,56 @@ function generateEditOverlay(i) {
 `;
 }
 
-//entfällt by copy
-function generateBusinessCard(i) {
-    return /*html*/ `
-    <div class="contactCard-main" id="contactCard-main">
-        <div class="contactCard-header">
-            <div class="contactCard-initials">${contacts[i]['initials']}</div>
-            <div>
-                <div class="contactCard-name">${contacts[i]['name']}</div>
-                <a href="task.html" class="contactCard-task">+ Add Task</a>  
-            </div>
-        </div>
-        <div class="contactCard-text">
-            <div>Contact Information</div>
-            <div class="contactCard-edit-frame">
-                <img src="./img/pen.png">
-                <div onclick="editContact(${i})">Edit Contact</div>
-            </div>
-        </div>
-        <div class="contactCard-email-frame">
-            <div class="contactCard-email-headline">Email</div>
-            <div class="contactCard-email">${contacts[i]['email']}</div>
-        </div>
-        <div class="contactCard-phone-frame">
-            <div class="contactCard-phone-headline">Phone</div>
-            <div class="contactCard-phone-number">${contacts[i]['phone']}</div>
-        </div>
-        <div class="edit-responsive"><img src="./img/edit-responsive.svg" onclick="editContactResponsive(${i})"></div>
-        <div class="delete-contact" onclick="deleteContact(${i})">Delete Contact!</div>
-    </div>
-    `;
-}
-
-// entfällt bei copy
-function generateHTMLforContactBook(i) {
-    return /*html*/ `
-    <div class="contact-book-container" id="contact-book-bg${i}" onclick="openBusinessCard(${i})">
-        <div id="contactCircleBgColor${i}" class="contact-circle">${contacts[i]['initials']}</div>
-        <div class="contact-book-frame">
-            <div id="contact-book-name${i}" class="contact-book-name">${contacts[i]['name']}</div>
-            <div class="contact-book-email">${contacts[i]['email']}</div>
-        </div>
-    </div>
-    `;
-}
 
 
-function generateHTMLforContactBookResponsive(i) {
-    return /*html*/ `
-    <div class="contact-book-container" id="contact-book-bg${i}" onclick="openBusinessCardResponsive(${i}); addBackButton()">
-        <div id="contactCircleBgColor${i}" class="contact-circle">${contacts[i]['initials']}</div>
-        <div class="contact-book-frame">
-            <div id="contact-book-name${i}" class="contact-book-name">${contacts[i]['name']}</div>
-            <div class="contact-book-email">${contacts[i]['email']}</div>
-        </div>
+
+/**
+ * This function generates the contact Informationen
+ */
+function genertaeContactInfo(i) {
+    let contact = contacts[i];
+    return /*html*/`
+<div class="contactInfoContainer">
+
+  <div class="contactInfoTop">
+    <div
+      class="contactInitialsInfo"
+      style="background-color: ${contact.userColor};">
+      ${contact.initials}
     </div>
-    `;
+    <div class="contactTextInfo">
+      <span class="contactNameInfo"
+        >${contact.firstName} ${contact.lastName}</span
+      >
+      <div class="manageContact">
+      <div class="editContact" onclick="editContact(${i})">
+        <img class="editContactImg" src="./img/editToDo.svg" alt="Edit Contact">
+          Edit
+        </div>
+        <div class="deletContact" onclick="deletContact(${i})">
+        <img class="deletContactImg" src="./img/deleteToDo.svg" alt="Delet Contact">
+          Delete
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contactInfoHeadline">Contacts Informationen</div>
+
+  <div>
+    <div class="contactInfoBottom">
+      <div class="contactInfoSublHead">Email</div>
+      <div class="contactInfoMail">${contact.email}</div>
+    </div>
+    <div class="contactInfoBottom">
+      <div class="contactInfoSublHead">Phone</div>
+      <div>${contact.phone}</div>
+    </div>
+  </div>
+
+</div>
+<div id="edit"></div>
+
+  
+    `
 }

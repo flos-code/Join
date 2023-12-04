@@ -202,6 +202,26 @@
   }
 }
 
+@media (max-width: 575.98px) {
+  .addContactContainer {
+    height: unset;
+  }
+
+  .overlay-user-initials {
+    margin-top: -16px;
+  }
+
+  #addContactFrom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .overlay-cancel-btn {
+    display: none;
+  }
+}
+
 @media (max-width: 400px) {
   .addContactLeftPart {
     width: 270px;
@@ -238,11 +258,6 @@
   .userIconConteiner {
     height: 80px;
     width: 80px;
-  }
-
-  .userWhiteIcon {
-    width: 30px;
-    height: auto;
   }
 
   .overlayHeadline {
