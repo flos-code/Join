@@ -1,3 +1,8 @@
+/**
+ * calls all functions to fromat the selected Task
+ * 
+ * @param {object} element - Selected Task Object
+ */
 function formatTask(element) {
     setCategoryColor(element);
     generateDescription(element);
@@ -6,10 +11,21 @@ function formatTask(element) {
     generateAssigned(element);
 }
 
+/**
+ * return html when there is no task for the selcted status
+ * 
+ * @param {string} status - Status of the selected Task
+ * @returns  string with the html
+ */
 function generateNoTodoHTML(status) {
     return `<div class="noTask">No tasks ${status}</div>`;
 }
 
+/**
+ * generated the prio for the selected Task
+ * 
+ * @param {object} element - Selected Task Object
+ */
 function generatePrio(element) {
     let priorityObj = {
         Low: "boardPrioIconLow",
@@ -24,6 +40,11 @@ function generatePrio(element) {
     }
 }
 
+/**
+ * generate the html for the assigned useres of the selected task
+ * 
+ * @param {object} element - Selected Task Object
+ */
 function generateAssigned(element) {
     let assignedDiv = document.getElementById(`toDoAssigned${element["id"]}`);
     assignedDiv.innerHTML = "";
@@ -43,6 +64,11 @@ function generateAssigned(element) {
     }
 }
 
+/**
+ * sets the color depending of the catagory of the selected Task
+ * 
+ * @param {object} element - Selected Task Object
+ */
 function setCategoryColor(element) {
     let categoryDiv = document.getElementById(`toDoCategory${element["id"]}`);
     if (element["category"] === "User Story") {
@@ -53,6 +79,11 @@ function setCategoryColor(element) {
     }
 }
 
+/**
+ * generates the html with the description of the selected task
+ *  
+ * @param {object} element - Selected Task Object
+ */
 function generateDescription(element) {
     let descriptionDiv = document.getElementById(
         `toDoDescription${element["id"]}`
@@ -66,7 +97,11 @@ function generateDescription(element) {
     descriptionDiv.innerHTML = `${description}`;
 }
 
-
+/**
+ * generate the html with the subtask of the selected task
+ * 
+ * @param {object} element - Selected Task Object
+ */
 function generateSubtask(element) {
     let subtasks = element["subtasks"];
     let subtasksDiv = document.getElementById(`toDoSubtasks${element["id"]}`);
@@ -80,6 +115,13 @@ function generateSubtask(element) {
     }
 }
 
+/**
+ * updtaes the progressbar for the subtask
+ * 
+ * @param {object} subtasks - subtaks object with discription and status of the subtask
+ * @param {html element} doneSubtasksDiv - div to display the subtask
+ * @param {html element} progessbarFillerDiv - div for the prograssbar of the subtask
+ */
 function updateProgressBar(subtasks, doneSubtasksDiv, progessbarFillerDiv) {
     let trueCount = 0;
     for (let i = 0; i < subtasks.length; i++) {
@@ -93,6 +135,12 @@ function updateProgressBar(subtasks, doneSubtasksDiv, progessbarFillerDiv) {
     progessbarFillerDiv.style.width = `${fillWidth}px`;
 }
 
+/**
+ * calls all functions to format the selected task
+ * 
+ * @param {object} todo - Selected Task form the Tasks array
+ * @param {number} id - Id of the Selected Task
+ */
 function formatOpenToDo(todo, id) {
     setToDoCategoryColor(todo, id);
     setTime(todo, id);
@@ -101,6 +149,12 @@ function formatOpenToDo(todo, id) {
     generateTodSubtask(todo, id);
 }
 
+/**
+ * sets the color depending of the catagory of the selected Task
+ * 
+ * @param {object} todo - Selected Task form the Tasks array
+ * @param {number} id - Id of the Selected Task
+ */
 function setToDoCategoryColor(todo, id) {
     let categoryDiv = document.getElementById(`toDoOpenCategory${id}`);
     if (todo["category"] === "User Story") {
@@ -111,6 +165,13 @@ function setToDoCategoryColor(todo, id) {
     }
 }
 
+
+/**
+ * sets the time of the due date for the selcted task
+ * 
+ * @param {object} todo - Selected Task form the Tasks array
+ * @param {number} id - Id of the Selected Task
+ */
 function setTime(todo, id) {
     let dateDiv = document.getElementById(`toDoOpenDate${id}`);
     let inputDateString = todo["dueDate"];
@@ -123,7 +184,12 @@ function setTime(todo, id) {
     dateDiv.innerHTML = `${formattedDate}`;
 }
 
-
+/**
+ * sets the prio of the selected task
+ * 
+ * @param {object} todo - Selected Task form the Tasks array
+ * @param {number} id - Id of the Selected Task
+ */
 function generateToDoPrio(todo, id) {
     let prioDiv = document.getElementById(`toDoOpenPrio${id}`);
     prioDiv.innerHTML = "";
@@ -143,6 +209,12 @@ function generateToDoPrio(todo, id) {
     }
 }
 
+/**
+ * generate the html for the assigned useres
+ * 
+ * @param {object} todo - Selected Task form the Tasks array
+ * @param {number} id - Id of the Selected Task
+ */
 function generateToDoAssigned(todo, id) {
     let assignedDiv = document.getElementById(`toDoOpenAssigned${id}`);
     assignedDiv.innerHTML = "";
@@ -161,6 +233,12 @@ function generateToDoAssigned(todo, id) {
     }
 }
 
+/**
+ * generate the subtasks of the selected task
+ * 
+ * @param {object} todo - Selected Task form the Tasks array
+ * @param {number} id - Id of the Selected Task
+ */
 function generateTodSubtask(todo, id) {
     let subtasks = todo["subtasks"];
     let subtasksDiv = document.getElementById(`toDoOpenSubtasks${id}`);
@@ -177,6 +255,12 @@ function generateTodSubtask(todo, id) {
     }
 }
 
+/**
+ * change the status of the selected subtask
+ * 
+ * @param {object} todo - Selected Task form the Tasks array
+ * @param {number} id - Id of the Selected Task
+ */
 async function updateSubtask(id, i) {
     let task = originalTodos[id]["subtasks"][i];
     if (task["isDone"]) {
@@ -187,6 +271,11 @@ async function updateSubtask(id, i) {
     await setItem('tasks', JSON.stringify(tasks));
 }
 
+/**
+ * generate all subtaks for the selected taks
+ * 
+ * @param {object} subtasks - subtaks object with discription and status of the subtask
+ */
 function renderSubtasks(subtasks) {
     let subtasksContainer = document.getElementById("subtasks-container");
     for (let index = 0; index < subtasks.length; index++) {
@@ -196,6 +285,11 @@ function renderSubtasks(subtasks) {
     }
 }
 
+/**
+ * pre slectes all allready assigned useres for a task when you edit the task
+ * 
+ * @param {object} preAssignedUsers - object with all users which are assigned to the slected task
+ */
 function selectPreAssignedUsers(preAssignedUsers) {
     if (preAssignedUsers) {
         for (let i = 0; i < preAssignedUsers.length; i++) {
@@ -208,6 +302,11 @@ function selectPreAssignedUsers(preAssignedUsers) {
     }
 }
 
+/**
+ * pre selects the prio when you edit the task
+ * 
+ * @param {string} prio - prio of the slected task
+ */
 function selectPriority(prio) {
     if (prio === "Urgent") {
         selectPrioButton("urgent-btn");
@@ -218,7 +317,11 @@ function selectPriority(prio) {
     }
 }
 
-
+/**
+ * load all information of the selected task when you open the edit page for the task
+ * 
+ * @param {number} id - Id of the Selected Task
+ */
 function preLoadeEdit(id) {
     setMinDate();
     initAssignOnclick();
@@ -226,6 +329,11 @@ function preLoadeEdit(id) {
     toggleAssignDropdown();
 }
 
+/**
+ * displaes the information of the selected task when you edit the task
+ * 
+ * @param {number} id - Id of the Selected Task
+ */
 function loadeInputFromTask(id) {
     document.getElementById("title").value = originalTodos[id]["title"];
     document.getElementById("description").value =
@@ -233,10 +341,18 @@ function loadeInputFromTask(id) {
     document.getElementById("date").value = originalTodos[id]["dueDate"];
 }
 
+/**
+ * chnages the prio of the selected task to the selected prio
+ * 
+ * @param {string} selectedPrio - prio which is selected
+ */
 function changePrio(selectedPrio) {
     editPrio = selectedPrio;
 }
 
+/**
+ * adds a new subtask to the selected task
+ */
 function addSubtaskEdit() {
     let subtasksContainer = document.getElementById("subtasks-container");
     let subtaskField = document.getElementById("subtasks");
@@ -255,7 +371,11 @@ function addSubtaskEdit() {
     }
 }
 
-
+/**
+ * edit the text of the selected subtask
+ * 
+ * @param {number} index - number of the selected subtask
+ */
 function editTextSubtask(index) {
     let subtaskSpan = document.getElementById(`subtask-input${index}`);
     if (subtaskSpan.contentEditable !== "true") {
@@ -269,6 +389,11 @@ function editTextSubtask(index) {
     }
 }
 
+/**
+ * the text form the subtask can no longer be edited
+ * 
+ * @param {number} index - number of the selected subtask
+ */
 function stopEditingSubtask(index) {
     let subtaskSpan = document.getElementById(`subtask-input${index}`);
     if (subtaskSpan.isContentEditable) {
@@ -278,6 +403,11 @@ function stopEditingSubtask(index) {
     }
 }
 
+/**
+ * deletes the selected subtask
+ * 
+ * @param {number} index - number of the selected subtask
+ */
 function editdeleteSubtask(index) {
     let subtaskItem = document.getElementById(`subtask-item${index}`);
     subtaskItem.remove();
@@ -285,6 +415,11 @@ function editdeleteSubtask(index) {
     subtaskIndex--;
 }
 
+/**
+ * selects the prio for the new task wehn you add a task to the board
+ * 
+ * @param {string} prio - selected prio
+ */
 function setAddTaskPrio(prio) {
     addTaskPrio = prio;
 }

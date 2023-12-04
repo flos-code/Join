@@ -1,5 +1,11 @@
+/**
+ * return the html for the Selected Task Object
+ * 
+ * @param {object} element - Selected Task Object
+ * @returns  string with the html
+ */
 function generateTodoHTML(element) {
-  return /*html*/ `
+    return /*html*/ `
     <div draggable="true" ondragstart="startDragging(${element["id"]})"  onclick="openToDo(${element["id"]})" class="todo" id="todo${element["id"]}">
     <div class="toDoCategory" id="toDoCategory${element["id"]}" >  ${element["category"]}</div>
   
@@ -23,9 +29,15 @@ function generateTodoHTML(element) {
     </div>`;
 }
 
-
+/**
+ * return the html when the selected taks is display in the overlay with all informations 
+ * 
+ * @param {object} todo - Selected Task form the Tasks array
+ * @param {number} id - Id of the Selected Task
+ * @returns string with the html
+ */
 function generateToDoOpenHTML(todo, id) {
-  return   /*html*/ `
+    return   /*html*/ `
   <div id="toDoOpenBg" onclick="closeToDo()">
       <div id="toDoOpen" class="toDoOpen" onclick="event.stopPropagation()">
           <div class="toDoOpenHeader">
@@ -60,17 +72,35 @@ function generateToDoOpenHTML(todo, id) {
   </div>
 `;
 }
-
+/**
+ * return the html for the initials of the selected user
+ * 
+ * @param {string} color - color code
+ * @param {string} firstLetter - first letter of firstName
+ * @param {string} secoundLetter - first letter of lastName
+ * @param {string} firstName - first name of the user
+ * @param {string} lastName - last name of the user
+ * @param {boolean} isYou - true if the selected user is loged in
+ * @returns string with the html
+ */
 function generateAssignedHTML(color, firstLetter, secoundLetter, firstName, lastName, isYou) {
-  return   /*html*/ `
+    return   /*html*/ `
   <div class="toDoOpenUserAssigned">
     <div class="toDoOpenCircleAssigned" style="background-color:${color}"> ${firstLetter}${secoundLetter} </div>
     <div class="toDoOpenNameAssigned">${firstName} ${lastName} ${isYou}</div>
     </div>`;
 }
-
+/**
+ * return the html for the subtask of the selected task
+ * 
+ * @param {number} i - current Number of the subtask
+ * @param {boolean} isChecked - status of the subtatsk 
+ * @param {number} id - Id of the Selected Task
+ * @param {string} description - description of the subtask
+ * @returns string with the html
+ */
 function generateSubtaskHTML(i, isChecked, id, description) {
-  return /*html*/ `
+    return /*html*/ `
   <label class="customCheckbox">
       <input type="checkbox" id="taskCheckbox${i}" ${isChecked} onclick="updateSubtask(${id}, ${i})">
       <span class="customCheckmark">
@@ -86,8 +116,14 @@ ${description}
 `;
 }
 
+/**
+ * retun the html of the edit page for the selected Taks
+ * 
+ * @param {number} id - Id of the Selected Task
+ * @returns - string with the html
+ */
 function generateEditToDoHtml(id) {
-  return   /*html*/ `
+    return   /*html*/ `
 <img onclick="closeToDo()" class="closeToDo closeToDoEdit" src="./img/closeToDo.svg" alt="">
 <div class="editToDoDiv">
 <form id="editFrom" onsubmit="saveEdit('${id}'); return false">
@@ -164,8 +200,15 @@ Ok
 `;
 }
 
+/**
+ * return html of the task overlay with the newly edit informations
+ * 
+ * @param {number} id - Id of the Selected Task
+ * @param {object} todo - Selected Task form the Tasks array
+ * @returns - string with the html
+ */
 function generateShowEditHTML(id, todo) {
-  return   /*html*/ `
+    return   /*html*/ `
   <div class="toDoOpenHeader">
            <div class="toDoOpenCategory" id="toDoOpenCategory${id}" >  ${todo["category"]}</div>
            <div onclick="closeToDo()">      
@@ -196,8 +239,15 @@ function generateShowEditHTML(id, todo) {
            </div>`;
 }
 
+/**
+ * return html for edeting the subtask
+ * 
+ * @param {string} subtaskField - stands for the value of the input
+ * @param {number} index - stands for the index of the current subtask
+ * @returns - string with html
+ */
 function editSubtaskHTML(subtaskField, index) {
-  return /*html*/ `
+    return /*html*/ `
       <div class="subtask-item" id="subtask-item${index}">
           <div class="subtask-info">
               <span></span>
@@ -215,9 +265,14 @@ function editSubtaskHTML(subtaskField, index) {
       </div>
   `;
 }
-
+/**
+ * retun html of the add a new task overlay
+ * 
+ * @param {string} statusTask - status if the taks which will be added
+ * @returns - string with html
+ */
 function generateAddTaskHTML(statusTask) {
-  return   /*html*/ `
+    return   /*html*/ `
   <div id="addTaskOpenBg" onclick="closeAddTask()">
 
       <div id="addTaskOpen" class="addTaskOpen" onclick="event.stopPropagation()"> 
@@ -359,19 +414,40 @@ function generateAddTaskHTML(statusTask) {
 `;
 }
 
+/**
+ * return html for the selcted prio
+ * 
+ * @param {object} priorityObj - Object with all 3 possible prios
+ * @param {string} priority - prio of selected Task
+ * @returns - string with html
+ */
 function generateprioHTML(priorityObj, priority) {
-  return     /*html*/ `
+    return     /*html*/ `
   <svg class="${priorityObj[priority]}" viewBox="0 0 21 ${priority === "Medium" ? 8 : 16}">
     <use href="assets/img/icons.svg#${priority.toLowerCase()}prio-icon"></use>
   </svg>`;
 }
 
+/**
+ * return html of the assigned user initials
+ * 
+ * @param {string} color - color code
+ * @param {string} firstLetter - first letter of firstName
+ * @param {string} secoundLetter - first letter of lastName
+ * @returns - string with html
+ */
 function generateAssignedUserHTML(firstLetter, secondLetter, color) {
-  return /*html*/ `
+    return /*html*/ `
     <div class="toDoAssigned" style="background-color:${color}">${firstLetter}${secondLetter}</div>`;
 }
 
+/**
+ * return html of the assigned useres
+ * 
+ * @param {number} moreAssigned - number of 
+ * @returns - string with html
+ */
 function generateMoreAssignedHTML(moreAssigned) {
-  return /*html*/ `
+    return /*html*/ `
     <div class="toDoAssignedMore">+${moreAssigned}</div>`;
 }

@@ -6,6 +6,9 @@ let editSubtasks = [];
 let addTaskPrio;
 let addTaskStatus;
 
+/**
+ * all necessary data and HTML files are loaded to display them on the page
+ */
 async function initBoard() {
   await includeHTML();
   await loadTasks();
@@ -15,7 +18,9 @@ async function initBoard() {
   await updateHTML();
 }
 
-
+/**
+ * the html  for each possible Status of the Tasks get updated
+ */
 async function updateHTML() {
   updateSection("toDo", "toDoStatus", "to Do");
   updateSection("inProgress", "inProgressStatus", "in Progress");
@@ -23,7 +28,13 @@ async function updateHTML() {
   updateSection("done", "doneStatus", "done");
 }
 
-
+/**
+ * If a Task with the status exist it will be generated in the matching Sections
+ * 
+ * @param {string} sectionId - ID of the selected Section
+ * @param {string} status - Status of the selected Task
+ * @param {string} header - Headline of the selected Section
+ */
 function updateSection(sectionId, status, header) {
   let filteredTasks = filterTasksByStatus(status);
   document.getElementById(sectionId).innerHTML = "";
@@ -38,6 +49,12 @@ function updateSection(sectionId, status, header) {
   }
 }
 
+/**
+ * Filter Taskes based on their status
+ * 
+ * @param {string} status - Status of the selected Task
+ * @returns returns the status of the Task
+ */
 function filterTasksByStatus(status) {
   if (filteredToDos.length !== 0) {
     return filteredToDos.filter((t) => t["status"] == status);
@@ -48,17 +65,30 @@ function filterTasksByStatus(status) {
   }
 }
 
+/**
+ * The id of the dragged Task gets stored in currentDraggedElement
+ * 
+ * @param {number} id - Id of the Selected Task
+ */
 function startDragging(id) {
   currentDraggedElement = id;
 }
 
 
-
+/**
+ * Makes it possbile to drop a drages Task in the disired Section
+ * 
+ * @param {object} ev - Event Object when Taks gets droped in a Section
+ */
 function allowDrop(ev) {
   ev.preventDefault();
 }
 
-
+/**
+ * Gives the selected Task the new status where it was placed via drag and drop
+ * 
+ * @param {string} status - Status of the selected Task
+ */
 async function moveTo(status) {
   let draggedTask = originalTodos.splice(currentDraggedElement, 1)[0];
   let draggedTaskOriginal = tasks.splice(currentDraggedElement, 1)[0];
@@ -74,6 +104,11 @@ async function moveTo(status) {
   updateHTML();
 }
 
+/**
+ * Open an overlay to see all information saved in the selected Task
+ * 
+ * @param {number} id - Id of the Selected Task
+ */
 function openToDo(id) {
   let todo = originalTodos[id];
   editPrio = originalTodos[id]["prio"];
@@ -93,7 +128,9 @@ function openToDo(id) {
   formatOpenToDo(todo, id);
 }
 
-
+/**
+ * close the Overlay with all the information of the Task
+ */
 function closeToDo() {
   assignedUsers = [];
   selectedUsers = [];
@@ -107,7 +144,11 @@ function closeToDo() {
   }, 200);
 }
 
-
+/**
+ * deletes the Slected Task from the board and the Tasks array
+ * 
+ * @param {number} id - Id of the Selected Task
+ */
 async function deletToDo(id) {
   originalTodos.splice(id, 1);
   tasks.splice(id, 1);
@@ -120,6 +161,9 @@ async function deletToDo(id) {
   searchTask();
 }
 
+/**
+ * Search for tasks which have the same word in the title or description as the word typed in the search field
+ */
 function searchTask() {
   let searchedTask = document.getElementById("findTask").value.toLowerCase();
   filteredToDos = [];
@@ -133,12 +177,19 @@ function searchTask() {
   updateHTML();
 }
 
+/**
+ * Eventlistener when smth gets typed in the search field
+ */
 let searchInput = document.getElementById("findTask");
 searchInput.addEventListener("input", function () {
   searchTask();
 });
 
-
+/**
+ * Opens the edit pages of the selected Task where you can change all the Information saved in the selected Task
+ * 
+ * @param {number} id - Id of the Selected Task
+ */
 function editToDo(id) {
   selectedUsers = [];
   assignedUsers = [];
@@ -156,7 +207,11 @@ function editToDo(id) {
   renderSubtasks(originalTodos[id]["subtasks"]);
 }
 
-
+/**
+ * saves you made changes to the selected Task in the array
+ * 
+ * @param {number} id - Id of the Selected Task
+ */
 async function saveEdit(id) {
   let todo = originalTodos[id];
   todo["title"] = document.getElementById("title").value;
@@ -172,6 +227,11 @@ async function saveEdit(id) {
   showEdit(id);
 }
 
+/**
+ * shows the selected Task with the new informations
+ * 
+ * @param {number} id  Id of the Selected Task
+ */
 function showEdit(id) {
   let todo = originalTodos[id];
   let todoDiv = document.getElementById("toDoOpen");
@@ -182,7 +242,11 @@ function showEdit(id) {
   formatOpenToDo(todo, id);
 }
 
-
+/**
+ * opens an overlay where you can create a new taks 
+ * 
+ * @param {string} statusTask - Status of the task that will be created
+ */
 function addTaskOnBoard(statusTask) {
   let originalOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
@@ -201,6 +265,9 @@ function addTaskOnBoard(statusTask) {
   }, 200);
 }
 
+/**
+ * closes the overlay to creat a new task
+ */
 function closeAddTask() {
   let originalOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
@@ -213,6 +280,11 @@ function closeAddTask() {
 
 }
 
+/**
+ * new task gets saved in the tasks array and  displayed on the board
+ * 
+ * @param {string} statusTask - Status of the task that will be created
+ */
 async function addTaskBoard(statusTask) {
   let newTask = {
     id: originalTodos.length,
