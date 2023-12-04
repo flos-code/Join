@@ -1,6 +1,12 @@
+/**
+ * Setting all required arrays
+ */
 tasks = [];
 users = [];
 
+/**
+ * Downloading files vom backend server, and run first functions
+ */
 async function initSummary() {
   await includeHTML();
   await loadTasks();
@@ -8,7 +14,9 @@ async function initSummary() {
   renderSummaryConten();
 }
 
-
+/**
+ * load Tasks
+ */
 async function loadTasks() {
   try {
     tasks = JSON.parse(await getItem('tasks'));
@@ -17,6 +25,9 @@ async function loadTasks() {
   }
 }
 
+/**
+ * load Users
+ */
 async function loadUsers() {
   try {
     users = JSON.parse(await getItem('users'));
@@ -25,6 +36,9 @@ async function loadUsers() {
   }
 }
 
+/**
+ * Setting all required varibles 
+ */
 let todoCounts = {
   toDoStatus: 0,
   inProgressStatus: 0,
@@ -37,12 +51,18 @@ let todoCounts = {
 let currentDate = new Date();
 let currentTime = new Date().getHours();
 
+/**
+ * This function calls three other functions in sequence: `loadCount`, `timedGreeting` and `greetUser`
+ */
 function renderSummaryConten() {
   loadeCount();
   timedGreeting();
   greetUser();
 }
 
+/**
+ * Insert all values for the html part
+ */
 function loadeCount() {
   countTodos(tasks);
   document.getElementById("todoCount").innerHTML = todoCounts.toDoStatus;
@@ -57,6 +77,11 @@ function loadeCount() {
   document.getElementById("totalCount").innerHTML = tasks.length;
 }
 
+ /**
+ * If the urgency from the task is 'urgent', let all urgent-elements shown.
+ * Find 'Urgent' in the array Tasks and filter all entries with 'low' and medium away.
+ * The aim is that only entries with the urgency 'urgent' are displayed.
+ */
 function countTodos(tasks) {
   tasks.forEach((task) => {
     todoCounts[task.status]++;
@@ -69,11 +94,17 @@ function countTodos(tasks) {
   });
 }
 
+/**
+ * Formating the date
+ */
 function formatDate(dateString) {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(dateString).toLocaleDateString("en-US", options);
 }
 
+/**
+ * Change greeting at summary depending on the time of day
+ */
 function timedGreeting() {
   let greeting;
 
@@ -91,6 +122,10 @@ function timedGreeting() {
   document.getElementById("mobileTimedGreeting").innerHTML = greeting;
 }
 
+/**
+ * sets the next due date for an urgent task if the priority of the task is Urgent 
+ * and the due date is closer to the current date than the already set next due date for urgent tasks.
+ * */
 function setNextUrgentDate(task, todoCounts) {
   if (
     task.prio === "Urgent" &&
@@ -103,6 +138,9 @@ function setNextUrgentDate(task, todoCounts) {
   }
 }
 
+/**
+ * Sets upcoming/no upcoming deadline
+ */
 function updateDeadlineText(UrgentTasksCount) {
   if (UrgentTasksCount > 0) {
     document.getElementById("nextUrgentDateText").innerHTML =
@@ -130,6 +168,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+/**
+ * Function to show user/quest-login-name 
+ */
 function greetUser() {
   for (let i = 0; i < users.length; i++) {
     let user = users[i]
