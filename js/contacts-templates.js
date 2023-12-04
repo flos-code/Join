@@ -1,3 +1,4 @@
+// ############## CONTACTS TEMPLATES ################# //
 function addNewContactHTML() {
     return /*html*/`
         <div class="overlay-bg" id="overlay-background" onclick="closeOverlay()">

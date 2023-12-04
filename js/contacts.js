@@ -1,3 +1,6 @@
+/**
+ * Setting all required varibles and arrays
+ */
 let contactInitials;
 
 let newEmail = 0;
@@ -6,19 +9,17 @@ users = [];
 let contacts = [];
 
 /**
- * This Function initializes and loads user contacts asynchronously and renders them in alphabetical order
+ * This function initializes and loads user contacts asynchronously and renders them in alphabetical order
  */
 async function InitContacts() {
     await init();
     await loadUsers();
     contactsAlphabetical(users);
     renderAlphabet();
-
-
 }
 
 /**
- * This Function loads all users
+ * This function loads all users
  */
 async function loadUsers() {
     try {
@@ -215,7 +216,7 @@ function genertaeContactInfo(i) {
 }
 
 /**
- * edit the contact details
+ * open the contact overlay as edit mode with the current contact details
  */
 function editContact(i) {
 
@@ -240,7 +241,7 @@ function loadeUserInfo(i) {
 }
 
 /**
- * This function saves the contact
+ * save the updated contact details
  */
 async function saveContact(i) {
     let contact = contacts[i];
@@ -290,7 +291,7 @@ function formatName(name) {
 }
 
 /**
- * This function deletes the contact
+ * delete the actual contact in front- and backend
  */
 async function deletContact(i) {
 
@@ -337,8 +338,8 @@ async function closeOverlay() {
 }
 
 /**
- * add new Contact and push all users
- */
+* get the value from the diffrent inputfields and push all users
+*/
 async function addNewContact() {
     let newUser = {};
 
@@ -401,6 +402,10 @@ function setUserColor() {
     return color;
 }
 
+/**
+ * This function loops through the `contacts` array and looks for a user with the specified `id`. 
+ * If the user is found, the user's index in the array is returned. Otherwise `undefined` will be returned.
+ */
 function findUserPosition(id) {
     for (let i = 0; i < contacts.length; i++) {
         if (contacts[i].userID === id) {

@@ -1,3 +1,6 @@
+/**
+ * "users" array contains user objects with properties: first name, last name, initials, email, phone, passport, ID
+ */
 let users = [
     {
         firstName: 'Sofia',
