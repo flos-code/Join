@@ -1,3 +1,6 @@
+/**
+ * Setting all required varibles and arrays
+ */
 let contactInitials;
 
 let newEmail = 0;
@@ -213,7 +216,7 @@ function genertaeContactInfo(i) {
 }
 
 /**
- * edit the contact details
+ * open the contact overlay as edit mode with the current contact details
  */
 function editContact(i) {
 
@@ -238,7 +241,7 @@ function loadeUserInfo(i) {
 }
 
 /**
- * This function saves the contact
+ * save the updated contact details
  */
 async function saveContact(i) {
     let contact = contacts[i];
@@ -288,7 +291,7 @@ function formatName(name) {
 }
 
 /**
- * This function deletes the contact
+ * delete the actual contact in front- and backend
  */
 async function deletContact(i) {
 
@@ -335,8 +338,8 @@ async function closeOverlay() {
 }
 
 /**
- * add new Contact and push all users
- */
+* get the value from the diffrent inputfields and push all users
+*/
 async function addNewContact() {
     let newUser = {};
 
