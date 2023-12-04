@@ -1,3 +1,6 @@
+/**
+ * Setting all required varibles and arrays
+ */
 let tasks = [];
 let users = [];
 let subtaskIndex = 0;

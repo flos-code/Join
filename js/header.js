@@ -1,10 +1,19 @@
+/**
+ * Setting User array
+ */
 users = [];
 
+/**
+ * This function initializes and loads user contacts and Initials
+ */
 async function initHead() {
     await loadUsers();
     userInitials();
 }
 
+/**
+ * This function loads all users
+ */
 async function loadUsers() {
     try {
         users = JSON.parse(await getItem('users'));
@@ -154,6 +163,9 @@ function privacyMenuActive() {
     }
 }
 
+/**
+* Show users Initials
+*/
 function userInitials() {
     for (let i = 0; i < users.length; i++) {
         let user = users[i];
