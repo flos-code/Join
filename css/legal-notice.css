@@ -63,7 +63,7 @@
   margin-right: 35px;
 }
 
-.backArrow {
+.backArrowLegal {
   width: 37px;
   height: 37px;
   position: fixed;
@@ -73,7 +73,7 @@
   transition: all 150;
 }
 
-.backArrow:hover {
+.backArrowLegal:hover {
   cursor: pointer;
   background-color: #eeeeee;
   transform: scale(1.1);
