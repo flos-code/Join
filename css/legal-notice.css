@@ -85,8 +85,10 @@
     margin-right: 16px;
     width: calc(100% - 32px);
     margin-bottom: 96px;
+    margin-top: 0;
   }
   .content h1 {
     font-size: 48px;
+    padding-top: 96px;
   }
 }
