@@ -1,5 +1,5 @@
 /**
- * Setting User array
+ * Setting Users array
  */
 users = [];
 
