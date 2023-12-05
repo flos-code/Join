@@ -1,3 +1,17 @@
+@media(max-width:1199.98px){
+    .login-logo {
+        width: 100px;
+        height: 100px;
+        left: 4rem;
+        top: 2.25rem;
+        animation-name: logo-animation991;
+    }
+
+    .login-signup {
+        right: 4rem;
+    }
+}
+
 @media (min-width: 992px) {
     .mobile-only {
         display: none;
@@ -7,16 +21,6 @@
 @media (max-width: 991.98px) {
     .container {
         flex-direction: column;
-    }
-    
-    .login-logo {
-        left: 4rem;
-        top: 3rem;
-        animation-name: logo-animation991;
-    }
-
-    .login-signup {
-        right: 4rem;
     }
 
     .desktop-only {
@@ -32,6 +36,14 @@
         justify-content: center;
         padding-top: 3rem;
         width: 100%;
+    }
+
+    .container {
+        height: calc(100% - 43.5px);
+    }
+
+    .footer-container {
+        padding-bottom: 1.5rem;
     }
 }
 

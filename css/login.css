@@ -112,9 +112,9 @@ html, body {
         transform: translate(-50%, -50%);
     }
     to {
-        width: 110px;
-        height: 110px;
-        top: 3rem;
+        width: 100px;
+        height: 100px;
+        top: 2.25rem;
         left: 4rem;
     }
 }
