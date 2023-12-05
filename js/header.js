@@ -8,6 +8,7 @@ users = [];
  */
 async function initHead() {
     await loadUsers();
+    await includeHTML();
     userInitials();
 }
 
@@ -92,36 +93,6 @@ function openHelp() {
 */
 function openLegalNotice() {
     window.open("legal_notice.html", "_self");
-}
-
-
-/**
-* Show active site on the navigation bar -> Legal notice
-*/
-function addActiveClass4() {
-    setTimeout(function () {
-        document.getElementById('id-4').classList.add('active');
-    }, 125);
-}
-
-
-/**
-* Show active site on the navigation bar -> Legal notice
-*/
-function addActiveClass5() {
-    setTimeout(function () {
-        document.getElementById('id-5').classList.add('active');
-    }, 125);
-}
-
-
-/**
-* Hide question mark on header bar like in the mockup-> Help
-*/
-function addActiveClass6() {
-    setTimeout(function () {
-        document.getElementById('id-6').classList.add('d-none');
-    }, 125);
 }
 
 
