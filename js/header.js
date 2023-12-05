@@ -10,6 +10,7 @@ async function initHead() {
     await loadUsers();
     await includeHTML();
     userInitials();
+    selectSidebar();
 }
 
 /**
