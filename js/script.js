@@ -29,52 +29,21 @@ async function includeHTML() {
 }
 
 
-// function selectSidebar() {
-//     let currentPage = window.location.pathname;
-//     let id;
-//     let responsiveId;
 
-//     if (currentPage == "/summary.html") {
-//         id = "id-0"
-//         responsiveId = "idResponsive-0";
-//     } else if (currentPage == "/board.html") {
-//         id = "id-1"
-//         responsiveId = "idResponsive-1";
-//     } else if (currentPage == "/task.html") {
-//         id = "id-2"
-//         responsiveId = "idResponsive-2";
-//     } else if (currentPage == "/contacts.html") {
-//         id = "id-3"
-//         responsiveId = "idResponsive-3";
-//     } else if (currentPage == "/legal_notice.html") {
-//         id = "id-4"
-//     } else if (currentPage == "/privacy_policy.html") {
-//         id = "id-5"
-//     } else if (currentPage == "/legal_notice_out.html") {
-//         id = "id-6"
-//     } else if (currentPage == "/privacy_policy_out.html") {
-//         id = "id-7"
-//     }
-
-
-
-//     document.getElementById(id).classList.add("active");
-//     if (responsiveId) {
-//         document.getElementById(responsiveId).classList.add("active");
-//     }
-// }
-
+/**
+ * sets the current page active on the sidebar
+ */
 function selectSidebar() {
     let currentPage = window.location.pathname;
     let idMappings = {
-        '/summary.html': ['id-0', 'idResponsive-0'],
-        '/board.html': ['id-1', 'idResponsive-1'],
-        '/task.html': ['id-2', 'idResponsive-2'],
-        '/contacts.html': ['id-3', 'idResponsive-3'],
-        '/legal_notice.html': ['id-4'],
-        '/privacy_policy.html': ['id-5'],
-        '/legal_notice_out.html': ['id-6'],
-        '/privacy_policy_out.html': ['id-7']
+        '/Join/summary.html': ['id-0', 'idResponsive-0'],
+        '/Join/board.html': ['id-1', 'idResponsive-1'],
+        '/Join/task.html': ['id-2', 'idResponsive-2'],
+        '/Join/contacts.html': ['id-3', 'idResponsive-3'],
+        '/Join/legal_notice.html': ['id-4'],
+        '/Join/privacy_policy.html': ['id-5'],
+        '/Join/legal_notice_out.html': ['id-6'],
+        '/Join/privacy_policy_out.html': ['id-7']
     };
 
     let ids = idMappings[currentPage];
