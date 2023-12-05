@@ -1,5 +1,5 @@
 /**
- * Setting all required varibles and arrays
+ * declaring all required variables and arrays
  */
 let tasks = [];
 let users = [];
@@ -134,7 +134,7 @@ function resetForm() {
 function resetSelectedUsers() {
     selectedUsers = [];
     assignedUsers = [];
-    const usersDiv = document.querySelectorAll('.assign-contact')
+    const usersDiv = document.querySelectorAll('.assign-contact');
     assignDropdown = document.getElementById('assign-content');
     assignInput = document.getElementById('assign');
     closeAssignDropdown();
@@ -450,6 +450,8 @@ async function successContactTask() {
  * handling the assign dropdown menu after new user has been created
  */
 function handleAssignDropdown() {
+    selectedUsers = [];
+    assignedUsers = [];
     removeAssignDropdown();
     closeAssignDropdown();
 }
