@@ -13,9 +13,9 @@
 }
 
 .summaryHead h1 {
-  font-size: 61px;
   font-weight: 700;
   margin-block: unset;
+  font-size: 3.5rem;
 }
 
 .sumHeadDevider {
