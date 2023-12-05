@@ -80,10 +80,8 @@ function validateInput(input) {
  */
 function contactsAlphabetical(users) {
     contacts = users.slice().sort((a, b) => {
-        // First, compare by firstName
         let firstNameComparison = a.firstName.localeCompare(b.firstName);
 
-        // If firstName is the same, then compare by lastName
         return firstNameComparison !== 0 ? firstNameComparison : a.lastName.localeCompare(b.lastName);
     });
 
