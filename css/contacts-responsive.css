@@ -167,6 +167,10 @@
   .contactText {
     margin-left: 16px;
   }
+
+  .contactMail {
+    inline-size: 120px;
+  }
 }
 
 @media (max-width: 991.98px) {
@@ -268,6 +272,10 @@
   .contactInfoContainer {
     margin-top: 32px;
   }
+
+  #contact-book {
+    margin-bottom: 96px;
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -291,7 +299,6 @@
 
   #contact-book {
     margin-top: 32px;
-    margin-bottom: 96px;
   }
 
   #contactInfoContainer {
@@ -314,5 +321,9 @@
 
   .addContactLeftPart {
     height: 50%;
+  }
+
+  .contactMail {
+    inline-size: unset;
   }
 }

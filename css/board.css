@@ -181,6 +181,10 @@ button:hover {
   font-weight: 400;
 }
 
+.todo:hover {
+  cursor: pointer;
+}
+
 .toDoCategory {
   padding: 4px 16px;
   border-radius: 16px;

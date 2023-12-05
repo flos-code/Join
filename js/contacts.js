@@ -41,21 +41,6 @@ function closeEditOverlay() {
     }, 250);
 }
 
-
-/**
-* get the updated contact details
-*/
-async function saveContact(i) {
-    let contactName = document.getElementById('edit-name').value;
-    let contactEmail = document.getElementById('edit-email').value;
-    let contactPhone = document.getElementById('edit-phone').value;
-    let contactInitials = contactName.match(/(\b\S)?/g).join("").toUpperCase();
-    await updateContatcs(i, contactName, contactEmail, contactPhone, contactInitials);
-    closeEditOverlay();
-    renderContactBook();
-    openBusinessCard(i);
-}
-
 /**
 * Show active site on the navigation bar -> Contacts
 */
@@ -312,7 +297,8 @@ async function addNewContact() {
         userColor: setUserColor()
     }
     await updateContactPage(newUser);
-    openAndInitContact(newUser.userID)
+    openAndInitContact(newUser.userID);
+    initHead();
 }
 
 /**

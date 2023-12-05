@@ -355,6 +355,8 @@ body {
   font-size: 16px;
   font-weight: 400;
   color: #007cee;
+  inline-size: 150px;
+  overflow-wrap: break-word;
 }
 
 #contactInfoContainer {
