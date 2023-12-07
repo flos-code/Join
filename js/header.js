@@ -98,44 +98,6 @@ function openLegalNotice() {
 
 
 /**
-* Show active site on the responsive navigation bar -> Help
-*/
-function helpMenuActive() {
-    if (document.getElementById('help-active') == null) {
-    } else {
-        if (document.getElementById('idResponsive-6').innerHTML == document.getElementById('help-active').innerHTML) {
-            document.getElementById('idResponsive-6').classList.add('rs-logout-active');
-        }
-    }
-}
-
-
-/**
-* Show active site on the responsive navigation bar -> Legal notice
-*/
-function legalNoticeMenuActive() {
-    if (document.getElementById('legal-notice-active') == null) {
-    } else {
-        if (document.getElementById('idResponsive-4').innerHTML == document.getElementById('legal-notice-active').innerHTML) {
-            document.getElementById('idResponsive-4').classList.add('rs-logout-active');
-        }
-    }
-}
-
-
-/**
-* Show active site on the responsive navigation bar -> Privacy
-*/
-function privacyMenuActive() {
-    if (document.getElementById('privacy-active') == null) {
-    } else {
-        if (document.getElementById('idResponsive-5').innerHTML == document.getElementById('privacy-active').innerHTML) {
-            document.getElementById('idResponsive-5').classList.add('rs-logout-active');
-        }
-    }
-}
-
-/**
 * Show users Initials
 */
 function userInitials() {

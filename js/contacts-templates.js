@@ -1,5 +1,3 @@
-// ############## CONTACTS TEMPLATES ################# //
-
 /**
  * return html for adding a new contact
  * 
