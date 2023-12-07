@@ -11,8 +11,7 @@ let addTaskStatus;
  */
 async function initBoard() {
   await includeHTML();
-  await loadTasks();
-  await loadUsers();
+  await loadData();
   todos = tasks;
   originalTodos = todos.slice();
   await updateHTML();

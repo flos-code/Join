@@ -14,7 +14,11 @@ document.addEventListener('DOMContentLoaded', async () => {
  * fetch users array
  */
 async function loadUsers() {
-    users = JSON.parse(await getItem('users'));
+    try {
+        users = JSON.parse(await getItem('users'));
+    } catch(e) {
+        console.error('Loading Users error:', e);
+    }
 }
 
 
@@ -167,7 +171,7 @@ async function successSignUp() {
     successOverlay.classList.add('visible');
     successMessage.classList.add('success-message-visible');
     await new Promise(resolve => setTimeout(() => {
-        renderLogin();
+        renderSection('login');
         resolve();
     }, 1500));
 }
@@ -356,22 +360,18 @@ function unrememberMe() {
 
 
 /**
- * render the html for the sign up
+ * render the html for the login / signup
+ * @param {string} section - stands for either 'register' or 'login'
  */
-function renderRegister() {
+function renderSection(section) {
     const container = document.getElementById('container');
     const loginSignup = document.getElementById('login-signup');
-    loginSignup.classList.add('d-none');
-    container.innerHTML = registerHTML();
-}
 
-
-/**
- * render the html for the login
- */
-function renderLogin() {
-    const container = document.getElementById('container');
-    const loginSignup = document.getElementById('login-signup');
-    loginSignup.classList.remove('d-none');
-    container.innerHTML = loginHTML();
+    if (section === 'register') {
+        loginSignup.classList.add('d-none');
+        container.innerHTML = registerHTML();
+    } else if (section === 'login') {
+        loginSignup.classList.remove('d-none');
+        container.innerHTML = loginHTML();
+    }
 }

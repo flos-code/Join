@@ -14,33 +14,21 @@ let assignInput, assignDropdown;
  */
 async function init() {
     await includeHTML();
-    await loadTasks();
-    await loadUsers();
+    await loadData();
     initAssignOnclick();
     setMinDate();
 }
 
 
 /**
- * fetch all tasks from server to tasks variable
+ * fetch users and tasks data from server to global variables
  */
-async function loadTasks() {
+async function loadData() {
     try {
         tasks = JSON.parse(await getItem('tasks'));
-    } catch(e) {
-        console.error('Loading Tasks error:', e);
-    }
-}
-
-
-/**
- * fetch all users from server to users variable
- */
-async function loadUsers() {
-    try {
         users = JSON.parse(await getItem('users'));
     } catch(e) {
-        console.error('Loading Users error: ', e);
+        console.error('Loading Data error:', e);
     }
 }
 
@@ -49,7 +37,7 @@ async function loadUsers() {
  * push all input values to variable, then send POST request to server
  */
 async function addTask() {
-    showLoader();
+    loader('show');
     const title = document.getElementById('title');
     const description = document.getElementById('description');
     const date = document.getElementById('date');
@@ -68,31 +56,27 @@ async function addTask() {
 
     await setItem('tasks', JSON.stringify(tasks));
     resetForm();
-    removeLoader();
+    loader('remove');
     successTask();
 }
 
 
 /**
- * loader animation during loading of addTask() process
+ * show/remove loader during loading of addTask() process
+ * @param {string} action - stands for the action that is to be done
  */
-function showLoader() {
+function loader(action) {
     const loader = document.getElementById('loader');
     const overlay = document.getElementById('loader-overlay');
-    loader.classList.add('loader');
-    overlay.classList.remove('d-none');
-}
 
-
-/**
- * remove loader animation after POST request for all values
- */
-function removeLoader() {
-    const loader = document.getElementById('loader');
-    const overlay = document.getElementById('loader-overlay');
-    loader.classList.remove('loader');
-    overlay.classList.add('d-none');
-}
+    if (action === 'show') {
+        loader.classList.add('loader');
+        overlay.classList.remove('d-none');
+    } else if (action === 'remove') {
+        loader.classList.remove('loader');
+        overlay.classList.add('d-none');
+    }
+} 
 
 
 /**
@@ -252,30 +236,24 @@ function addSubtask() {
 
 
 /**
- * edit the text content of the added subtask and render new icons
+ * edit/stop editing the text content of the added subtask and render the icons
  * @param {number} index - index of the clicked subtask is passed
+ * @param {string} action - stands for the action that is to be done
  */
-function editSubtask(index) {
+function editSubtask(index, action) {
     const subtaskSpan = document.getElementById(`subtask-input${index}`);
 
-    if (!subtaskSpan.isContentEditable) {
-        subtaskSpan.contentEditable = true;
-        subtaskSpan.focus();
-        document.getElementById(`subtask-icons${index}`).innerHTML = subtaskEditHTML(index);
-    }
-}
-
-
-/**
- * save the change of the content of the subtask and render the default icons
- * @param {number} index - index of the clicked subtask is passed
- */
-function stopEditingSubtask(index) {
-    const subtaskSpan = document.getElementById(`subtask-input${index}`);
-    
-    if (subtaskSpan.isContentEditable) {
-        subtaskSpan.contentEditable = false;
-        document.getElementById(`subtask-icons${index}`).innerHTML = subtaskEditDefaultHTML(index);
+    if (action === 'start') {
+        if (!subtaskSpan.isContentEditable) {
+            subtaskSpan.contentEditable = true;
+            subtaskSpan.focus();
+            document.getElementById(`subtask-icons${index}`).innerHTML = subtaskEditHTML(index);
+        }
+    } else if (action === 'stop') {
+        if (subtaskSpan.isContentEditable) {
+            subtaskSpan.contentEditable = false;
+            document.getElementById(`subtask-icons${index}`).innerHTML = subtaskEditDefaultHTML(index);
+        }
     }
 }
 

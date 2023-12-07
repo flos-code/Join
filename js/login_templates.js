@@ -7,7 +7,7 @@
         <div class="register-card-container">
             <div class="register-card">
                 <div class="arrow-container">
-                    <img class="arrow-icon" src="img/login/arrow-left.svg" alt="arrow left" onclick="renderLogin()">
+                    <img class="arrow-icon" src="img/login/arrow-left.svg" alt="arrow left" onclick="renderSection('login')">
                 </div>
                 <h1 class="register-heading">Sign Up</h1>
                 <form class="register-form" onsubmit="signUp(); return false">
@@ -105,7 +105,7 @@ function loginHTML() {
         </div>
         <div class="login-signup login-signup-mobile" id="login-signup">
             <span class="login-signup-text">Not a Join user?</span>
-            <button class="main-button main-button-signup" onclick="renderRegister()">
+            <button class="main-button main-button-signup" onclick="renderSection('register')">
             Sign up
             </button>
         </div>

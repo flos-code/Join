@@ -16,7 +16,7 @@
  */
 function toggleAssignDropdown() {
     const assignContactItem = document.querySelector('.assign-contact');
-    const arrow = 'assign';
+    const section = 'assign';
 
     if (!assignDropdown.classList.contains('d-none')) {
         closeAssignDropdown();
@@ -24,7 +24,7 @@ function toggleAssignDropdown() {
         openAssignDropdown();
     } else if (assignContactItem) {
         assignInput.placeholder = '';
-        rotateArrow(arrow);
+        arrow(section, 'rotate');
         assignDropdown.classList.remove('d-none');
         removeInitials();
     }
@@ -37,11 +37,11 @@ function toggleAssignDropdown() {
 function openAssignDropdown() {
     const assignDropdownMenu = document.getElementById('assign-dropdown-menu');
     const assignBtnContainer = document.getElementById('assign-button-container');
-    const arrow = 'assign';
+    const section = 'assign';
     let container = '<div id="assign-contacts">';
 
     assignInput.placeholder = '';
-    rotateArrow(arrow);
+    arrow(section, 'rotate');
     assignDropdown.classList.remove('d-none');
     if (!assignInput.value) {
         for (let i = 0; i < users.length; i++) {
@@ -60,11 +60,11 @@ function openAssignDropdown() {
  * hide dropdown menu for assign field, reset input value and render the initials of selected users
  */
 function closeAssignDropdown() {
-    const arrow = 'assign';
+    const section = 'assign';
     assignInput.blur();
 
     assignDropdown.classList.add('d-none');
-    defaultArrow(arrow);
+    arrow(section, 'default');
     resetInputValue();
     renderInitials();
 }
@@ -160,33 +160,17 @@ function handleSelectedUsers(i) {
 
 
 /**
- * rotate arrow icon when dropdown menu is opened
- * @param {string} arrow - stands for either assign or category
+ * rotate or set the arrow to default position
+ * @param {string} section - stands for either 'assign' or 'category'
+ * @param {string} action - stands for either 'rotate' or 'default'
  */
-function rotateArrow(arrow) {
-    const arrowAssign = document.getElementById('arrow-assign');
-    const arrowCategory = document.getElementById('arrow-category');
+function arrow(section, action) {
+    const arrowElement = document.getElementById(`arrow-${section}`);
 
-    if (arrow === 'assign') {
-        arrowAssign.style.transform = 'rotate(180deg)';
-    } else if (arrow === 'category') {
-        arrowCategory.style.transform = 'rotate(180deg)';
-    }
-}
-
-
-/**
- * set arrow icon to default when dropdown menu is closed
- * @param {string} arrow - stands for either assign or category
- */
-function defaultArrow(arrow) {
-    const arrowAssign = document.getElementById('arrow-assign');
-    const arrowCategory = document.getElementById('arrow-category');
-
-    if (arrow === 'assign') {
-        arrowAssign.style.transform = 'rotate(0)';
-    } else if (arrow === 'category') {
-        arrowCategory.style.transform = 'rotate(0)';
+    if (action === 'rotate') {
+        arrowElement.style.transform = 'rotate(180deg)';
+    } else if (action === 'default') {
+        arrowElement.style.transform = 'rotate(0)';
     }
 }
 
@@ -254,13 +238,13 @@ function removeUser(i) {
  */
 function toggleCategoryDropdown() {
     const categoryContainer = document.getElementById('category-content');
-    const arrow = 'category';
+    const section = 'category';
 
     if (document.querySelector('.category-dropdown-menu')) {
         closeCategoryDropdown();
     } else {
         categoryContainer.innerHTML = categoryDropdownHTML();
-        rotateArrow(arrow);
+        arrow(section, 'rotate');
     }
 }
 
@@ -271,10 +255,10 @@ function toggleCategoryDropdown() {
 function closeCategoryDropdown() {
     const categoryInputField = document.getElementById('category');
     const categoryContainer = document.getElementById('category-content');
-    const arrow = 'category';
+    const section = 'category';
     categoryContainer.innerHTML = '';
     categoryInputField.blur();
-    defaultArrow(arrow);
+    arrow(section, 'default');
 }
 
 

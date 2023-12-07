@@ -64,7 +64,7 @@ function subtaskHTML(subtaskField, index) {
                 <span class="subtask-input" id="subtask-input${index}">${subtaskField}</span>
             </div>
             <div class="subtask-icon-container" id="subtask-icons${index}">
-                <div onclick="editSubtask(${index})">
+                <div onclick="editSubtask(${index}, 'start')">
                     <svg class="subtask-edit-icon"><use href="assets/img/icons.svg#edit-icon"></use></svg>
                 </div>
                 <span class="subtask-separator"></span>
@@ -88,7 +88,7 @@ function subtaskEditHTML(index) {
             <svg class="subtask-delete-icon"><use href="assets/img/icons.svg#delete-icon"></use></svg>
         </div>
         <span class="subtask-separator"></span>
-        <div onclick="stopEditingSubtask(${index})">
+        <div onclick="editSubtask(${index}, 'stop')">
             <svg class="subtask-accept-icon"><use href="assets/img/icons.svg#check-icon-blue"></use></svg>
         </div>
     `;
@@ -102,7 +102,7 @@ function subtaskEditHTML(index) {
  */
 function subtaskEditDefaultHTML(index) {
     return /*html*/`
-       <div onclick="editSubtask(${index})">
+       <div onclick="editSubtask(${index}, 'start')">
             <svg class="subtask-edit-icon"><use href="assets/img/icons.svg#edit-icon"></use></svg>
         </div>
         <span class="subtask-separator"></span>

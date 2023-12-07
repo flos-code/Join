@@ -9,30 +9,19 @@ users = [];
  */
 async function initSummary() {
   await includeHTML();
-  await loadTasks();
-  await loadUsers();
+  await loadData();
   renderSummaryConten();
 }
 
 /**
- * load Tasks
+ * fetch users and tasks data from server to global variables
  */
-async function loadTasks() {
+ async function loadData() {
   try {
-    tasks = JSON.parse(await getItem('tasks'));
-  } catch (e) {
-    console.error('Loading Tasks error:', e);
-  }
-}
-
-/**
- * load Users
- */
-async function loadUsers() {
-  try {
-    users = JSON.parse(await getItem('users'));
-  } catch (e) {
-    console.error('Loading Users error: ', e);
+      tasks = JSON.parse(await getItem('tasks'));
+      users = JSON.parse(await getItem('users'));
+  } catch(e) {
+      console.error('Loading Data error:', e);
   }
 }
 
