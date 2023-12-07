@@ -48,7 +48,7 @@ html, body {
     transition: all .075s ease-in-out;
 }
 
-.main-button:hover {
+.main-button:hover:enabled {
     background-color: #29ABE2;
     border-color: #29ABE2;
     box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
@@ -70,6 +70,10 @@ html, body {
     color: #29ABE2;
     background-color: transparent;
     box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
+}
+
+.main-button-disabled {
+    background-color: #4b535c;
 }
 
 .login-logo {

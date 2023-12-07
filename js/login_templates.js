@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="register-button-container">
-                        <button type="submit" class="main-button">Sign Up</button>
+                        <button type="submit" id="signup-button" class="main-button">Sign Up</button>
                     </div>
                 </form>
             </div>

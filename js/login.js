@@ -131,6 +131,7 @@ function checkEmailExists(email) {
  * @param {element} passwordSignup - stands for password input element
  */
 async function addUserToArray(emailSignup, passwordSignup) {
+    signupButton('disable');
     users.push({
         firstName: setName('first'),
         lastName: setName('last'),
@@ -144,6 +145,24 @@ async function addUserToArray(emailSignup, passwordSignup) {
     });
 
     await setItem('users', JSON.stringify(users));
+    signupButton('enable');
+}
+
+
+/**
+ * disabling the signup button while users get saved and enabling after fetching is finished
+ * @param {string} action - stands for either 'disable' or 'enable'
+ */
+function signupButton(action) {
+    const signupBtn = document.getElementById('signup-button');
+
+    if (action === 'disable') {
+        signupBtn.disabled = true;
+        signupBtn.classList.add('main-button-disabled');
+    } else if (action ==='enable') {
+        signupBtn.disabled = false;
+        signupBtn.classList.remove('main-button-disabled');
+    }
 }
 
 
