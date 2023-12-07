@@ -1,459 +1,460 @@
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
 .content {
-    height: 100%;
-    opacity: 1;
-    animation-name: content-loaded;
-    animation-fill-mode: backwards;
-    animation-timing-function: ease-in-out;
-    animation-duration: .6s;
-    animation-delay: 1s;
+  height: 100%;
+  opacity: 1;
+  animation-name: content-loaded;
+  animation-fill-mode: backwards;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.6s;
+  animation-delay: 1s;
 }
 
 @keyframes content-loaded {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .login-signup {
-    position: absolute;
-    top: 4rem;
-    right: 6rem;
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    justify-content: space-between;
+  position: absolute;
+  top: 4rem;
+  right: 6rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .login-signup-text {
-    font-size: 1.25rem;
-    color: black;
+  font-size: 1.25rem;
+  color: black;
 }
 
 .main-button {
-    border: 0.075rem solid #2A3647;
-    color: white;
-    background-color: #2A3647;
-    border-radius: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all .075s ease-in-out;
+  border: 0.075rem solid #2a3647;
+  color: white;
+  background-color: #2a3647;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.075s ease-in-out;
 }
 
 .main-button:hover:enabled {
-    background-color: #29ABE2;
-    border-color: #29ABE2;
-    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
+  background-color: #29abe2;
+  border-color: #29abe2;
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
 }
 
 .main-button-signup {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 .main-button-white {
-    color: #2A3647;
-    background-color: transparent;
-    border: 0.075rem solid #2A3647;
-    transition: all .075s ease-in-out;
+  color: #2a3647;
+  background-color: transparent;
+  border: 0.075rem solid #2a3647;
+  transition: all 0.075s ease-in-out;
 }
 
 .main-button-white:hover {
-    border-color: #29ABE2;
-    color: #29ABE2;
-    background-color: transparent;
-    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
+  border-color: #29abe2;
+  color: #29abe2;
+  background-color: transparent !important;
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
 }
 
 .main-button-disabled {
-    background-color: #4b535c;
+  background-color: #4b535c;
 }
 
 .login-logo {
-    position: absolute;
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  top: 4rem;
+  left: 6rem;
+  z-index: 99;
+  display: inline-block;
+  animation-name: logo-animation;
+  animation-fill-mode: backwards;
+  animation-timing-function: ease-in-out;
+  animation-duration: 1s;
+  animation-delay: 0.75s;
+}
+
+@keyframes logo-animation {
+  from {
+    width: 300px;
+    height: 300px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  to {
     width: 110px;
     height: 110px;
     top: 4rem;
     left: 6rem;
-    z-index: 99;
-    display: inline-block;
-    animation-name: logo-animation;
-    animation-fill-mode: backwards;
-    animation-timing-function: ease-in-out;
-    animation-duration: 1s;
-    animation-delay: 0.75s;
-}
-
-@keyframes logo-animation {
-    from {
-        width: 300px;
-        height: 300px;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-    to {
-        width: 110px;
-        height: 110px;
-        top: 4rem;
-        left: 6rem;
-    }
+  }
 }
 
 @keyframes logo-animation991 {
-    from {
-        width: 300px;
-        height: 300px;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-    to {
-        width: 100px;
-        height: 100px;
-        top: 2.25rem;
-        left: 4rem;
-    }
+  from {
+    width: 300px;
+    height: 300px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    width: 100px;
+    height: 100px;
+    top: 2.25rem;
+    left: 4rem;
+  }
 }
 
 @keyframes logo-animation767 {
-    from {
-        width: 200px;
-        height: 200px;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-    to {
-        width: 80px;
-        height: 80px;
-        top: 2rem;
-        left: 2rem;
-    }
+  from {
+    width: 200px;
+    height: 200px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    width: 80px;
+    height: 80px;
+    top: 2rem;
+    left: 2rem;
+  }
 }
 
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: calc(100% - 51.5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 51.5px);
 }
 
 .login-card-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 51.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 51.5px;
 }
 
 .login-card {
-    background-color: white;
-    border-radius: 1rem;
-    box-shadow: 0 0 14px rgba(0, 0, 0, 0.07);
-    max-width: 632px;
-    width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.07);
+  max-width: 632px;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .login-heading {
-    margin: 0;
-    padding-top: 2.25rem;
-    text-align: center;
-    color: black;
-    font-size: 3.5rem;
+  margin: 0;
+  padding-top: 2.25rem;
+  text-align: center;
+  color: black;
+  font-size: 3.5rem;
 }
 
 .login-heading::after {
-    content: '';
-    background-color: #29ABE2;
-    width: 8rem;
-    height: 0.2rem;
-    display: block;
-    margin: 0.75rem auto;
+  content: "";
+  background-color: #29abe2;
+  width: 8rem;
+  height: 0.2rem;
+  display: block;
+  margin: 0.75rem auto;
 }
 
 .login-input-container {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-bottom: 0.5rem;
-    padding-top: 1.1rem;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+  padding-top: 1.1rem;
 }
 
 .login-input-wrapper {
-    width: 70%;
-    position: relative;
+  width: 70%;
+  position: relative;
 }
 
 input {
-    font-family: inherit;
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: white;
-    padding: 0.75rem 1rem;
-    border: 0.075rem solid #D1D1D1;
-    border-radius: 0.5rem;
-    font-size: 1.25rem;
-    width: 100%;
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: white;
+  padding: 0.75rem 1rem;
+  border: 0.075rem solid #d1d1d1;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  width: 100%;
 }
 
-input::placeholder{
-    color: #D1D1D1;
+input::placeholder {
+  color: #d1d1d1;
 }
 
 input:focus {
-    outline: none;
-    border-color: #29ABE2;
+  outline: none;
+  border-color: #29abe2;
 }
 
 .email-icon,
 .lock-icon,
 .visibility-icon,
 .person-icon {
-    position: absolute;
-    right: 1.5rem;
-    top: 1rem;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    pointer-events: none;
+  position: absolute;
+  right: 1.5rem;
+  top: 1rem;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
 }
 
 .visibility-icon {
-    pointer-events: visible;
-    cursor: pointer;
+  pointer-events: visible;
+  cursor: pointer;
 }
 
 .visibility-on-icon {
-    position: absolute;
-    right: 1.5rem;
-    top: 0.9rem;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    pointer-events: visible;
-    cursor: pointer;
+  position: absolute;
+  right: 1.5rem;
+  top: 0.9rem;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  pointer-events: visible;
+  cursor: pointer;
 }
 
 .login-button-container {
-    display: flex;
-    justify-content: center;
-    gap: 2.5rem;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
 }
 
 .login-remember {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding-left: 8.25rem;
-    padding-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-left: 8.25rem;
+  padding-top: 2.5rem;
 }
 
 .login-remember-icon {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .login-remember-text {
-    color: black;
-    font-size: 1rem;
+  color: black;
+  font-size: 1rem;
 }
 
 .register-card-container {
-    width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 83.5px;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 83.5px;
+  display: flex;
+  justify-content: center;
 }
 
 .register-card {
-    position: relative;
-    background-color: white;
-    border-radius: 1rem;
-    box-shadow: 0 0 14px rgba(0, 0, 0, 0.07);
-    max-width: 632px;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    width: 100%;
+  position: relative;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.07);
+  max-width: 632px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
 }
 
 .register-heading {
-    margin: 0;
-    padding-top: 2.25rem;
-    text-align: center;
-    color: black;
-    font-size: 3.5rem;
+  margin: 0;
+  padding-top: 2.25rem;
+  text-align: center;
+  color: black;
+  font-size: 3.5rem;
 }
 
 .register-heading::after {
-    content: '';
-    background-color: #29ABE2;
-    width: 8rem;
-    height: 0.2rem;
-    display: block;
-    margin: 0.75rem auto;
+  content: "";
+  background-color: #29abe2;
+  width: 8rem;
+  height: 0.2rem;
+  display: block;
+  margin: 0.75rem auto;
 }
 
 .register-input-container {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-bottom: 0.5rem;
-    padding-top: 1.1rem;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+  padding-top: 1.1rem;
 }
 
 .register-input-wrapper {
-    width: 70%;
-    position: relative;
+  width: 70%;
+  position: relative;
 }
 
 .register-button-container {
-    display: flex;
-    justify-content: center;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
 }
 
 .register-policy {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
 }
 
 .checkbox-icon {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .register-policy-text {
-    color: black;
-    font-size: 1rem;
+  color: black;
+  font-size: 1rem;
 }
 
 .text-blue {
-    color: #29ABE2;
-    text-decoration: none;
+  color: #29abe2;
+  text-decoration: none;
 }
 
 .text-blue:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .footer-container {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding-bottom: 2rem;
 }
 
 .footer-link {
-    text-decoration: none;
-    color: #a8a8a8;
-    font-size: 1rem;
-    transition: all .1s ease-in-out;
+  text-decoration: none;
+  color: #a8a8a8;
+  font-size: 1rem;
+  transition: all 0.1s ease-in-out;
 }
 
 .footer-link:hover {
-    color: #29ABE2;
+  color: #29abe2;
 }
 
 .d-none {
-    display: none;
+  display: none;
 }
 
 .arrow-container {
-    position: absolute;
-    top: 3.4rem; 
-    left: 3rem;
+  position: absolute;
+  top: 3.4rem;
+  left: 3rem;
 }
 
 .arrow-icon {
-    display: inline-block;
-    padding: 0.25rem;
-    border-radius: 50%;
-    transition: all .1s ease-in-out;
-    cursor: pointer;
+  display: inline-block;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
 }
 
 .arrow-icon:hover {
-    background-color: #eeefef;
+  background-color: #eeefef;
 }
 
 .signup-success-overlay {
-    position: absolute; 
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.2);
-    visibility: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  visibility: hidden;
 }
 
 .visible {
-    visibility: visible;
+  visibility: visible;
 }
 
 .signup-success {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
 }
 
 .signup-success-message {
-    background-color: #2A3647;
-    border-radius: 0.5rem;
-    padding: 1rem 1.5rem;
-    color: white;
-    font-size: 1.25rem;
-    opacity: 0;
-    transform: translateY(750%);
+  background-color: #2a3647;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  color: white;
+  font-size: 1.25rem;
+  opacity: 0;
+  transform: translateY(750%);
 }
 
 .success-message-visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all .25s ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.25s ease-in-out;
 }
 
 .register-checkbox-error,
 .register-password-error,
 .register-email-error {
-    text-align: center;
-    font-size: 1rem;
-    color: red;
-    padding-top: 0.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  color: red;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .outline-red {
-    border-color: red;
+  border-color: red;
 }
 
 .login-error-message {
-    text-align: center;
-    font-size: 1rem;
-    color: red;
-    padding-top: 0.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  color: red;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
