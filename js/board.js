@@ -227,6 +227,18 @@ async function saveEdit(id) {
 }
 
 /**
+ * load all information of the selected task when you open the edit page for the task
+ * 
+ * @param {number} id - Id of the Selected Task
+ */
+function preLoadeEdit(id) {
+  setMinDate();
+  initAssignOnclick();
+  loadeInputFromTask(id);
+  toggleAssignDropdown();
+}
+
+/**
  * shows the selected Task with the new informations
  * 
  * @param {number} id  Id of the Selected Task

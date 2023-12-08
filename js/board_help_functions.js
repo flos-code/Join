@@ -1,6 +1,5 @@
 /**
  * calls all functions to fromat the selected Task
- * 
  * @param {object} element - Selected Task Object
  */
 function formatTask(element) {
@@ -13,7 +12,6 @@ function formatTask(element) {
 
 /**
  * return html when there is no task for the selcted status
- * 
  * @param {string} status - Status of the selected Task
  * @returns  string with the html
  */
@@ -23,7 +21,6 @@ function generateNoTodoHTML(status) {
 
 /**
  * generated the prio for the selected Task
- * 
  * @param {object} element - Selected Task Object
  */
 function generatePrio(element) {
@@ -42,7 +39,6 @@ function generatePrio(element) {
 
 /**
  * generate the html for the assigned useres of the selected task
- * 
  * @param {object} element - Selected Task Object
  */
 function generateAssigned(element) {
@@ -66,7 +62,6 @@ function generateAssigned(element) {
 
 /**
  * sets the color depending of the catagory of the selected Task
- * 
  * @param {object} element - Selected Task Object
  */
 function setCategoryColor(element) {
@@ -80,8 +75,7 @@ function setCategoryColor(element) {
 }
 
 /**
- * generates the html with the description of the selected task
- *  
+ * generates the html with the description of the selected task 
  * @param {object} element - Selected Task Object
  */
 function generateDescription(element) {
@@ -99,7 +93,6 @@ function generateDescription(element) {
 
 /**
  * generate the html with the subtask of the selected task
- * 
  * @param {object} element - Selected Task Object
  */
 function generateSubtask(element) {
@@ -128,7 +121,6 @@ function generateSubtask(element) {
 
 /**
  * updtaes the progressbar for the subtask
- * 
  * @param {object} subtasks - subtaks object with discription and status of the subtask
  * @param {html element} doneSubtasksDiv - div to display the subtask
  * @param {html element} progessbarFillerDiv - div for the prograssbar of the subtask
@@ -148,7 +140,6 @@ function updateProgressBar(subtasks, doneSubtasksDiv, progessbarFillerDiv) {
 
 /**
  * calls all functions to format the selected task
- * 
  * @param {object} todo - Selected Task form the Tasks array
  * @param {number} id - Id of the Selected Task
  */
@@ -162,7 +153,6 @@ function formatOpenToDo(todo, id) {
 
 /**
  * sets the color depending of the catagory of the selected Task
- * 
  * @param {object} todo - Selected Task form the Tasks array
  * @param {number} id - Id of the Selected Task
  */
@@ -179,7 +169,6 @@ function setToDoCategoryColor(todo, id) {
 
 /**
  * sets the time of the due date for the selcted task
- * 
  * @param {object} todo - Selected Task form the Tasks array
  * @param {number} id - Id of the Selected Task
  */
@@ -197,7 +186,6 @@ function setTime(todo, id) {
 
 /**
  * sets the prio of the selected task
- * 
  * @param {object} todo - Selected Task form the Tasks array
  * @param {number} id - Id of the Selected Task
  */
@@ -222,7 +210,6 @@ function generateToDoPrio(todo, id) {
 
 /**
  * generate the html for the assigned useres
- * 
  * @param {object} todo - Selected Task form the Tasks array
  * @param {number} id - Id of the Selected Task
  */
@@ -246,7 +233,6 @@ function generateToDoAssigned(todo, id) {
 
 /**
  * generate the subtasks of the selected task
- * 
  * @param {object} todo - Selected Task form the Tasks array
  * @param {number} id - Id of the Selected Task
  */
@@ -268,7 +254,6 @@ function generateTodSubtask(todo, id) {
 
 /**
  * change the status of the selected subtask
- * 
  * @param {object} todo - Selected Task form the Tasks array
  * @param {number} id - Id of the Selected Task
  */
@@ -284,7 +269,6 @@ async function updateSubtask(id, i) {
 
 /**
  * generate all subtaks for the selected taks
- * 
  * @param {object} subtasks - subtaks object with discription and status of the subtask
  */
 function renderSubtasks(subtasks) {
@@ -298,7 +282,6 @@ function renderSubtasks(subtasks) {
 
 /**
  * pre slectes all allready assigned useres for a task when you edit the task
- * 
  * @param {object} preAssignedUsers - object with all users which are assigned to the slected task
  */
 function selectPreAssignedUsers(preAssignedUsers) {
@@ -315,7 +298,6 @@ function selectPreAssignedUsers(preAssignedUsers) {
 
 /**
  * pre selects the prio when you edit the task
- * 
  * @param {string} prio - prio of the slected task
  */
 function selectPriority(prio) {
@@ -329,20 +311,7 @@ function selectPriority(prio) {
 }
 
 /**
- * load all information of the selected task when you open the edit page for the task
- * 
- * @param {number} id - Id of the Selected Task
- */
-function preLoadeEdit(id) {
-    setMinDate();
-    initAssignOnclick();
-    loadeInputFromTask(id);
-    toggleAssignDropdown();
-}
-
-/**
  * displaes the information of the selected task when you edit the task
- * 
  * @param {number} id - Id of the Selected Task
  */
 function loadeInputFromTask(id) {
@@ -354,7 +323,6 @@ function loadeInputFromTask(id) {
 
 /**
  * chnages the prio of the selected task to the selected prio
- * 
  * @param {string} selectedPrio - prio which is selected
  */
 function changePrio(selectedPrio) {
@@ -384,7 +352,6 @@ function addSubtaskEdit() {
 
 /**
  * edit the text of the selected subtask
- * 
  * @param {number} index - number of the selected subtask
  */
 function editTextSubtask(index) {
@@ -402,7 +369,6 @@ function editTextSubtask(index) {
 
 /**
  * the text form the subtask can no longer be edited
- * 
  * @param {number} index - number of the selected subtask
  */
 function stopEditingSubtask(index) {
@@ -416,7 +382,6 @@ function stopEditingSubtask(index) {
 
 /**
  * deletes the selected subtask
- * 
  * @param {number} index - number of the selected subtask
  */
 function editdeleteSubtask(index) {
@@ -428,7 +393,6 @@ function editdeleteSubtask(index) {
 
 /**
  * selects the prio for the new task wehn you add a task to the board
- * 
  * @param {string} prio - selected prio
  */
 function setAddTaskPrio(prio) {
