@@ -175,6 +175,6 @@ a.active {
 
   .navLogo {
     height: 80px !important;
-    padding-top: 40px;
+    margin-top: 40px;
   }
 }

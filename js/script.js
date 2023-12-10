@@ -45,7 +45,9 @@ function selectSidebar() {
 
     if (ids) {
         ids.forEach(id => {
-            document.getElementById(id).classList.add("active");
+            const sidebarItem = document.getElementById(id);
+            sidebarItem.classList.add('active');
+            sidebarItem.children[0].classList.add('active');
         });
     }
 }

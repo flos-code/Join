@@ -80,6 +80,16 @@
   transform: scale(1.1);
 }
 
+.hyphen {
+  display: none;
+}
+
+@media (min-width: 851px) and (max-width: 1078px) {
+  .hyphen {
+    display: inline-block;
+  }
+}
+
 @media (max-width: 850px) {
   .content {
     margin-left: 16px;
@@ -91,5 +101,11 @@
   .content h1 {
     font-size: 48px;
     padding-top: 96px;
+  }
+}
+
+@media (max-width: 596px) {
+  .hyphen {
+    display: inline-block;
   }
 }
