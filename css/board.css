@@ -123,6 +123,12 @@ button:hover {
   border-radius: 50%;
 }
 
+.addTaskDesktop img {
+  display: inline-block;
+  margin-left: 6px;
+  width: 20px;
+}
+
 /* Main Board Content */
 
 .boradContent {

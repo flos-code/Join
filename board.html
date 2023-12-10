@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href="./css/task.css" />
     <link rel="stylesheet" href="css/task_responsive.css" />
+    <link rel="stylesheet" href="css/contacts-overlay.css" />
+    <link rel="stylesheet" href="css/contacts-overlay-responsive.css" />
 
     <link rel="stylesheet" href="./css/sidebar.css" />
     <link rel="stylesheet" href="./css/header.css" />
@@ -44,7 +46,7 @@
         <div class="boardHeaderMobile">
           <h1>Board</h1>
           <button class="addTaskMobile" onclick="location.href ='task.html'">
-            <img src="img/board_add_taks.png" alt="" />
+            <img src="img/board_add_task.svg" alt="" />
           </button>
         </div>
 
@@ -55,7 +57,7 @@
           </div>
           <button class="addTaskDesktop" onclick="addTaskOnBoard('toDoStatus')">
             Add task
-            <img src="img/board_add_taks.png" alt="" />
+            <img src="img/board_add_task.svg" alt="" />
           </button>
         </div>
       </div>
@@ -145,6 +147,7 @@
         ></div>
       </div>
     </section>
+    <div id="new-contact-container"></div>
 
     <div w3-include-html="assets/templates/mobile.html"></div>
   </body>

@@ -1,5 +1,3 @@
-
-
 /**
  * render the add new contact card with slide in animation
  */
