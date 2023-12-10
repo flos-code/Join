@@ -40,9 +40,6 @@ function showLogout() {
         </div>
     </div>
     `;
-    helpMenuActive();
-    legalNoticeMenuActive();
-    privacyMenuActive();
 }
 
 
@@ -66,9 +63,6 @@ function doNotClose(event) {
 * clear active user status and send back to index.html - log in
 */
 async function logout() {
-    //await backend.setItem('activeUser', JSON.stringify(activeUser.length = 0));
-    // let activeUserJson = JSON.stringify(activeUser);
-    // localStorage.setItem('activeUser', activeUserJson);
     window.open("index.html", "_self");
 }
 
