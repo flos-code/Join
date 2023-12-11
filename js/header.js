@@ -95,16 +95,16 @@ function openLegalNotice() {
 * Show users Initials
 */
 function userInitials() {
+    let isUserFound = false;
     for (let i = 0; i < users.length; i++) {
         let user = users[i];
         if (user["isYou"]) {
             document.getElementById("userInitials").innerHTML = `${user["initials"]}`;
-
+            isUserFound = true;
+            break;
         }
-        else {
-            document.getElementById("userInitials").innerHTML = "G";
-
-        }
-
+    }
+    if (!isUserFound) {
+        document.getElementById("userInitials").innerHTML = "G";
     }
 }

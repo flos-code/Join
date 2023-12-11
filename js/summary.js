@@ -16,12 +16,12 @@ async function initSummary() {
 /**
  * fetch users and tasks data from server to global variables
  */
- async function loadData() {
+async function loadData() {
   try {
-      tasks = JSON.parse(await getItem('tasks'));
-      users = JSON.parse(await getItem('users'));
-  } catch(e) {
-      console.error('Loading Data error:', e);
+    tasks = JSON.parse(await getItem('tasks'));
+    users = JSON.parse(await getItem('users'));
+  } catch (e) {
+    console.error('Loading Data error:', e);
   }
 }
 
@@ -164,16 +164,20 @@ document.addEventListener("DOMContentLoaded", function () {
  * Function to show user/quest-login-name 
  */
 function greetUser() {
-  for (let i = 0; i < users.length; i++) {
-    let user = users[i]
-    if (user["isYou"]) {
-      document.getElementById("logedinUser").innerHTML = `${user["firstName"]} ${user["lastName"]}`
-      document.getElementById("mobileLogedinUser").innerHTML = `${user["firstName"]} ${user["lastName"]}`
-    }
-    else {
-      document.getElementById("logedinUser").innerHTML = `Guest`
-      document.getElementById("mobileLogedinUser").innerHTML = `Guest`
-    }
+  let isUserLoggedIn = false;
 
+  for (let i = 0; i < users.length; i++) {
+    let user = users[i];
+    if (user["isYou"]) {
+      document.getElementById("logedinUser").innerHTML = `${user["firstName"]} ${user["lastName"]}`;
+      document.getElementById("mobileLogedinUser").innerHTML = `${user["firstName"]} ${user["lastName"]}`;
+      isUserLoggedIn = true;
+      break;
+    }
+  }
+
+  if (!isUserLoggedIn) {
+    document.getElementById("logedinUser").innerHTML = "Guest";
+    document.getElementById("mobileLogedinUser").innerHTML = "Guest";
   }
 }
