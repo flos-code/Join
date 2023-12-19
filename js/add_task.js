@@ -4,7 +4,7 @@
 let tasks = [];
 let users = [];
 let subtaskIndex = 0;
-let selectedUsers = []; 
+let selectedUsers = [];
 let assignedUsers = [];
 let assignInput, assignDropdown;
 
@@ -27,7 +27,7 @@ async function loadData() {
     try {
         tasks = JSON.parse(await getItem('tasks'));
         users = JSON.parse(await getItem('users'));
-    } catch(e) {
+    } catch (e) {
         console.error('Loading Data error:', e);
     }
 }
@@ -76,7 +76,7 @@ function loader(action) {
         loader.classList.remove('loader');
         overlay.classList.add('d-none');
     }
-} 
+}
 
 
 /**
@@ -106,7 +106,7 @@ function resetForm() {
     date.value = '';
     resetPrioButton();
     category.value = '';
-    resetSubtasks(); 
+    resetSubtasks();
     resetCategory();
     removeInitials();
 }
@@ -125,7 +125,7 @@ function resetSelectedUsers() {
 
     for (const userDiv of usersDiv) {
         if (userDiv.classList.contains('assign-contact-selected'))
-        userDiv.classList.remove('assign-contact-selected');
+            userDiv.classList.remove('assign-contact-selected');
         userDiv.children[1].innerHTML = `
             <svg class="assign-square-icon"><use href="assets/img/icons.svg#square-icon"></use></svg>
         `;
@@ -177,7 +177,7 @@ function resetCategory() {
 /**
  * remove existing initials
  */
- function removeInitials() {
+function removeInitials() {
     const initialsContainer = document.getElementById('initials-container');
     if (initialsContainer) {
         initialsContainer.remove();
@@ -280,7 +280,7 @@ function getPrioButton() {
 
     for (let i = 0; i < buttons.length; i++) {
         const button = buttons[i];
-        const buttonClassName = button.className; 
+        const buttonClassName = button.className;
         if (buttonClassName.includes('active')) {
             return button.id;
         }
@@ -297,7 +297,7 @@ function getSelectedUsers() {
     if (assignedUsers.length) {
         return assignedUsers;
     } else if (!assignedUsers.length) {
-        return null;
+        return [];
     }
 }
 
@@ -314,13 +314,13 @@ function getSubtasks() {
         let newSubtask = {
             taskDescription: subtaskInputList[i].innerText,
             isDone: false,
-          };
-          subtasks.push(newSubtask);
+        };
+        subtasks.push(newSubtask);
     }
     if (subtaskInputList.length) {
         return subtasks;
     } else if (!subtaskInputList.length) {
-        return null;
+        return [];
     }
 }
 
@@ -329,7 +329,7 @@ function getSubtasks() {
  * returns the priority description of selected button deleting '-btn'
  * @returns - string with name of selected button
  */
-function modifyPrioString () {
+function modifyPrioString() {
     let prio = getPrioButton();
     let modifiedPrio = prio.slice(0, -4);
     modifiedPrio = modifiedPrio.charAt(0).toUpperCase() + modifiedPrio.slice(1);
