@@ -294,11 +294,7 @@ function getPrioButton() {
  * @returns - either an array or null
  */
 function getSelectedUsers() {
-    if (assignedUsers.length) {
-        return assignedUsers;
-    } else if (!assignedUsers.length) {
-        return [];
-    }
+    return assignedUsers;
 }
 
 
@@ -317,11 +313,7 @@ function getSubtasks() {
         };
         subtasks.push(newSubtask);
     }
-    if (subtaskInputList.length) {
-        return subtasks;
-    } else if (!subtaskInputList.length) {
-        return [];
-    }
+    return subtasks;
 }
 
 
@@ -331,7 +323,11 @@ function getSubtasks() {
  */
 function modifyPrioString() {
     let prio = getPrioButton();
-    let modifiedPrio = prio.slice(0, -4);
-    modifiedPrio = modifiedPrio.charAt(0).toUpperCase() + modifiedPrio.slice(1);
-    return modifiedPrio;
+    if (prio) {
+        let modifiedPrio = prio.slice(0, -4);
+        modifiedPrio = modifiedPrio.charAt(0).toUpperCase() + modifiedPrio.slice(1);
+        return modifiedPrio;
+    } else {
+        return prio;
+    }
 }
