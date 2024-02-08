@@ -4,13 +4,14 @@
 
   <p>This project is a web-based task manager inspired by the Kanban system, designed to create, organize, and track tasks.</p>
 
+👉 Live Demo: <a href='https://scholz-florian.com/Join/'>Live Demo</a>
+
 <h3>Key Features:</h3>
 
 » Drag and drop functionality <br>
 » Task creation, editing and organizing <br>
 » User assignment to tasks
 
-👉 Live Demo: <a href='https://scholz-florian.com/Join/'>Live Demo</a>
 
 <h3>Build with:</h3>
 
